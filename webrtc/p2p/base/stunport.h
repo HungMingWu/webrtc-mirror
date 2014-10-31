@@ -148,13 +148,11 @@ class UDPPort : public Port {
     sigslot::signal2<const rtc::SocketAddress&, int> SignalDone;
 
    private:
-    typedef std::map<rtc::SocketAddress,
-                     rtc::AsyncResolverInterface*> ResolverMap;
 
     void OnResolveResult(rtc::AsyncResolverInterface* resolver);
 
     rtc::PacketSocketFactory* socket_factory_;
-    ResolverMap resolvers_;
+    std::map<rtc::SocketAddress, rtc::AsyncResolverInterface*> resolvers_;
   };
 
   // DNS resolution of the STUN server.

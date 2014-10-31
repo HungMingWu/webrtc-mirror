@@ -105,8 +105,8 @@ bool P2PTransportParser::WriteTransportDescription(
     return false;
   }
 
-  for (std::vector<Candidate>::const_iterator iter = desc.candidates.begin();
-       iter != desc.candidates.end(); ++iter) {
+  for (auto iter = begin(desc.candidates);
+       iter != end(desc.candidates); ++iter) {
     rtc::scoped_ptr<buzz::XmlElement> cand_elem(
         new buzz::XmlElement(QN_GINGLE_P2P_CANDIDATE));
     if (!WriteCandidate(proto, *iter, translator, cand_elem.get(), error)) {

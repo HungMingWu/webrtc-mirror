@@ -113,8 +113,8 @@ UDPPort::AddressResolver::AddressResolver(
     : socket_factory_(factory) {}
 
 UDPPort::AddressResolver::~AddressResolver() {
-  for (ResolverMap::iterator it = resolvers_.begin();
-       it != resolvers_.end(); ++it) {
+  for (auto it = begin(resolvers_);
+       it != end(resolvers_); ++it) {
     it->second->Destroy(true);
   }
 }
@@ -140,7 +140,7 @@ bool UDPPort::AddressResolver::GetResolvedAddress(
     const rtc::SocketAddress& input,
     int family,
     rtc::SocketAddress* output) const {
-  ResolverMap::const_iterator it = resolvers_.find(input);
+  auto it = resolvers_.find(input);
   if (it == resolvers_.end())
     return false;
 
@@ -149,8 +149,8 @@ bool UDPPort::AddressResolver::GetResolvedAddress(
 
 void UDPPort::AddressResolver::OnResolveResult(
     rtc::AsyncResolverInterface* resolver) {
-  for (ResolverMap::iterator it = resolvers_.begin();
-       it != resolvers_.end(); ++it) {
+  for (auto it = begin(resolvers_);
+       it != end(resolvers_); ++it) {
     if (it->second == resolver) {
       SignalDone(it->first, resolver->GetError());
       return;
@@ -440,8 +440,7 @@ void UDPPort::OnSendPacket(const void* data, size_t size, StunRequest* req) {
 
 bool UDPPort::HasCandidateWithAddress(const rtc::SocketAddress& addr) const {
   const std::vector<Candidate>& existing_candidates = Candidates();
-  std::vector<Candidate>::const_iterator it = existing_candidates.begin();
-  for (; it != existing_candidates.end(); ++it) {
+  for (auto it = begin(existing_candidates); it != end(existing_candidates); ++it) {
     if (it->address() == addr)
       return true;
   }

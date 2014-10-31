@@ -107,8 +107,8 @@ void RelayServer::AddInternalSocket(rtc::AsyncPacketSocket* socket) {
 }
 
 void RelayServer::RemoveInternalSocket(rtc::AsyncPacketSocket* socket) {
-  SocketList::iterator iter =
-      std::find(internal_sockets_.begin(), internal_sockets_.end(), socket);
+  auto iter =
+      std::find(begin(internal_sockets_), end(internal_sockets_), socket);
   ASSERT(iter != internal_sockets_.end());
   internal_sockets_.erase(iter);
   removed_sockets_.push_back(socket);
@@ -123,8 +123,8 @@ void RelayServer::AddExternalSocket(rtc::AsyncPacketSocket* socket) {
 }
 
 void RelayServer::RemoveExternalSocket(rtc::AsyncPacketSocket* socket) {
-  SocketList::iterator iter =
-      std::find(external_sockets_.begin(), external_sockets_.end(), socket);
+  auto iter =
+      std::find(begin(external_sockets_), end(external_sockets_), socket);
   ASSERT(iter != external_sockets_.end());
   external_sockets_.erase(iter);
   removed_sockets_.push_back(socket);
@@ -141,7 +141,7 @@ void RelayServer::AddInternalServerSocket(rtc::AsyncSocket* socket,
 
 void RelayServer::RemoveInternalServerSocket(
     rtc::AsyncSocket* socket) {
-  ServerSocketMap::iterator iter = server_sockets_.find(socket);
+  auto iter = server_sockets_.find(socket);
   ASSERT(iter != server_sockets_.end());
   server_sockets_.erase(iter);
   socket->SignalReadEvent.disconnect(this);
@@ -189,7 +189,7 @@ void RelayServer::OnInternalPacket(
 
   // If this did not come from an existing connection, it should be a STUN
   // allocate request.
-  ConnectionMap::iterator piter = connections_.find(ap);
+  auto piter = connections_.find(ap);
   if (piter == connections_.end()) {
     HandleStunAllocate(bytes, size, ap, socket);
     return;
@@ -233,7 +233,7 @@ void RelayServer::OnExternalPacket(
   ASSERT(!ap.destination().IsNil());
 
   // If this connection already exists, then forward the traffic.
-  ConnectionMap::iterator piter = connections_.find(ap);
+  auto piter = connections_.find(ap);
   if (piter != connections_.end()) {
     // TODO: Check the HMAC.
     RelayServerConnection* ext_conn = piter->second;
@@ -269,7 +269,7 @@ void RelayServer::OnExternalPacket(
   // TODO: Check the HMAC.
 
   // The binding should already be present.
-  BindingMap::iterator biter = bindings_.find(username);
+  auto biter = bindings_.find(username);
   if (biter == bindings_.end()) {
     LOG(LS_WARNING) << "Dropping packet: no binding with username";
     return;
@@ -347,7 +347,7 @@ void RelayServer::HandleStunAllocate(
 
   RelayServerBinding* binding;
 
-  BindingMap::iterator biter = bindings_.find(username);
+  auto biter = bindings_.find(username);
   if (biter != bindings_.end()) {
     binding = biter->second;
   } else {
@@ -512,13 +512,13 @@ void RelayServer::AddConnection(RelayServerConnection* conn) {
 }
 
 void RelayServer::RemoveConnection(RelayServerConnection* conn) {
-  ConnectionMap::iterator iter = connections_.find(conn->addr_pair());
+  auto iter = connections_.find(conn->addr_pair());
   ASSERT(iter != connections_.end());
   connections_.erase(iter);
 }
 
 void RelayServer::RemoveBinding(RelayServerBinding* binding) {
-  BindingMap::iterator iter = bindings_.find(binding->username());
+  auto iter = bindings_.find(binding->username());
   ASSERT(iter != bindings_.end());
   bindings_.erase(iter);
 

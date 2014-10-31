@@ -206,8 +206,8 @@ void RelayPort::AddServerAddress(const ProtocolAddress& addr) {
 
 void RelayPort::AddExternalAddress(const ProtocolAddress& addr) {
   std::string proto_name = ProtoToString(addr.proto);
-  for (std::vector<ProtocolAddress>::iterator it = external_addr_.begin();
-       it != external_addr_.end(); ++it) {
+  for (auto it = begin(external_addr_);
+       it != end(external_addr_); ++it) {
     if ((it->address == addr.address) && (it->proto == addr.proto)) {
       LOG(INFO) << "Redundant relay address: " << proto_name
                 << " @ " << addr.address.ToSensitiveString();
@@ -219,9 +219,8 @@ void RelayPort::AddExternalAddress(const ProtocolAddress& addr) {
 
 void RelayPort::SetReady() {
   if (!ready_) {
-    std::vector<ProtocolAddress>::iterator iter;
-    for (iter = external_addr_.begin();
-         iter != external_addr_.end(); ++iter) {
+    for (auto iter = begin(external_addr_);
+         iter != end(external_addr_); ++iter) {
       std::string proto_name = ProtoToString(iter->proto);
       // In case of Gturn, related address is set to null socket address.
       // This is due to as mapped address stun attribute is used for allocated
@@ -358,8 +357,7 @@ int RelayPort::SetOption(rtc::Socket::Option opt, int value) {
 }
 
 int RelayPort::GetOption(rtc::Socket::Option opt, int* value) {
-  std::vector<OptionValue>::iterator it;
-  for (it = options_.begin(); it < options_.end(); ++it) {
+  for (auto it = begin(options_); it < end(options_); ++it) {
     if (it->first == opt) {
       *value = it->second;
       return 0;

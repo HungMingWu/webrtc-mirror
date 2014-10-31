@@ -16,8 +16,8 @@ namespace cricket {
 
 ContentInfo* FindContentInfoByName(
     ContentInfos& contents, const std::string& name) {
-  for (ContentInfos::iterator content = contents.begin();
-       content != contents.end(); ++content) {
+  for (auto content = begin(contents);
+       content != end(contents); ++content) {
     if (content->name == name) {
       return &(*content);
     }
@@ -27,8 +27,8 @@ ContentInfo* FindContentInfoByName(
 
 const ContentInfo* FindContentInfoByName(
     const ContentInfos& contents, const std::string& name) {
-  for (ContentInfos::const_iterator content = contents.begin();
-       content != contents.end(); ++content) {
+  for (auto content = begin(contents);
+       content != end(contents); ++content) {
     if (content->name == name) {
       return &(*content);
     }
@@ -38,8 +38,8 @@ const ContentInfo* FindContentInfoByName(
 
 const ContentInfo* FindContentInfoByType(
     const ContentInfos& contents, const std::string& type) {
-  for (ContentInfos::const_iterator content = contents.begin();
-       content != contents.end(); ++content) {
+  for (auto content = begin(contents);
+       content != end(contents); ++content) {
     if (content->type == type) {
       return &(*content);
     }
@@ -63,7 +63,7 @@ void ContentGroup::AddContentName(const std::string& content_name) {
 }
 
 bool ContentGroup::RemoveContentName(const std::string& content_name) {
-  ContentNames::iterator iter = std::find(
+  auto iter = std::find(
       content_names_.begin(), content_names_.end(), content_name);
   if (iter == content_names_.end()) {
     return false;
@@ -75,8 +75,8 @@ bool ContentGroup::RemoveContentName(const std::string& content_name) {
 SessionDescription* SessionDescription::Copy() const {
   SessionDescription* copy = new SessionDescription(*this);
   // Copy all ContentDescriptions.
-  for (ContentInfos::iterator content = copy->contents_.begin();
-      content != copy->contents().end(); ++content) {
+  for (auto content = begin(copy->contents_);
+      content != end(copy->contents()); ++content) {
     content->description = content->description->Copy();
   }
   return copy;
@@ -135,8 +135,8 @@ void SessionDescription::AddContent(const std::string& name,
 }
 
 bool SessionDescription::RemoveContentByName(const std::string& name) {
-  for (ContentInfos::iterator content = contents_.begin();
-       content != contents_.end(); ++content) {
+  for (auto content = begin(contents_);
+       content != end(contents_); ++content) {
     if (content->name == name) {
       delete content->description;
       contents_.erase(content);
@@ -156,8 +156,8 @@ bool SessionDescription::AddTransportInfo(const TransportInfo& transport_info) {
 }
 
 bool SessionDescription::RemoveTransportInfoByName(const std::string& name) {
-  for (TransportInfos::iterator transport_info = transport_infos_.begin();
-       transport_info != transport_infos_.end(); ++transport_info) {
+  for (auto transport_info = begin(transport_infos_);
+       transport_info != end(transport_infos_); ++transport_info) {
     if (transport_info->content_name == name) {
       transport_infos_.erase(transport_info);
       return true;
@@ -168,8 +168,8 @@ bool SessionDescription::RemoveTransportInfoByName(const std::string& name) {
 
 const TransportInfo* SessionDescription::GetTransportInfoByName(
     const std::string& name) const {
-  for (TransportInfos::const_iterator iter = transport_infos_.begin();
-       iter != transport_infos_.end(); ++iter) {
+  for (auto iter = begin(transport_infos_);
+       iter != end(transport_infos_); ++iter) {
     if (iter->content_name == name) {
       return &(*iter);
     }
@@ -179,8 +179,8 @@ const TransportInfo* SessionDescription::GetTransportInfoByName(
 
 TransportInfo* SessionDescription::GetTransportInfoByName(
     const std::string& name) {
-  for (TransportInfos::iterator iter = transport_infos_.begin();
-       iter != transport_infos_.end(); ++iter) {
+  for (auto iter = begin(transport_infos_);
+       iter != end(transport_infos_); ++iter) {
     if (iter->content_name == name) {
       return &(*iter);
     }
@@ -189,8 +189,8 @@ TransportInfo* SessionDescription::GetTransportInfoByName(
 }
 
 void SessionDescription::RemoveGroupByName(const std::string& name) {
-  for (ContentGroups::iterator iter = content_groups_.begin();
-       iter != content_groups_.end(); ++iter) {
+  for (auto iter = begin(content_groups_);
+       iter != end(content_groups_); ++iter) {
     if (iter->semantics() == name) {
       content_groups_.erase(iter);
       break;
@@ -199,8 +199,8 @@ void SessionDescription::RemoveGroupByName(const std::string& name) {
 }
 
 bool SessionDescription::HasGroup(const std::string& name) const {
-  for (ContentGroups::const_iterator iter = content_groups_.begin();
-       iter != content_groups_.end(); ++iter) {
+  for (auto iter = begin(content_groups_);
+       iter != end(content_groups_); ++iter) {
     if (iter->semantics() == name) {
       return true;
     }
@@ -210,8 +210,8 @@ bool SessionDescription::HasGroup(const std::string& name) const {
 
 const ContentGroup* SessionDescription::GetGroupByName(
     const std::string& name) const {
-  for (ContentGroups::const_iterator iter = content_groups_.begin();
-       iter != content_groups_.end(); ++iter) {
+  for (auto iter = begin(content_groups_);
+       iter != end(content_groups_); ++iter) {
     if (iter->semantics() == name) {
       return &(*iter);
     }

@@ -99,8 +99,8 @@ class SessionDescription {
       transport_infos_(transports),
       content_groups_(groups) {}
   ~SessionDescription() {
-    for (ContentInfos::iterator content = contents_.begin();
-         content != contents_.end(); ++content) {
+    for (auto content = begin(contents_);
+         content != end(contents_); ++content) {
       delete content->description;
     }
   }

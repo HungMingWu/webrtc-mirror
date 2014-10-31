@@ -40,10 +40,9 @@ bool BadMessage(const buzz::QName type,
 }
 
 TransportProxy::~TransportProxy() {
-  for (ChannelMap::iterator iter = channels_.begin();
-       iter != channels_.end(); ++iter) {
-    iter->second->SignalDestroyed(iter->second);
-    delete iter->second;
+  for (auto &channel : channels_) {
+    channel.second->SignalDestroyed(channel.second);
+    delete channel.second;
   }
 }
 
@@ -102,10 +101,8 @@ void TransportProxy::DestroyChannel(int component) {
 void TransportProxy::ConnectChannels() {
   if (!connecting_) {
     if (!negotiated_) {
-      for (ChannelMap::iterator iter = channels_.begin();
-           iter != channels_.end(); ++iter) {
-        GetOrCreateChannelProxyImpl(iter->first);
-      }
+      for (auto &channel :channels_)
+        GetOrCreateChannelProxyImpl(channel.first);
     }
     connecting_ = true;
   }
@@ -118,19 +115,15 @@ void TransportProxy::ConnectChannels() {
 
 void TransportProxy::CompleteNegotiation() {
   if (!negotiated_) {
-    for (ChannelMap::iterator iter = channels_.begin();
-         iter != channels_.end(); ++iter) {
-      SetupChannelProxy(iter->first, iter->second);
-    }
+    for (auto &channel : channels_)
+      SetupChannelProxy(channel.first, channel.second);
     negotiated_ = true;
   }
 }
 
 void TransportProxy::AddSentCandidates(const Candidates& candidates) {
-  for (Candidates::const_iterator cand = candidates.begin();
-       cand != candidates.end(); ++cand) {
-    sent_candidates_.push_back(*cand);
-  }
+  for (auto &candidate : candidates)
+    sent_candidates_.push_back(candidate);
 }
 
 void TransportProxy::AddUnsentCandidates(const Candidates& candidates) {
@@ -392,10 +385,8 @@ BaseSession::~BaseSession() {
   state_ = STATE_DEINIT;
   SignalState(this, state_);
 
-  for (TransportMap::iterator iter = transports_.begin();
-       iter != transports_.end(); ++iter) {
-    delete iter->second;
-  }
+  for (auto &transport :transports_)
+    delete transport.second;
 }
 
 const SessionDescription* BaseSession::local_description() const {
@@ -580,7 +571,7 @@ Transport* BaseSession::GetTransport(const std::string& content_name) {
 
 TransportProxy* BaseSession::GetTransportProxy(
     const std::string& content_name) {
-  TransportMap::iterator iter = transports_.find(content_name);
+  auto iter = transports_.find(content_name);
   return (iter != transports_.end()) ? iter->second : NULL;
 }
 

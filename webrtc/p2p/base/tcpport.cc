@@ -50,8 +50,7 @@ bool TCPPort::Init() {
 
 TCPPort::~TCPPort() {
   delete socket_;
-  std::list<Incoming>::iterator it;
-  for (it = incoming_.begin(); it != incoming_.end(); ++it)
+  for (auto it = begin(incoming_); it != end(incoming_); ++it)
     delete it->socket;
   incoming_.clear();
 }
@@ -188,8 +187,8 @@ void TCPPort::OnNewConnection(rtc::AsyncPacketSocket* socket,
 rtc::AsyncPacketSocket* TCPPort::GetIncoming(
     const rtc::SocketAddress& addr, bool remove) {
   rtc::AsyncPacketSocket* socket = NULL;
-  for (std::list<Incoming>::iterator it = incoming_.begin();
-       it != incoming_.end(); ++it) {
+  for (auto it = begin(incoming_);
+       it != end(incoming_); ++it) {
     if (it->addr == addr) {
       socket = it->socket;
       if (remove)

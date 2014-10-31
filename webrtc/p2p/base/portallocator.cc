@@ -31,8 +31,8 @@ PortAllocatorSession::PortAllocatorSession(const std::string& content_name,
 }
 
 PortAllocator::~PortAllocator() {
-  for (SessionMuxerMap::iterator iter = muxers_.begin();
-       iter != muxers_.end(); ++iter) {
+  for (auto iter = begin(muxers_);
+       iter != end(muxers_); ++iter) {
     delete iter->second;
   }
 }
@@ -72,7 +72,7 @@ PortAllocatorSession* PortAllocator::CreateSession(
 
 PortAllocatorSessionMuxer* PortAllocator::GetSessionMuxer(
     const std::string& key) const {
-  SessionMuxerMap::const_iterator iter = muxers_.find(key);
+  auto iter = muxers_.find(key);
   if (iter != muxers_.end())
     return iter->second;
   return NULL;

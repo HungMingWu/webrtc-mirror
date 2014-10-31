@@ -50,10 +50,9 @@ public:
   sigslot::signal3<const void*, size_t, StunRequest*> SignalSendPacket;
 
 private:
-  typedef std::map<std::string, StunRequest*> RequestMap;
 
   rtc::Thread* thread_;
-  RequestMap requests_;
+  std::map<std::string, StunRequest*> requests_;
 
   friend class StunRequest;
 };

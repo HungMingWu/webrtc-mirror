@@ -48,7 +48,7 @@ void StunRequestManager::SendDelayed(StunRequest* request, int delay) {
 
 void StunRequestManager::Remove(StunRequest* request) {
   ASSERT(request->manager() == this);
-  RequestMap::iterator iter = requests_.find(request->id());
+  auto iter = requests_.find(request->id());
   if (iter != requests_.end()) {
     ASSERT(iter->second == request);
     requests_.erase(iter);
@@ -58,7 +58,7 @@ void StunRequestManager::Remove(StunRequest* request) {
 
 void StunRequestManager::Clear() {
   std::vector<StunRequest*> requests;
-  for (RequestMap::iterator i = requests_.begin(); i != requests_.end(); ++i)
+  for (auto i = begin(requests_); i != end(requests_); ++i)
     requests.push_back(i->second);
 
   for (uint32 i = 0; i < requests.size(); ++i) {
@@ -69,7 +69,7 @@ void StunRequestManager::Clear() {
 }
 
 bool StunRequestManager::CheckResponse(StunMessage* msg) {
-  RequestMap::iterator iter = requests_.find(msg->transaction_id());
+  auto iter = requests_.find(msg->transaction_id());
   if (iter == requests_.end())
     return false;
 
@@ -99,7 +99,7 @@ bool StunRequestManager::CheckResponse(const char* data, size_t size) {
   std::string id;
   id.append(data + kStunTransactionIdOffset, kStunTransactionIdLength);
 
-  RequestMap::iterator iter = requests_.find(id);
+  auto iter = requests_.find(id);
   if (iter == requests_.end())
     return false;
 

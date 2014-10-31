@@ -220,8 +220,8 @@ Port::~Port() {
 
   std::vector<Connection*> list;
 
-  AddressMap::iterator iter = connections_.begin();
-  while (iter != connections_.end()) {
+  auto iter = begin(connections_);
+  while (iter != end(connections_)) {
     list.push_back(iter->second);
     ++iter;
   }
@@ -231,7 +231,7 @@ Port::~Port() {
 }
 
 Connection* Port::GetConnection(const rtc::SocketAddress& remote_addr) {
-  AddressMap::const_iterator iter = connections_.find(remote_addr);
+  auto iter = connections_.find(remote_addr);
   if (iter != connections_.end())
     return iter->second;
   else
@@ -321,8 +321,7 @@ void Port::OnReadPacket(
 }
 
 void Port::OnReadyToSend() {
-  AddressMap::iterator iter = connections_.begin();
-  for (; iter != connections_.end(); ++iter) {
+  for (auto iter = begin(connections_); iter != end(connections_); ++iter) {
     iter->second->OnReadyToSend();
   }
 }
@@ -710,7 +709,7 @@ void Port::EnablePortPackets() {
 }
 
 void Port::OnConnectionDestroyed(Connection* conn) {
-  AddressMap::iterator iter =
+  auto iter =
       connections_.find(conn->remote_candidate().address());
   ASSERT(iter != connections_.end());
   connections_.erase(iter);

@@ -196,19 +196,19 @@ TurnServer::TurnServer(rtc::Thread* thread)
 }
 
 TurnServer::~TurnServer() {
-  for (AllocationMap::iterator it = allocations_.begin();
-       it != allocations_.end(); ++it) {
+  for (auto it = begin(allocations_);
+       it != end(allocations_); ++it) {
     delete it->second;
   }
 
-  for (InternalSocketMap::iterator it = server_sockets_.begin();
-       it != server_sockets_.end(); ++it) {
+  for (auto it = begin(server_sockets_);
+       it != end(server_sockets_); ++it) {
     rtc::AsyncPacketSocket* socket = it->first;
     delete socket;
   }
 
-  for (ServerSocketMap::iterator it = server_listen_sockets_.begin();
-       it != server_listen_sockets_.end(); ++it) {
+  for (auto it = begin(server_listen_sockets_);
+       it != end(server_listen_sockets_); ++it) {
     rtc::AsyncSocket* socket = it->first;
     delete socket;
   }
@@ -269,7 +269,7 @@ void TurnServer::OnInternalPacket(rtc::AsyncPacketSocket* socket,
   if (size < TURN_CHANNEL_HEADER_SIZE) {
    return;
   }
-  InternalSocketMap::iterator iter = server_sockets_.find(socket);
+  auto iter = server_sockets_.find(socket);
   ASSERT(iter != server_sockets_.end());
   Connection conn(addr, iter->second, socket);
   uint16 msg_type = rtc::GetBE16(data);
@@ -500,7 +500,7 @@ bool TurnServer::ValidateNonce(const std::string& nonce) const {
 }
 
 TurnServer::Allocation* TurnServer::FindAllocation(Connection* conn) {
-  AllocationMap::const_iterator it = allocations_.find(*conn);
+  auto it = allocations_.find(*conn);
   return (it != allocations_.end()) ? it->second : NULL;
 }
 
@@ -574,7 +574,7 @@ void TurnServer::Send(Connection* conn,
 void TurnServer::OnAllocationDestroyed(Allocation* allocation) {
   // Removing the internal socket if the connection is not udp.
   rtc::AsyncPacketSocket* socket = allocation->conn()->socket();
-  InternalSocketMap::iterator iter = server_sockets_.find(socket);
+  auto iter = server_sockets_.find(socket);
   ASSERT(iter != server_sockets_.end());
   // Skip if the socket serving this allocation is UDP, as this will be shared
   // by all allocations.
@@ -582,13 +582,13 @@ void TurnServer::OnAllocationDestroyed(Allocation* allocation) {
     DestroyInternalSocket(socket);
   }
 
-  AllocationMap::iterator it = allocations_.find(*(allocation->conn()));
+  auto it = allocations_.find(*(allocation->conn()));
   if (it != allocations_.end())
     allocations_.erase(it);
 }
 
 void TurnServer::DestroyInternalSocket(rtc::AsyncPacketSocket* socket) {
-  InternalSocketMap::iterator iter = server_sockets_.find(socket);
+  auto iter = server_sockets_.find(socket);
   if (iter != server_sockets_.end()) {
     rtc::AsyncPacketSocket* socket = iter->first;
     // We must destroy the socket async to avoid invalidating the sigslot
@@ -639,12 +639,12 @@ TurnServer::Allocation::Allocation(TurnServer* server,
 }
 
 TurnServer::Allocation::~Allocation() {
-  for (ChannelList::iterator it = channels_.begin();
-       it != channels_.end(); ++it) {
+  for (auto it = begin(channels_);
+       it != end(channels_); ++it) {
     delete *it;
   }
-  for (PermissionList::iterator it = perms_.begin();
-       it != perms_.end(); ++it) {
+  for (auto it = begin(perms_);
+       it != end(perms_); ++it) {
     delete *it;
   }
   thread_->Clear(this, MSG_ALLOCATION_TIMEOUT);
@@ -899,8 +899,8 @@ void TurnServer::Allocation::AddPermission(const rtc::IPAddress& addr) {
 
 TurnServer::Permission* TurnServer::Allocation::FindPermission(
     const rtc::IPAddress& addr) const {
-  for (PermissionList::const_iterator it = perms_.begin();
-       it != perms_.end(); ++it) {
+  for (auto it = begin(perms_);
+       it != end(perms_); ++it) {
     if ((*it)->peer() == addr)
       return *it;
   }
@@ -908,8 +908,8 @@ TurnServer::Permission* TurnServer::Allocation::FindPermission(
 }
 
 TurnServer::Channel* TurnServer::Allocation::FindChannel(int channel_id) const {
-  for (ChannelList::const_iterator it = channels_.begin();
-       it != channels_.end(); ++it) {
+  for (auto it = begin(channels_);
+       it != end(channels_); ++it) {
     if ((*it)->id() == channel_id)
       return *it;
   }
@@ -918,8 +918,8 @@ TurnServer::Channel* TurnServer::Allocation::FindChannel(int channel_id) const {
 
 TurnServer::Channel* TurnServer::Allocation::FindChannel(
     const rtc::SocketAddress& addr) const {
-  for (ChannelList::const_iterator it = channels_.begin();
-       it != channels_.end(); ++it) {
+  for (auto it = begin(channels_);
+       it != end(channels_); ++it) {
     if ((*it)->peer() == addr)
       return *it;
   }
@@ -954,13 +954,13 @@ void TurnServer::Allocation::OnMessage(rtc::Message* msg) {
 }
 
 void TurnServer::Allocation::OnPermissionDestroyed(Permission* perm) {
-  PermissionList::iterator it = std::find(perms_.begin(), perms_.end(), perm);
+  auto it = std::find(perms_.begin(), perms_.end(), perm);
   ASSERT(it != perms_.end());
   perms_.erase(it);
 }
 
 void TurnServer::Allocation::OnChannelDestroyed(Channel* channel) {
-  ChannelList::iterator it =
+  auto it =
       std::find(channels_.begin(), channels_.end(), channel);
   ASSERT(it != channels_.end());
   channels_.erase(it);
