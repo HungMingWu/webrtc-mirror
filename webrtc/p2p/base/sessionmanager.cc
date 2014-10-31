@@ -50,13 +50,13 @@ void SessionManager::AddClient(const std::string& content_type,
 }
 
 void SessionManager::RemoveClient(const std::string& content_type) {
-  ClientMap::iterator iter = client_map_.find(content_type);
+  auto iter = client_map_.find(content_type);
   ASSERT(iter != client_map_.end());
   client_map_.erase(iter);
 }
 
 SessionClient* SessionManager::GetClient(const std::string& content_type) {
-  ClientMap::iterator iter = client_map_.find(content_type);
+  auto iter = client_map_.find(content_type);
   return (iter != client_map_.end()) ? iter->second : NULL;
 }
 
@@ -97,7 +97,7 @@ Session* SessionManager::CreateSession(
 
 void SessionManager::DestroySession(Session* session) {
   if (session != NULL) {
-    SessionMap::iterator it = session_map_.find(session->id());
+    auto it = session_map_.find(session->id());
     if (it != session_map_.end()) {
       SignalSessionDestroy(session);
       session->client()->OnSessionDestroy(session);
@@ -108,7 +108,7 @@ void SessionManager::DestroySession(Session* session) {
 }
 
 Session* SessionManager::GetSession(const std::string& sid) {
-  SessionMap::iterator it = session_map_.find(sid);
+  auto it = session_map_.find(sid);
   if (it != session_map_.end())
     return it->second;
   return NULL;
@@ -127,7 +127,7 @@ bool SessionManager::IsSessionMessage(const buzz::XmlElement* stanza) {
 
 Session* SessionManager::FindSession(const std::string& sid,
                                      const std::string& remote_name) {
-  SessionMap::iterator iter = session_map_.find(sid);
+  auto iter = session_map_.find(sid);
   if (iter == session_map_.end())
     return NULL;
 
@@ -295,11 +295,8 @@ void SessionManager::OnErrorMessage(BaseSession* session,
 }
 
 void SessionManager::OnSignalingReady() {
-  for (SessionMap::iterator it = session_map_.begin();
-      it != session_map_.end();
-      ++it) {
-    it->second->OnSignalingReady();
-  }
+  for (auto &session : session_map_)
+    session.second->OnSignalingReady();
 }
 
 void SessionManager::OnRequestSignaling(Session* session) {

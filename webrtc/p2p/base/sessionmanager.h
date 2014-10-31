@@ -131,8 +131,6 @@ class SessionManager : public sigslot::has_slots<> {
   sigslot::signal0<> SignalDestroyed;
 
  private:
-  typedef std::map<std::string, Session*> SessionMap;
-  typedef std::map<std::string, SessionClient*> ClientMap;
 
   // Helper function for CreateSession.  This is also invoked when we receive
   // a message attempting to initiate a session with this client.
@@ -185,8 +183,8 @@ class SessionManager : public sigslot::has_slots<> {
   rtc::Thread *worker_thread_;
   int timeout_;
   TransportDescriptionFactory transport_desc_factory_;
-  SessionMap session_map_;
-  ClientMap client_map_;
+  std::map<std::string, Session*> session_map_;
+  std::map<std::string, SessionClient*> client_map_;
 };
 
 }  // namespace cricket
