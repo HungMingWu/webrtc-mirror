@@ -30,6 +30,7 @@
 
 #include <set>
 #include <string>
+#include <algorithm>
 
 #include "libyuv/convert_from.h"
 #include "talk/media/base/videocapturer.h"
@@ -514,7 +515,7 @@ bool WebRtcVideoEngine2::CanSendCodec(const VideoCodec& requested,
   out->preference = requested.preference;
   out->params = requested.params;
   out->framerate =
-      rtc::_min(requested.framerate, matching_codec.framerate);
+      std::min(requested.framerate, matching_codec.framerate);
   out->params = requested.params;
   out->feedback_params = requested.feedback_params;
   out->width = requested.width;

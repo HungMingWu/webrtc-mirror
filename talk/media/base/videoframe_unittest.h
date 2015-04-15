@@ -29,6 +29,7 @@
 #define TALK_MEDIA_BASE_VIDEOFRAME_UNITTEST_H_
 
 #include <string>
+#include <algorithm>
 
 #include "libyuv/convert.h"
 #include "libyuv/convert_from.h"
@@ -1181,7 +1182,7 @@ void Construct##FOURCC##Rotate##ROTATE() {                                     \
       return;
     }
     data_ptr += kPadToHeapSized + (-(static_cast<int>(data_size)) & 4095);
-    memcpy(data_ptr, sample, rtc::_min(data_size, sample_size));
+    memcpy(data_ptr, sample, std::min(data_size, sample_size));
     for (int i = 0; i < repeat_; ++i) {
       EXPECT_EQ(expected_result, frame.Validate(fourcc, kWidth, kHeight,
                                                 data_ptr,

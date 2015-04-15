@@ -9,6 +9,7 @@
  */
 
 #include <vector>
+#include <algorithm>
 
 #include "webrtc/p2p/base/pseudotcp.h"
 #include "webrtc/base/gunit.h"
@@ -143,7 +144,7 @@ class PseudoTcpTestBase : public testing::Test,
     if (rtc::CreateRandomId() % 100 < static_cast<uint32>(loss_)) {
       LOG(LS_VERBOSE) << "Randomly dropping packet, size=" << len;
     } else if (len > static_cast<size_t>(
-        rtc::_min(local_mtu_, remote_mtu_))) {
+        std::min(local_mtu_, remote_mtu_))) {
       LOG(LS_VERBOSE) << "Dropping packet that exceeds path MTU, size=" << len;
     } else {
       int id = (tcp == &local_) ? MSG_RPACKET : MSG_LPACKET;
@@ -159,7 +160,7 @@ class PseudoTcpTestBase : public testing::Test,
   void UpdateClock(PseudoTcp* tcp, uint32 message) {
     long interval = 0;  // NOLINT
     tcp->GetNextClock(PseudoTcp::Now(), interval);
-    interval = rtc::_max<int>(interval, 0L);  // sometimes interval is < 0
+    interval = std::max<int>(interval, 0L);  // sometimes interval is < 0
     rtc::Thread::Current()->Clear(this, message);
     rtc::Thread::Current()->PostDelayed(interval, this, message);
   }

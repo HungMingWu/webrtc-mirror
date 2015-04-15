@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <algorithm>
+
 #include "webrtc/sound/alsasoundsystem.h"
 
 #include "webrtc/sound/sounddevicelocator.h"
@@ -660,7 +662,7 @@ StreamInterface *AlsaSoundSystem::OpenDevice(
         params.freq /
         FrameSize(params);
     // And this is what we'll actually use.
-    latency = rtc::_max(latency, kMinimumLatencyUsecs);
+    latency = std::max(latency, kMinimumLatencyUsecs);
   }
 
   ASSERT(static_cast<int>(params.format) <

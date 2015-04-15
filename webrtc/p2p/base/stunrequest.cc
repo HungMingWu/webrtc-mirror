@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <algorithm>
+
 #include "webrtc/p2p/base/stunrequest.h"
 
 #include "webrtc/base/common.h"
@@ -183,7 +185,7 @@ void StunRequest::OnMessage(rtc::Message* pmsg) {
 }
 
 int StunRequest::GetNextDelay() {
-  int delay = DELAY_UNIT * rtc::_min(1 << count_, DELAY_MAX_FACTOR);
+  int delay = DELAY_UNIT * std::min(1 << count_, DELAY_MAX_FACTOR);
   count_ += 1;
   if (count_ == MAX_SENDS)
     timeout_ = true;

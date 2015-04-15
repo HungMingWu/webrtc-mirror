@@ -24,6 +24,7 @@
 
 #include <map>
 #include <vector>
+#include <algorithm>
 #include "webrtc/base/asyncsocket.h"
 #include "webrtc/base/common.h"
 #include "webrtc/base/gunit.h"
@@ -223,7 +224,7 @@ public:
     if ((SS_OPENING == state_) || (readable_data_.size() <= read_block_)) {
       return SR_BLOCK;
     }
-    size_t count = _min(buffer_len, readable_data_.size() - read_block_);
+    size_t count = std::min(buffer_len, readable_data_.size() - read_block_);
     memcpy(buffer, &readable_data_[0], count);
     size_t new_size = readable_data_.size() - count;
     // Avoid undefined access beyond the last element of the vector.

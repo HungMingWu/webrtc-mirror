@@ -34,6 +34,7 @@
 
 #include <math.h>
 #include <set>
+#include <algorithm>
 
 #include "talk/media/base/constants.h"
 #include "talk/media/base/rtputils.h"
@@ -1258,7 +1259,7 @@ bool WebRtcVideoEngine::CanSendCodec(const VideoCodec& requested,
     out->name = requested.name;
     out->preference = requested.preference;
     out->params = requested.params;
-    out->framerate = rtc::_min(requested.framerate, local_max->framerate);
+    out->framerate = std::min(requested.framerate, local_max->framerate);
     out->width = 0;
     out->height = 0;
     out->params = requested.params;

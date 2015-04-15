@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <algorithm>
+
 #include "webrtc/p2p/base/relayport.h"
 #include "webrtc/base/asyncpacketsocket.h"
 #include "webrtc/base/helpers.h"
@@ -772,7 +774,7 @@ void AllocateRequest::Prepare(StunMessage* request) {
 }
 
 int AllocateRequest::GetNextDelay() {
-  int delay = 100 * rtc::_max(1 << count_, 2);
+  int delay = 100 * std::max(1 << count_, 2);
   count_ += 1;
   if (count_ == 5)
     timeout_ = true;

@@ -26,6 +26,7 @@
 #include "talk/media/base/filemediaengine.h"
 
 #include <limits.h>
+#include <algorithm>
 
 #include "talk/media/base/rtpdump.h"
 #include "talk/media/base/rtputils.h"
@@ -245,7 +246,7 @@ void RtpSenderReceiver::OnMessage(rtc::Message* pmsg) {
   if (ReadNextPacket(&rtp_dump_packet_)) {
     int wait = rtc::TimeUntil(
         start_send_time_ + rtp_dump_packet_.elapsed_time);
-    wait = rtc::_max(0, wait);
+    wait = std::max(0, wait);
     sender_thread_->PostDelayed(wait, this);
   } else {
     sender_thread_->Quit();
