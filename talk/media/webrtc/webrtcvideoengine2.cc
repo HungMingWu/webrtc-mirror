@@ -600,7 +600,7 @@ class WebRtcVideoRenderFrame : public VideoFrame {
                            size_t pixel_width,
                            size_t pixel_height,
                            int64 elapsed_time,
-                           int64 time_stamp) OVERRIDE {
+                           int64 time_stamp) override {
     UNIMPLEMENTED;
     return false;
   }
@@ -616,78 +616,78 @@ class WebRtcVideoRenderFrame : public VideoFrame {
                      size_t pixel_height,
                      int64 elapsed_time,
                      int64 time_stamp,
-                     int rotation) OVERRIDE {
+                     int rotation) override {
     UNIMPLEMENTED;
     return false;
   }
 
-  virtual size_t GetWidth() const OVERRIDE {
+  virtual size_t GetWidth() const override {
     return static_cast<size_t>(frame_->width());
   }
-  virtual size_t GetHeight() const OVERRIDE {
+  virtual size_t GetHeight() const override {
     return static_cast<size_t>(frame_->height());
   }
 
-  virtual const uint8* GetYPlane() const OVERRIDE {
+  virtual const uint8* GetYPlane() const override {
     return frame_->buffer(webrtc::kYPlane);
   }
-  virtual const uint8* GetUPlane() const OVERRIDE {
+  virtual const uint8* GetUPlane() const override {
     return frame_->buffer(webrtc::kUPlane);
   }
-  virtual const uint8* GetVPlane() const OVERRIDE {
+  virtual const uint8* GetVPlane() const override {
     return frame_->buffer(webrtc::kVPlane);
   }
 
-  virtual uint8* GetYPlane() OVERRIDE {
+  virtual uint8* GetYPlane() override {
     UNIMPLEMENTED;
     return NULL;
   }
-  virtual uint8* GetUPlane() OVERRIDE {
+  virtual uint8* GetUPlane() override {
     UNIMPLEMENTED;
     return NULL;
   }
-  virtual uint8* GetVPlane() OVERRIDE {
+  virtual uint8* GetVPlane() override {
     UNIMPLEMENTED;
     return NULL;
   }
 
-  virtual int32 GetYPitch() const OVERRIDE {
+  virtual int32 GetYPitch() const override {
     return frame_->stride(webrtc::kYPlane);
   }
-  virtual int32 GetUPitch() const OVERRIDE {
+  virtual int32 GetUPitch() const override {
     return frame_->stride(webrtc::kUPlane);
   }
-  virtual int32 GetVPitch() const OVERRIDE {
+  virtual int32 GetVPitch() const override {
     return frame_->stride(webrtc::kVPlane);
   }
 
-  virtual void* GetNativeHandle() const OVERRIDE { return NULL; }
+  virtual void* GetNativeHandle() const override { return NULL; }
 
-  virtual size_t GetPixelWidth() const OVERRIDE { return 1; }
-  virtual size_t GetPixelHeight() const OVERRIDE { return 1; }
+  virtual size_t GetPixelWidth() const override { return 1; }
+  virtual size_t GetPixelHeight() const override { return 1; }
 
-  virtual int64 GetElapsedTime() const OVERRIDE {
+  virtual int64 GetElapsedTime() const override {
     // Convert millisecond render time to ns timestamp.
     return frame_->render_time_ms() * rtc::kNumNanosecsPerMillisec;
   }
-  virtual int64 GetTimeStamp() const OVERRIDE {
+  virtual int64 GetTimeStamp() const override {
     // Convert 90K rtp timestamp to ns timestamp.
     return (frame_->timestamp() / 90) * rtc::kNumNanosecsPerMillisec;
   }
-  virtual void SetElapsedTime(int64 elapsed_time) OVERRIDE { UNIMPLEMENTED; }
-  virtual void SetTimeStamp(int64 time_stamp) OVERRIDE { UNIMPLEMENTED; }
+  virtual void SetElapsedTime(int64 elapsed_time) override { UNIMPLEMENTED; }
+  virtual void SetTimeStamp(int64 time_stamp) override { UNIMPLEMENTED; }
 
-  virtual int GetRotation() const OVERRIDE {
+  virtual int GetRotation() const override {
     UNIMPLEMENTED;
     return ROTATION_0;
   }
 
-  virtual VideoFrame* Copy() const OVERRIDE {
+  virtual VideoFrame* Copy() const override {
     UNIMPLEMENTED;
     return NULL;
   }
 
-  virtual bool MakeExclusive() OVERRIDE {
+  virtual bool MakeExclusive() override {
     UNIMPLEMENTED;
     return false;
   }
@@ -701,7 +701,7 @@ class WebRtcVideoRenderFrame : public VideoFrame {
   virtual size_t ConvertToRgbBuffer(uint32 to_fourcc,
                                     uint8* buffer,
                                     size_t size,
-                                    int stride_rgb) const OVERRIDE {
+                                    int stride_rgb) const override {
     size_t width = GetWidth();
     size_t height = GetHeight();
     size_t needed = (stride_rgb >= 0 ? stride_rgb : -stride_rgb) * height;
@@ -733,7 +733,7 @@ class WebRtcVideoRenderFrame : public VideoFrame {
                                        size_t pixel_width,
                                        size_t pixel_height,
                                        int64 elapsed_time,
-                                       int64 time_stamp) const OVERRIDE {
+                                       int64 time_stamp) const override {
     WebRtcVideoFrame* frame = new WebRtcVideoFrame();
     frame->InitToBlack(
         w, h, pixel_width, pixel_height, elapsed_time, time_stamp);

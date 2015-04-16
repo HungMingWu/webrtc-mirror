@@ -38,12 +38,12 @@ class RTCVideoRendererAdapter : public VideoRendererInterface {
  public:
   RTCVideoRendererAdapter(RTCVideoRenderer* renderer) { _renderer = renderer; }
 
-  virtual void SetSize(int width, int height) OVERRIDE {
+  virtual void SetSize(int width, int height) override {
     [_renderer.delegate renderer:_renderer
                       didSetSize:CGSizeMake(width, height)];
   }
 
-  virtual void RenderFrame(const cricket::VideoFrame* frame) OVERRIDE {
+  virtual void RenderFrame(const cricket::VideoFrame* frame) override {
     if (!_renderer.delegate) {
       return;
     }

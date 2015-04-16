@@ -24,8 +24,8 @@ class FakeExternalTransport : public webrtc::Transport {
   explicit FakeExternalTransport(webrtc::VoENetwork* ptr);
   virtual ~FakeExternalTransport();
 
-  virtual int SendPacket(int channel, const void *data, int len) OVERRIDE;
-  virtual int SendRTCPPacket(int channel, const void *data, int len) OVERRIDE;
+  virtual int SendPacket(int channel, const void *data, int len) override;
+  virtual int SendRTCPPacket(int channel, const void *data, int len) override;
 
   void SetDelayStatus(bool enabled, unsigned int delayInMs = 100);
 

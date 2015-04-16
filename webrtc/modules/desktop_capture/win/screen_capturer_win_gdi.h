@@ -33,10 +33,10 @@ class ScreenCapturerWinGdi : public ScreenCapturer {
   virtual ~ScreenCapturerWinGdi();
 
   // Overridden from ScreenCapturer:
-  virtual void Start(Callback* callback) OVERRIDE;
-  virtual void Capture(const DesktopRegion& region) OVERRIDE;
-  virtual bool GetScreenList(ScreenList* screens) OVERRIDE;
-  virtual bool SelectScreen(ScreenId id) OVERRIDE;
+  virtual void Start(Callback* callback) override;
+  virtual void Capture(const DesktopRegion& region) override;
+  virtual bool GetScreenList(ScreenList* screens) override;
+  virtual bool SelectScreen(ScreenId id) override;
 
  private:
   typedef HRESULT (WINAPI * DwmEnableCompositionFunc)(UINT);

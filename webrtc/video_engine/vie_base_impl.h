@@ -38,7 +38,7 @@ class ViEBaseImpl
   virtual int GetCpuOveruseMetrics(int channel,
                                    CpuOveruseMetrics* metrics);
   virtual void RegisterSendSideDelayObserver(int channel,
-      SendSideDelayObserver* observer) OVERRIDE;
+      SendSideDelayObserver* observer) override;
   virtual int CreateChannel(int& video_channel);  // NOLINT
   virtual int CreateChannel(int& video_channel,  // NOLINT
                             const Config* config);

@@ -110,7 +110,7 @@ class FakeAudioProcessor : public webrtc::AudioProcessorInterface {
 
  private:
   virtual void GetStats(
-      AudioProcessorInterface::AudioProcessorStats* stats) OVERRIDE {
+      AudioProcessorInterface::AudioProcessorStats* stats) override {
     stats->typing_noise_detected = true;
     stats->echo_return_loss = 2;
     stats->echo_return_loss_enhancement = 3;
@@ -126,20 +126,20 @@ class FakeAudioTrack
   explicit FakeAudioTrack(const std::string& id)
       : webrtc::MediaStreamTrack<webrtc::AudioTrackInterface>(id),
         processor_(new rtc::RefCountedObject<FakeAudioProcessor>()) {}
-  std::string kind() const OVERRIDE {
+  std::string kind() const override {
     return "audio";
   }
-  virtual webrtc::AudioSourceInterface* GetSource() const OVERRIDE {
+  virtual webrtc::AudioSourceInterface* GetSource() const override {
     return NULL;
   }
-  virtual void AddSink(webrtc::AudioTrackSinkInterface* sink) OVERRIDE {}
-  virtual void RemoveSink(webrtc::AudioTrackSinkInterface* sink) OVERRIDE {}
-  virtual bool GetSignalLevel(int* level) OVERRIDE {
+  virtual void AddSink(webrtc::AudioTrackSinkInterface* sink) override {}
+  virtual void RemoveSink(webrtc::AudioTrackSinkInterface* sink) override {}
+  virtual bool GetSignalLevel(int* level) override {
     *level = 1;
     return true;
   }
   virtual rtc::scoped_refptr<webrtc::AudioProcessorInterface>
-      GetAudioProcessor() OVERRIDE {
+      GetAudioProcessor() override {
     return processor_;
   }
 

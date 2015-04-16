@@ -54,19 +54,19 @@ class VcmPayloadSinkFactory::VcmPayloadSink
   virtual int32_t OnReceivedPayloadData(
       const uint8_t* payload_data,
       const uint16_t payload_size,
-      const WebRtcRTPHeader* rtp_header) OVERRIDE {
+      const WebRtcRTPHeader* rtp_header) override {
     return vcm_->IncomingPacket(payload_data, payload_size, *rtp_header);
   }
 
   virtual bool OnRecoveredPacket(const uint8_t* packet,
-                                 int packet_length) OVERRIDE {
+                                 int packet_length) override {
     // We currently don't handle FEC.
     return true;
   }
 
   // VCMPacketRequestCallback
   virtual int32_t ResendPackets(const uint16_t* sequence_numbers,
-                                uint16_t length) OVERRIDE {
+                                uint16_t length) override {
     stream_->ResendPackets(sequence_numbers, length);
     return 0;
   }

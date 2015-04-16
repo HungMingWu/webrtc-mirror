@@ -55,12 +55,12 @@ class EndToEndTest : public test::CallTest {
  protected:
   class UnusedTransport : public newapi::Transport {
    private:
-    virtual bool SendRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual bool SendRtp(const uint8_t* packet, size_t length) override {
       ADD_FAILURE() << "Unexpected RTP sent.";
       return false;
     }
 
-    virtual bool SendRtcp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual bool SendRtcp(const uint8_t* packet, size_t length) override {
       ADD_FAILURE() << "Unexpected RTCP sent.";
       return false;
     }
@@ -117,7 +117,7 @@ TEST_F(EndToEndTest, RendersSingleDelayedFrame) {
     Renderer() : event_(EventWrapper::Create()) {}
 
     virtual void RenderFrame(const I420VideoFrame& video_frame,
-                             int /*time_to_render_ms*/) OVERRIDE {
+                             int /*time_to_render_ms*/) override {
       event_->Set();
     }
 
@@ -133,7 +133,7 @@ TEST_F(EndToEndTest, RendersSingleDelayedFrame) {
     EventTypeWrapper Wait() { return event_->Wait(kDefaultTimeoutMs); }
 
    private:
-    virtual void FrameCallback(I420VideoFrame* frame) OVERRIDE {
+    virtual void FrameCallback(I420VideoFrame* frame) override {
       SleepMs(kDelayRenderCallbackMs);
       event_->Set();
     }
@@ -183,7 +183,7 @@ TEST_F(EndToEndTest, TransmitsFirstFrame) {
     Renderer() : event_(EventWrapper::Create()) {}
 
     virtual void RenderFrame(const I420VideoFrame& video_frame,
-                             int /*time_to_render_ms*/) OVERRIDE {
+                             int /*time_to_render_ms*/) override {
       event_->Set();
     }
 
@@ -230,7 +230,7 @@ TEST_F(EndToEndTest, SendsAndReceivesH264) {
           fake_encoder_(Clock::GetRealTimeClock()),
           frame_counter_(0) {}
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait())
           << "Timed out while waiting for enough frames to be decoded.";
     }
@@ -238,7 +238,7 @@ TEST_F(EndToEndTest, SendsAndReceivesH264) {
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       send_config->encoder_settings.encoder = &fake_encoder_;
       send_config->encoder_settings.payload_name = "H264";
       send_config->encoder_settings.payload_type = kFakeSendPayloadType;
@@ -256,7 +256,7 @@ TEST_F(EndToEndTest, SendsAndReceivesH264) {
     }
 
     virtual void RenderFrame(const I420VideoFrame& video_frame,
-                             int time_to_render_ms) OVERRIDE {
+                             int time_to_render_ms) override {
       const int kRequiredFrames = 500;
       if (++frame_counter_ == kRequiredFrames)
         observation_complete_->Set();
@@ -277,7 +277,7 @@ TEST_F(EndToEndTest, ReceiverUsesLocalSsrc) {
     SyncRtcpObserver() : EndToEndTest(kDefaultTimeoutMs) {}
 
     virtual Action OnReceiveRtcp(const uint8_t* packet,
-                                 size_t length) OVERRIDE {
+                                 size_t length) override {
       RTCPUtility::RTCPParserV2 parser(packet, length, true);
       EXPECT_TRUE(parser.IsValid());
       uint32_t ssrc = 0;
@@ -291,7 +291,7 @@ TEST_F(EndToEndTest, ReceiverUsesLocalSsrc) {
       return SEND_PACKET;
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait())
           << "Timed out while waiting for a receiver RTCP packet to be sent.";
     }
@@ -314,7 +314,7 @@ TEST_F(EndToEndTest, ReceivesAndRetransmitsNack) {
           nacks_left_(kNumberOfNacksToObserve) {}
 
    private:
-    virtual Action OnSendRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnSendRtp(const uint8_t* packet, size_t length) override {
       RTPHeader header;
       EXPECT_TRUE(rtp_parser_->Parse(packet, length, &header));
 
@@ -349,7 +349,7 @@ TEST_F(EndToEndTest, ReceivesAndRetransmitsNack) {
     }
 
     virtual Action OnReceiveRtcp(const uint8_t* packet,
-                                 size_t length) OVERRIDE {
+                                 size_t length) override {
       RTCPUtility::RTCPParserV2 parser(packet, length, true);
       EXPECT_TRUE(parser.IsValid());
 
@@ -367,12 +367,12 @@ TEST_F(EndToEndTest, ReceivesAndRetransmitsNack) {
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       send_config->rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
       (*receive_configs)[0].rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait())
           << "Timed out waiting for packets to be NACKed, retransmitted and "
              "rendered.";
@@ -400,7 +400,7 @@ TEST_F(EndToEndTest, DISABLED_CanReceiveFec) {
           protected_frame_timestamp_(0) {}
 
    private:
-    virtual Action OnSendRtp(const uint8_t* packet, size_t length) OVERRIDE
+    virtual Action OnSendRtp(const uint8_t* packet, size_t length) override
         EXCLUSIVE_LOCKS_REQUIRED(crit_) {
       RTPHeader header;
       EXPECT_TRUE(parser_->Parse(packet, length, &header));
@@ -441,7 +441,7 @@ TEST_F(EndToEndTest, DISABLED_CanReceiveFec) {
     }
 
     virtual void RenderFrame(const I420VideoFrame& video_frame,
-                             int time_to_render_ms) OVERRIDE {
+                             int time_to_render_ms) override {
       CriticalSectionScoped lock(crit_.get());
       // Rendering frame with timestamp associated with dropped packet -> FEC
       // protection worked.
@@ -461,7 +461,7 @@ TEST_F(EndToEndTest, DISABLED_CanReceiveFec) {
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       // TODO(pbos): Run this test with combined NACK/FEC enabled as well.
       // int rtp_history_ms = 1000;
       // (*receive_configs)[0].rtp.nack.rtp_history_ms = rtp_history_ms;
@@ -474,7 +474,7 @@ TEST_F(EndToEndTest, DISABLED_CanReceiveFec) {
       (*receive_configs)[0].renderer = this;
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait())
           << "Timed out while waiting for retransmitted NACKed frames to be "
              "rendered again.";
@@ -504,7 +504,7 @@ void EndToEndTest::DecodesRetransmittedFrame(bool retransmit_over_rtx) {
           frame_retransmitted_(false) {}
 
    private:
-    virtual Action OnSendRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnSendRtp(const uint8_t* packet, size_t length) override {
       RTPHeader header;
       EXPECT_TRUE(parser_->Parse(packet, length, &header));
 
@@ -528,7 +528,7 @@ void EndToEndTest::DecodesRetransmittedFrame(bool retransmit_over_rtx) {
       return SEND_PACKET;
     }
 
-    virtual void FrameCallback(I420VideoFrame* frame) OVERRIDE {
+    virtual void FrameCallback(I420VideoFrame* frame) override {
       CriticalSectionScoped lock(crit_.get());
       if (frame->timestamp() == retransmitted_timestamp_) {
         EXPECT_TRUE(frame_retransmitted_);
@@ -539,7 +539,7 @@ void EndToEndTest::DecodesRetransmittedFrame(bool retransmit_over_rtx) {
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       send_config->rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
       (*receive_configs)[0].pre_render_callback = this;
       (*receive_configs)[0].rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
@@ -553,7 +553,7 @@ void EndToEndTest::DecodesRetransmittedFrame(bool retransmit_over_rtx) {
       }
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait())
           << "Timed out while waiting for retransmission to render.";
     }
@@ -585,7 +585,7 @@ TEST_F(EndToEndTest, UsesFrameCallbacks) {
     Renderer() : event_(EventWrapper::Create()) {}
 
     virtual void RenderFrame(const I420VideoFrame& video_frame,
-                             int /*time_to_render_ms*/) OVERRIDE {
+                             int /*time_to_render_ms*/) override {
       EXPECT_EQ(0, *video_frame.buffer(kYPlane))
           << "Rendered frame should have zero luma which is applied by the "
              "pre-render callback.";
@@ -692,7 +692,7 @@ void EndToEndTest::ReceivesPliAndRecovers(int rtp_history_ms) {
           received_pli_(false) {}
 
    private:
-    virtual Action OnSendRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnSendRtp(const uint8_t* packet, size_t length) override {
       RTPHeader header;
       EXPECT_TRUE(parser_->Parse(packet, length, &header));
 
@@ -710,7 +710,7 @@ void EndToEndTest::ReceivesPliAndRecovers(int rtp_history_ms) {
     }
 
     virtual Action OnReceiveRtcp(const uint8_t* packet,
-                                 size_t length) OVERRIDE {
+                                 size_t length) override {
       RTCPUtility::RTCPParserV2 parser(packet, length, true);
       EXPECT_TRUE(parser.IsValid());
 
@@ -729,7 +729,7 @@ void EndToEndTest::ReceivesPliAndRecovers(int rtp_history_ms) {
     }
 
     virtual void RenderFrame(const I420VideoFrame& video_frame,
-                             int time_to_render_ms) OVERRIDE {
+                             int time_to_render_ms) override {
       CriticalSectionScoped lock(crit_.get());
       if (received_pli_ &&
           video_frame.timestamp() > highest_dropped_timestamp_) {
@@ -742,13 +742,13 @@ void EndToEndTest::ReceivesPliAndRecovers(int rtp_history_ms) {
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       send_config->rtp.nack.rtp_history_ms = rtp_history_ms_;
       (*receive_configs)[0].rtp.nack.rtp_history_ms = rtp_history_ms_;
       (*receive_configs)[0].renderer = this;
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait()) << "Timed out waiting for PLI to be "
                                            "received and a frame to be "
                                            "rendered afterwards.";
@@ -785,7 +785,7 @@ TEST_F(EndToEndTest, UnknownRtpPacketGivesUnknownSsrcReturnCode) {
 
    private:
     virtual DeliveryStatus DeliverPacket(const uint8_t* packet,
-                                         size_t length) OVERRIDE {
+                                         size_t length) override {
       if (RtpHeaderParser::IsRtcp(packet, length)) {
         return receiver_->DeliverPacket(packet, length);
       } else {
@@ -841,7 +841,7 @@ void EndToEndTest::RespectsRtcpMode(newapi::RtcpMode rtcp_mode) {
           sent_rtcp_(0) {}
 
    private:
-    virtual Action OnSendRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnSendRtp(const uint8_t* packet, size_t length) override {
       if (++sent_rtp_ % 3 == 0)
         return DROP_PACKET;
 
@@ -849,7 +849,7 @@ void EndToEndTest::RespectsRtcpMode(newapi::RtcpMode rtcp_mode) {
     }
 
     virtual Action OnReceiveRtcp(const uint8_t* packet,
-                                 size_t length) OVERRIDE {
+                                 size_t length) override {
       ++sent_rtcp_;
       RTCPUtility::RTCPParserV2 parser(packet, length, true);
       EXPECT_TRUE(parser.IsValid());
@@ -889,13 +889,13 @@ void EndToEndTest::RespectsRtcpMode(newapi::RtcpMode rtcp_mode) {
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       send_config->rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
       (*receive_configs)[0].rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
       (*receive_configs)[0].rtp.rtcp_mode = rtcp_mode_;
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait())
           << (rtcp_mode_ == newapi::kRtcpCompound
                   ? "Timed out before observing enough compound packets."
@@ -936,7 +936,7 @@ TEST_F(EndToEndTest, SendsAndReceivesMultipleStreams) {
           done_(EventWrapper::Create()) {}
 
     virtual void RenderFrame(const I420VideoFrame& video_frame,
-                             int time_to_render_ms) OVERRIDE {
+                             int time_to_render_ms) override {
       EXPECT_EQ(width_, video_frame.width());
       EXPECT_EQ(height_, video_frame.height());
       (*capturer_)->Stop();
@@ -1113,7 +1113,7 @@ TEST_F(EndToEndTest, ReceiveStreamSendsRemb) {
     RembObserver() : EndToEndTest(kDefaultTimeoutMs) {}
 
     virtual Action OnReceiveRtcp(const uint8_t* packet,
-                                 size_t length) OVERRIDE {
+                                 size_t length) override {
       RTCPUtility::RTCPParserV2 parser(packet, length, true);
       EXPECT_TRUE(parser.IsValid());
 
@@ -1138,7 +1138,7 @@ TEST_F(EndToEndTest, ReceiveStreamSendsRemb) {
         observation_complete_->Set();
       return SEND_PACKET;
     }
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait()) << "Timed out while waiting for a "
                                            "receiver RTCP REMB packet to be "
                                            "sent.";
@@ -1163,7 +1163,7 @@ void EndToEndTest::TestXrReceiverReferenceTimeReport(bool enable_rrtr) {
    private:
     // Receive stream should send RR packets (and RRTR packets if enabled).
     virtual Action OnReceiveRtcp(const uint8_t* packet,
-                                 size_t length) OVERRIDE {
+                                 size_t length) override {
       RTCPUtility::RTCPParserV2 parser(packet, length, true);
       EXPECT_TRUE(parser.IsValid());
 
@@ -1213,13 +1213,13 @@ void EndToEndTest::TestXrReceiverReferenceTimeReport(bool enable_rrtr) {
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       (*receive_configs)[0].rtp.rtcp_mode = newapi::kRtcpReducedSize;
       (*receive_configs)[0].rtp.rtcp_xr.receiver_reference_time_report =
           enable_rrtr_;
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait())
           << "Timed out while waiting for RTCP SR/RR packets to be sent.";
     }
@@ -1251,7 +1251,7 @@ void EndToEndTest::TestSendsSetSsrcs(size_t num_ssrcs,
     }
 
    private:
-    virtual Action OnSendRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnSendRtp(const uint8_t* packet, size_t length) override {
       RTPHeader header;
       EXPECT_TRUE(parser_->Parse(packet, length, &header));
 
@@ -1276,12 +1276,12 @@ void EndToEndTest::TestSendsSetSsrcs(size_t num_ssrcs,
       return SEND_PACKET;
     }
 
-    virtual size_t GetNumStreams() const OVERRIDE { return num_ssrcs_; }
+    virtual size_t GetNumStreams() const override { return num_ssrcs_; }
 
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       if (num_ssrcs_ > 1) {
         // Set low simulcast bitrates to not have to wait for bandwidth ramp-up.
         for (size_t i = 0; i < encoder_config->streams.size(); ++i) {
@@ -1298,11 +1298,11 @@ void EndToEndTest::TestSendsSetSsrcs(size_t num_ssrcs,
 
     virtual void OnStreamsCreated(
         VideoSendStream* send_stream,
-        const std::vector<VideoReceiveStream*>& receive_streams) OVERRIDE {
+        const std::vector<VideoReceiveStream*>& receive_streams) override {
       send_stream_ = send_stream;
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait())
           << "Timed out while waiting for "
           << (send_single_ssrc_first_ ? "first SSRC." : "SSRCs.");
@@ -1344,28 +1344,28 @@ TEST_F(EndToEndTest, GetStats) {
           check_stats_event_(EventWrapper::Create()) {}
 
    private:
-    virtual Action OnSendRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnSendRtp(const uint8_t* packet, size_t length) override {
       check_stats_event_->Set();
       return SEND_PACKET;
     }
 
-    virtual Action OnSendRtcp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnSendRtcp(const uint8_t* packet, size_t length) override {
       check_stats_event_->Set();
       return SEND_PACKET;
     }
 
-    virtual Action OnReceiveRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnReceiveRtp(const uint8_t* packet, size_t length) override {
       check_stats_event_->Set();
       return SEND_PACKET;
     }
 
     virtual Action OnReceiveRtcp(const uint8_t* packet,
-                                 size_t length) OVERRIDE {
+                                 size_t length) override {
       check_stats_event_->Set();
       return SEND_PACKET;
     }
 
-    virtual void FrameCallback(I420VideoFrame* video_frame) OVERRIDE {
+    virtual void FrameCallback(I420VideoFrame* video_frame) override {
       // Ensure that we have at least 5ms send side delay.
       int64_t render_time = video_frame->render_time_ms();
       if (render_time > 0)
@@ -1470,7 +1470,7 @@ TEST_F(EndToEndTest, GetStats) {
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       send_config->pre_encode_callback = this;  // Used to inject delay.
       send_config->rtp.c_name = "SomeCName";
 
@@ -1484,12 +1484,12 @@ TEST_F(EndToEndTest, GetStats) {
 
     virtual void OnStreamsCreated(
         VideoSendStream* send_stream,
-        const std::vector<VideoReceiveStream*>& receive_streams) OVERRIDE {
+        const std::vector<VideoReceiveStream*>& receive_streams) override {
       send_stream_ = send_stream;
       receive_stream_ = receive_streams[0];
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       Clock* clock = Clock::GetRealTimeClock();
       int64_t now = clock->TimeInMilliseconds();
       int64_t stop_time = now + test::CallTest::kLongTimeoutMs;
@@ -1567,11 +1567,11 @@ TEST_F(EndToEndTest, TestReceivedRtpPacketStats) {
    private:
     virtual void OnStreamsCreated(
         VideoSendStream* send_stream,
-        const std::vector<VideoReceiveStream*>& receive_streams) OVERRIDE {
+        const std::vector<VideoReceiveStream*>& receive_streams) override {
       receive_stream_ = receive_streams[0];
     }
 
-    virtual Action OnSendRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnSendRtp(const uint8_t* packet, size_t length) override {
       if (sent_rtp_ >= kNumRtpPacketsToSend) {
         VideoReceiveStream::Stats stats = receive_stream_->GetStats();
         if (kNumRtpPacketsToSend == stats.rtp_stats.packets) {
@@ -1583,7 +1583,7 @@ TEST_F(EndToEndTest, TestReceivedRtpPacketStats) {
       return SEND_PACKET;
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait())
           << "Timed out while verifying number of received RTP packets.";
     }
@@ -1616,7 +1616,7 @@ TEST_F(EndToEndTest, DISABLED_RedundantPayloadsTransmittedOnAllSsrcs) {
         }
 
    private:
-    virtual Action OnSendRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnSendRtp(const uint8_t* packet, size_t length) override {
       RTPHeader header;
       EXPECT_TRUE(parser_->Parse(packet, length, &header));
 
@@ -1641,12 +1641,12 @@ TEST_F(EndToEndTest, DISABLED_RedundantPayloadsTransmittedOnAllSsrcs) {
       return SEND_PACKET;
     }
 
-    virtual size_t GetNumStreams() const OVERRIDE { return kNumSsrcs; }
+    virtual size_t GetNumStreams() const override { return kNumSsrcs; }
 
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       // Set low simulcast bitrates to not have to wait for bandwidth ramp-up.
       for (size_t i = 0; i < encoder_config->streams.size(); ++i) {
         encoder_config->streams[i].min_bitrate_bps = 10000;
@@ -1665,7 +1665,7 @@ TEST_F(EndToEndTest, DISABLED_RedundantPayloadsTransmittedOnAllSsrcs) {
       encoder_config->min_transmit_bitrate_bps = 100000;
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait())
           << "Timed out while waiting for redundant payloads on all SSRCs.";
     }
@@ -1702,7 +1702,7 @@ void EndToEndTest::TestRtpStatePreservation(bool use_rtx) {
     }
 
    private:
-    virtual Action OnSendRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnSendRtp(const uint8_t* packet, size_t length) override {
       RTPHeader header;
       EXPECT_TRUE(parser_->Parse(packet, length, &header));
       const uint32_t ssrc = header.ssrc;
@@ -1890,7 +1890,7 @@ TEST_F(EndToEndTest, RespectsNetworkState) {
           down_receiver_rtcp_(0),
           down_frames_(0) {}
 
-    virtual Action OnSendRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnSendRtp(const uint8_t* packet, size_t length) override {
       CriticalSectionScoped lock(test_crit_.get());
       if (sender_state_ == Call::kNetworkDown) {
         ++down_sender_rtp_;
@@ -1904,7 +1904,7 @@ TEST_F(EndToEndTest, RespectsNetworkState) {
       return SEND_PACKET;
     }
 
-    virtual Action OnSendRtcp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnSendRtcp(const uint8_t* packet, size_t length) override {
       CriticalSectionScoped lock(test_crit_.get());
       if (sender_state_ == Call::kNetworkDown) {
         ++down_sender_rtcp_;
@@ -1918,13 +1918,13 @@ TEST_F(EndToEndTest, RespectsNetworkState) {
       return SEND_PACKET;
     }
 
-    virtual Action OnReceiveRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual Action OnReceiveRtp(const uint8_t* packet, size_t length) override {
       ADD_FAILURE() << "Unexpected receiver RTP, should not be sending.";
       return SEND_PACKET;
     }
 
     virtual Action OnReceiveRtcp(const uint8_t* packet,
-                                 size_t length) OVERRIDE {
+                                 size_t length) override {
       CriticalSectionScoped lock(test_crit_.get());
       if (receiver_state_ == Call::kNetworkDown) {
         ++down_receiver_rtcp_;
@@ -1939,7 +1939,7 @@ TEST_F(EndToEndTest, RespectsNetworkState) {
     }
 
     virtual void OnCallsCreated(Call* sender_call,
-                                Call* receiver_call) OVERRIDE {
+                                Call* receiver_call) override {
       sender_call_ = sender_call;
       receiver_call_ = receiver_call;
     }
@@ -1947,11 +1947,11 @@ TEST_F(EndToEndTest, RespectsNetworkState) {
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       send_config->encoder_settings.encoder = this;
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, encoded_frames_->Wait(kDefaultTimeoutMs))
           << "No frames received by the encoder.";
       EXPECT_EQ(kEventSignaled, sender_packets_->Wait(kDefaultTimeoutMs))
@@ -1998,7 +1998,7 @@ TEST_F(EndToEndTest, RespectsNetworkState) {
     virtual int32_t Encode(const I420VideoFrame& input_image,
                            const CodecSpecificInfo* codec_specific_info,
                            const std::vector<VideoFrameType>* frame_types)
-        OVERRIDE {
+        override {
       {
         CriticalSectionScoped lock(test_crit_.get());
         if (sender_state_ == Call::kNetworkDown) {
@@ -2040,7 +2040,7 @@ TEST_F(EndToEndTest, NewSendStreamsRespectNetworkDown) {
     virtual int32_t Encode(const I420VideoFrame& input_image,
                            const CodecSpecificInfo* codec_specific_info,
                            const std::vector<VideoFrameType>* frame_types)
-        OVERRIDE {
+        override {
       ADD_FAILURE() << "Unexpected frame encode.";
       return test::FakeEncoder::Encode(
           input_image, codec_specific_info, frame_types);

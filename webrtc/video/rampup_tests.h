@@ -50,11 +50,11 @@ class StreamObserver : public newapi::Transport, public RemoteBitrateObserver {
   void set_start_bitrate_bps(unsigned int start_bitrate_bps);
 
   virtual void OnReceiveBitrateChanged(const std::vector<unsigned int>& ssrcs,
-                                       unsigned int bitrate) OVERRIDE;
+                                       unsigned int bitrate) override;
 
-  virtual bool SendRtp(const uint8_t* packet, size_t length) OVERRIDE;
+  virtual bool SendRtp(const uint8_t* packet, size_t length) override;
 
-  virtual bool SendRtcp(const uint8_t* packet, size_t length) OVERRIDE;
+  virtual bool SendRtcp(const uint8_t* packet, size_t length) override;
 
   EventTypeWrapper Wait();
 
@@ -101,12 +101,12 @@ class LowRateStreamObserver : public test::DirectTransport,
   virtual void OnReceiveBitrateChanged(const std::vector<unsigned int>& ssrcs,
                                        unsigned int bitrate);
 
-  virtual bool SendRtp(const uint8_t* data, size_t length) OVERRIDE;
+  virtual bool SendRtp(const uint8_t* data, size_t length) override;
 
   virtual DeliveryStatus DeliverPacket(const uint8_t* packet,
-                                       size_t length) OVERRIDE;
+                                       size_t length) override;
 
-  virtual bool SendRtcp(const uint8_t* packet, size_t length) OVERRIDE;
+  virtual bool SendRtcp(const uint8_t* packet, size_t length) override;
 
   // Produces a string similar to "1stream_nortx", depending on the values of
   // number_of_streams_ and rtx_used_;

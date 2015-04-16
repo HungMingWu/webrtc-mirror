@@ -75,35 +75,35 @@ public:
         const int8_t payloadName[RTP_PAYLOAD_NAME_SIZE],
         const uint32_t frequency,
         const uint8_t channels,
-        const uint32_t rate) OVERRIDE {
+        const uint32_t rate) override {
       return 0;
     }
 
     virtual void OnIncomingSSRCChanged(const int32_t id,
-                                       const uint32_t SSRC) OVERRIDE {}
+                                       const uint32_t SSRC) override {}
 
     virtual void OnIncomingCSRCChanged(const int32_t id,
                                        const uint32_t CSRC,
-                                       const bool added) OVERRIDE {}
+                                       const bool added) override {}
 
 
     // Inherited from RtpData
     virtual int32_t OnReceivedPayloadData(
         const uint8_t* payloadData,
         const uint16_t payloadSize,
-        const webrtc::WebRtcRTPHeader* rtpHeader) OVERRIDE;
+        const webrtc::WebRtcRTPHeader* rtpHeader) override;
 
 
     // Inherited from UdpTransportData
     virtual void IncomingRTPPacket(const int8_t* incomingRtpPacket,
                                    const int32_t rtpPacketLength,
                                    const int8_t* fromIP,
-                                   const uint16_t fromPort) OVERRIDE;
+                                   const uint16_t fromPort) override;
 
     virtual void IncomingRTCPPacket(const int8_t* incomingRtcpPacket,
                                     const int32_t rtcpPacketLength,
                                     const int8_t* fromIP,
-                                    const uint16_t fromPort) OVERRIDE;
+                                    const uint16_t fromPort) override;
 
 
 

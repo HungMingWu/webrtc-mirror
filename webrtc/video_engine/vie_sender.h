@@ -40,8 +40,8 @@ class ViESender: public Transport {
   int StopRTPDump();
 
   // Implements Transport.
-  virtual int SendPacket(int vie_id, const void* data, int len) OVERRIDE;
-  virtual int SendRTCPPacket(int vie_id, const void* data, int len) OVERRIDE;
+  virtual int SendPacket(int vie_id, const void* data, int len) override;
+  virtual int SendRTCPPacket(int vie_id, const void* data, int len) override;
 
  private:
   const int32_t channel_id_;

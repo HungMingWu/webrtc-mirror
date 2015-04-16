@@ -35,7 +35,7 @@ class FilePlayerTest : public ::testing::Test {
       : player_(FilePlayer::CreateFilePlayer(kId, kFileFormat)),
         output_file_(NULL) {}
 
-  virtual void SetUp() OVERRIDE {
+  virtual void SetUp() override {
     if (FLAGS_file_player_output) {
       std::string output_file =
           webrtc::test::OutputPath() + "file_player_unittest_out.pcm";
@@ -44,7 +44,7 @@ class FilePlayerTest : public ::testing::Test {
     }
   }
 
-  virtual void TearDown() OVERRIDE {
+  virtual void TearDown() override {
     if (output_file_)
       fclose(output_file_);
   }

@@ -333,18 +333,18 @@ class NullRtpFeedback : public RtpFeedback {
       const char payloadName[RTP_PAYLOAD_NAME_SIZE],
       const int frequency,
       const uint8_t channels,
-      const uint32_t rate) OVERRIDE {
+      const uint32_t rate) override {
     return 0;
   }
 
   virtual void OnIncomingSSRCChanged(const int32_t id,
-                                     const uint32_t ssrc) OVERRIDE {}
+                                     const uint32_t ssrc) override {}
 
   virtual void OnIncomingCSRCChanged(const int32_t id,
                                      const uint32_t CSRC,
-                                     const bool added) OVERRIDE {}
+                                     const bool added) override {}
 
-  virtual void ResetStatistics(uint32_t ssrc) OVERRIDE {}
+  virtual void ResetStatistics(uint32_t ssrc) override {}
 };
 
 // Null object version of RtpData.
@@ -355,12 +355,12 @@ class NullRtpData : public RtpData {
   virtual int32_t OnReceivedPayloadData(
       const uint8_t* payloadData,
       const uint16_t payloadSize,
-      const WebRtcRTPHeader* rtpHeader) OVERRIDE {
+      const WebRtcRTPHeader* rtpHeader) override {
     return 0;
   }
 
   virtual bool OnRecoveredPacket(const uint8_t* packet,
-                                 int packet_length) OVERRIDE {
+                                 int packet_length) override {
     return true;
   }
 };
@@ -373,7 +373,7 @@ class NullRtpAudioFeedback : public RtpAudioFeedback {
   virtual void OnPlayTelephoneEvent(const int32_t id,
                                     const uint8_t event,
                                     const uint16_t lengthMs,
-                                    const uint8_t volume) OVERRIDE {}
+                                    const uint8_t volume) override {}
 };
 
 }  // namespace webrtc

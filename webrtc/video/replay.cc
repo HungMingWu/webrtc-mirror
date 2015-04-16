@@ -145,7 +145,7 @@ class FileRenderPassthrough : public VideoRenderer {
 
  private:
   virtual void RenderFrame(const I420VideoFrame& video_frame,
-                           int time_to_render_ms) OVERRIDE {
+                           int time_to_render_ms) override {
     if (renderer_ != NULL)
       renderer_->RenderFrame(video_frame, time_to_render_ms);
     if (basename_ == "")

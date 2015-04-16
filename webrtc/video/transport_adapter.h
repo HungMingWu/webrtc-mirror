@@ -23,10 +23,10 @@ class TransportAdapter : public webrtc::Transport {
 
   virtual int SendPacket(int /*channel*/,
                          const void* packet,
-                         int length) OVERRIDE;
+                         int length) override;
   virtual int SendRTCPPacket(int /*channel*/,
                              const void* packet,
-                             int length) OVERRIDE;
+                             int length) override;
 
   void Enable();
   void Disable();

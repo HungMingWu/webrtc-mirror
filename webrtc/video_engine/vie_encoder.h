@@ -96,13 +96,13 @@ class ViEEncoder
   virtual void DeliverFrame(int id,
                             I420VideoFrame* video_frame,
                             int num_csrcs = 0,
-                            const uint32_t CSRC[kRtpCsrcSize] = NULL) OVERRIDE;
-  virtual void DelayChanged(int id, int frame_delay) OVERRIDE;
+                            const uint32_t CSRC[kRtpCsrcSize] = NULL) override;
+  virtual void DelayChanged(int id, int frame_delay) override;
   virtual int GetPreferedFrameSettings(int* width,
                                        int* height,
-                                       int* frame_rate) OVERRIDE;
+                                       int* frame_rate) override;
 
-  virtual void ProviderDestroyed(int id) OVERRIDE {
+  virtual void ProviderDestroyed(int id) override {
     return;
   }
 
@@ -129,7 +129,7 @@ class ViEEncoder
     const uint8_t* payload_data,
     uint32_t payload_size,
     const RTPFragmentationHeader& fragmentation_header,
-    const RTPVideoHeader* rtp_video_hdr) OVERRIDE;
+    const RTPVideoHeader* rtp_video_hdr) override;
 
   // Implements VideoProtectionCallback.
   virtual int ProtectionRequest(
@@ -137,20 +137,20 @@ class ViEEncoder
       const FecProtectionParams* key_fec_params,
       uint32_t* sent_video_rate_bps,
       uint32_t* sent_nack_rate_bps,
-      uint32_t* sent_fec_rate_bps) OVERRIDE;
+      uint32_t* sent_fec_rate_bps) override;
 
   // Implements VideoSendStatisticsCallback.
   virtual int32_t SendStatistics(const uint32_t bit_rate,
-                                 const uint32_t frame_rate) OVERRIDE;
+                                 const uint32_t frame_rate) override;
 
   int32_t RegisterCodecObserver(ViEEncoderObserver* observer);
 
   // Implements RtcpIntraFrameObserver.
-  virtual void OnReceivedIntraFrameRequest(uint32_t ssrc) OVERRIDE;
-  virtual void OnReceivedSLI(uint32_t ssrc, uint8_t picture_id) OVERRIDE;
-  virtual void OnReceivedRPSI(uint32_t ssrc, uint64_t picture_id) OVERRIDE;
+  virtual void OnReceivedIntraFrameRequest(uint32_t ssrc) override;
+  virtual void OnReceivedSLI(uint32_t ssrc, uint8_t picture_id) override;
+  virtual void OnReceivedRPSI(uint32_t ssrc, uint64_t picture_id) override;
   virtual void OnLocalSsrcChanged(uint32_t old_ssrc,
-                                  uint32_t new_ssrc) OVERRIDE;
+                                  uint32_t new_ssrc) override;
 
   // Sets SSRCs for all streams.
   bool SetSsrcs(const std::list<unsigned int>& ssrcs);

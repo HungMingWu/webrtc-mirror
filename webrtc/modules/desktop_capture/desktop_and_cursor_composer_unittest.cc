@@ -74,11 +74,11 @@ class FakeScreenCapturer : public DesktopCapturer {
  public:
   FakeScreenCapturer() {}
 
-  virtual void Start(Callback* callback) OVERRIDE {
+  virtual void Start(Callback* callback) override {
     callback_ = callback;
   }
 
-  virtual void Capture(const DesktopRegion& region) OVERRIDE {
+  virtual void Capture(const DesktopRegion& region) override {
     callback_->OnCaptureCompleted(next_frame_.release());
   }
 
@@ -107,11 +107,11 @@ class FakeMouseMonitor : public MouseCursorMonitor {
     hotspot_ = hotspot;
   }
 
-  virtual void Init(Callback* callback, Mode mode) OVERRIDE {
+  virtual void Init(Callback* callback, Mode mode) override {
     callback_ = callback;
   }
 
-  virtual void Capture() OVERRIDE {
+  virtual void Capture() override {
     if (changed_) {
       scoped_ptr<DesktopFrame> image(
           new BasicDesktopFrame(DesktopSize(kCursorWidth, kCursorHeight)));
@@ -172,11 +172,11 @@ class DesktopAndCursorComposerTest : public testing::Test,
   }
 
   // DesktopCapturer::Callback interface
-  virtual SharedMemory* CreateSharedMemory(size_t size) OVERRIDE {
+  virtual SharedMemory* CreateSharedMemory(size_t size) override {
     return NULL;
   }
 
-  virtual void OnCaptureCompleted(DesktopFrame* frame) OVERRIDE {
+  virtual void OnCaptureCompleted(DesktopFrame* frame) override {
     frame_.reset(frame);
   }
 

@@ -33,12 +33,12 @@ class FakeAudioDevice : public FakeAudioDeviceModule {
 
   virtual ~FakeAudioDevice();
 
-  virtual int32_t Init() OVERRIDE;
-  virtual int32_t RegisterAudioCallback(AudioTransport* callback) OVERRIDE;
+  virtual int32_t Init() override;
+  virtual int32_t RegisterAudioCallback(AudioTransport* callback) override;
 
-  virtual bool Playing() const OVERRIDE;
-  virtual int32_t PlayoutDelay(uint16_t* delay_ms) const OVERRIDE;
-  virtual bool Recording() const OVERRIDE;
+  virtual bool Playing() const override;
+  virtual int32_t PlayoutDelay(uint16_t* delay_ms) const override;
+  virtual bool Recording() const override;
 
   void Start();
   void Stop();

@@ -39,23 +39,23 @@ class ViEImageProcessImpl
                                      const bool enable);
   virtual void RegisterPreEncodeCallback(
       int video_channel,
-      I420FrameCallback* pre_encode_callback) OVERRIDE;
-  virtual void DeRegisterPreEncodeCallback(int video_channel) OVERRIDE;
+      I420FrameCallback* pre_encode_callback) override;
+  virtual void DeRegisterPreEncodeCallback(int video_channel) override;
 
   virtual void RegisterPostEncodeImageCallback(
       int video_channel,
-      EncodedImageCallback* post_encode_callback) OVERRIDE;
-  virtual void DeRegisterPostEncodeCallback(int video_channel) OVERRIDE;
+      EncodedImageCallback* post_encode_callback) override;
+  virtual void DeRegisterPostEncodeCallback(int video_channel) override;
 
   virtual void RegisterPreDecodeImageCallback(
         int video_channel,
-        EncodedImageCallback* post_encode_callback) OVERRIDE;
-  virtual void DeRegisterPreDecodeCallback(int video_channel) OVERRIDE;
+        EncodedImageCallback* post_encode_callback) override;
+  virtual void DeRegisterPreDecodeCallback(int video_channel) override;
 
   virtual void RegisterPreRenderCallback(
       int video_channel,
-      I420FrameCallback* pre_render_callback) OVERRIDE;
-  virtual void DeRegisterPreRenderCallback(int video_channel) OVERRIDE;
+      I420FrameCallback* pre_render_callback) override;
+  virtual void DeRegisterPreRenderCallback(int video_channel) override;
 
  protected:
   explicit ViEImageProcessImpl(ViESharedData* shared_data);

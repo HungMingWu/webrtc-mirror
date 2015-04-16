@@ -575,7 +575,7 @@ class WebRtcOveruseObserver : public webrtc::CpuOveruseObserver {
   // TODO(mflodman): Consider sending resolution as part of event, to let
   // adapter know what resolution the request is based on. Helps eliminate stale
   // data, race conditions.
-  virtual void OveruseDetected() OVERRIDE {
+  virtual void OveruseDetected() override {
     rtc::CritScope cs(&crit_);
     if (!enabled_) {
       return;
@@ -584,7 +584,7 @@ class WebRtcOveruseObserver : public webrtc::CpuOveruseObserver {
     video_adapter_->OnCpuResolutionRequest(CoordinatedVideoAdapter::DOWNGRADE);
   }
 
-  virtual void NormalUsage() OVERRIDE {
+  virtual void NormalUsage() override {
     rtc::CritScope cs(&crit_);
     if (!enabled_) {
       return;

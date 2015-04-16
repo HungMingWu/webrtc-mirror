@@ -31,12 +31,12 @@ class VoiceChannelTransport : public UdpTransportData {
   virtual void IncomingRTPPacket(const int8_t* incoming_rtp_packet,
                                  const int32_t packet_length,
                                  const char* /*from_ip*/,
-                                 const uint16_t /*from_port*/) OVERRIDE;
+                                 const uint16_t /*from_port*/) override;
 
   virtual void IncomingRTCPPacket(const int8_t* incoming_rtcp_packet,
                                   const int32_t packet_length,
                                   const char* /*from_ip*/,
-                                  const uint16_t /*from_port*/) OVERRIDE;
+                                  const uint16_t /*from_port*/) override;
   // End implementation of UdpTransportData.
 
   // Specifies the ports to receive RTP packets on.
@@ -62,12 +62,12 @@ class VideoChannelTransport : public UdpTransportData {
   virtual void IncomingRTPPacket(const int8_t* incoming_rtp_packet,
                          const int32_t packet_length,
                          const char* /*from_ip*/,
-                         const uint16_t /*from_port*/) OVERRIDE;
+                         const uint16_t /*from_port*/) override;
 
   virtual void IncomingRTCPPacket(const int8_t* incoming_rtcp_packet,
                           const int32_t packet_length,
                           const char* /*from_ip*/,
-                          const uint16_t /*from_port*/) OVERRIDE;
+                          const uint16_t /*from_port*/) override;
   // End implementation of UdpTransportData.
 
   // Specifies the ports to receive RTP packets on.

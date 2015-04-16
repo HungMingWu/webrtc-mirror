@@ -63,7 +63,7 @@ class RtpPacketizerVp8 : public RtpPacketizer {
   virtual void SetPayloadData(
       const uint8_t* payload_data,
       size_t payload_size,
-      const RTPFragmentationHeader* fragmentation) OVERRIDE;
+      const RTPFragmentationHeader* fragmentation) override;
 
   // Get the next payload with VP8 payload header.
   // max_payload_len limits the sum length of payload and VP8 payload header.
@@ -78,13 +78,13 @@ class RtpPacketizerVp8 : public RtpPacketizer {
   // For the kEqualSize mode: returns 0 on success, return negative on error.
   virtual bool NextPacket(uint8_t* buffer,
                           size_t* bytes_to_send,
-                          bool* last_packet) OVERRIDE;
+                          bool* last_packet) override;
 
-  virtual ProtectionType GetProtectionType() OVERRIDE;
+  virtual ProtectionType GetProtectionType() override;
 
-  virtual StorageType GetStorageType(uint32_t retransmission_settings) OVERRIDE;
+  virtual StorageType GetStorageType(uint32_t retransmission_settings) override;
 
-  virtual std::string ToString() OVERRIDE;
+  virtual std::string ToString() override;
 
  private:
   typedef struct {
@@ -223,7 +223,7 @@ class RtpDepacketizerVp8 : public RtpDepacketizer {
 
   virtual bool Parse(ParsedPayload* parsed_payload,
                      const uint8_t* payload_data,
-                     size_t payload_data_length) OVERRIDE;
+                     size_t payload_data_length) override;
 };
 }  // namespace webrtc
 #endif  // WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP8_H_

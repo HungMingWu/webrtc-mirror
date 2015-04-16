@@ -223,12 +223,12 @@ class FrameDropMonitoringRemoteFileRenderer : public ViEToFileRenderer {
 
   // Implementation of ExternalRenderer:
   int FrameSizeChange(unsigned int width, unsigned int height,
-                      unsigned int number_of_streams) OVERRIDE;
+                      unsigned int number_of_streams) override;
   int DeliverFrame(unsigned char* buffer, int buffer_size,
                    uint32_t time_stamp,
                    int64_t ntp_time_ms,
                    int64_t render_time,
-                   void* handle) OVERRIDE;
+                   void* handle) override;
  private:
   FrameDropDetector* frame_drop_detector_;
 };

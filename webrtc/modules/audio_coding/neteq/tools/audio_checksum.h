@@ -27,7 +27,7 @@ class AudioChecksum : public AudioSink {
  public:
   AudioChecksum() : finished_(false) {}
 
-  virtual bool WriteArray(const int16_t* audio, size_t num_samples) OVERRIDE {
+  virtual bool WriteArray(const int16_t* audio, size_t num_samples) override {
     if (finished_)
       return false;
 

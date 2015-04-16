@@ -53,10 +53,10 @@ class FrameWriterImpl : public FrameWriter {
   //                           For YUV: 3*width*height/2
   FrameWriterImpl(std::string output_filename, size_t frame_length_in_bytes);
   virtual ~FrameWriterImpl();
-  virtual bool Init() OVERRIDE;
-  virtual bool WriteFrame(uint8_t* frame_buffer) OVERRIDE;
-  virtual void Close() OVERRIDE;
-  virtual size_t FrameLength() OVERRIDE;
+  virtual bool Init() override;
+  virtual bool WriteFrame(uint8_t* frame_buffer) override;
+  virtual void Close() override;
+  virtual size_t FrameLength() override;
 
  private:
   std::string output_filename_;

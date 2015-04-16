@@ -15,9 +15,9 @@
 
 class NETEQTEST_DummyRTPpacket : public NETEQTEST_RTPpacket {
  public:
-  virtual int readFromFile(FILE* fp) OVERRIDE;
-  virtual int writeToFile(FILE* fp) OVERRIDE;
-  virtual void parseHeader() OVERRIDE;
+  virtual int readFromFile(FILE* fp) override;
+  virtual int writeToFile(FILE* fp) override;
+  virtual void parseHeader() override;
 };
 
 #endif  // NETEQTEST_DUMMYRTPPACKET_H

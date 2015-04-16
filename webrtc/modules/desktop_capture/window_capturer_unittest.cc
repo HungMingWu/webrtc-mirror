@@ -22,20 +22,20 @@ namespace webrtc {
 class WindowCapturerTest : public testing::Test,
                            public DesktopCapturer::Callback {
  public:
-  void SetUp() OVERRIDE {
+  void SetUp() override {
     capturer_.reset(
         WindowCapturer::Create(DesktopCaptureOptions::CreateDefault()));
   }
 
-  void TearDown() OVERRIDE {
+  void TearDown() override {
   }
 
   // DesktopCapturer::Callback interface
-  virtual SharedMemory* CreateSharedMemory(size_t size) OVERRIDE {
+  virtual SharedMemory* CreateSharedMemory(size_t size) override {
     return NULL;
   }
 
-  virtual void OnCaptureCompleted(DesktopFrame* frame) OVERRIDE {
+  virtual void OnCaptureCompleted(DesktopFrame* frame) override {
     frame_.reset(frame);
   }
 

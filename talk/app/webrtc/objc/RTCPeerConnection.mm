@@ -62,7 +62,7 @@ class RTCCreateSessionDescriptionObserver
     _peerConnection = peerConnection;
   }
 
-  virtual void OnSuccess(SessionDescriptionInterface* desc) OVERRIDE {
+  virtual void OnSuccess(SessionDescriptionInterface* desc) override {
     RTCSessionDescription* session =
         [[RTCSessionDescription alloc] initWithSessionDescription:desc];
     [_delegate peerConnection:_peerConnection
@@ -70,7 +70,7 @@ class RTCCreateSessionDescriptionObserver
                               error:nil];
   }
 
-  virtual void OnFailure(const std::string& error) OVERRIDE {
+  virtual void OnFailure(const std::string& error) override {
     NSString* str = @(error.c_str());
     NSError* err =
         [NSError errorWithDomain:kRTCSessionDescriptionDelegateErrorDomain
@@ -94,12 +94,12 @@ class RTCSetSessionDescriptionObserver : public SetSessionDescriptionObserver {
     _peerConnection = peerConnection;
   }
 
-  virtual void OnSuccess() OVERRIDE {
+  virtual void OnSuccess() override {
     [_delegate peerConnection:_peerConnection
         didSetSessionDescriptionWithError:nil];
   }
 
-  virtual void OnFailure(const std::string& error) OVERRIDE {
+  virtual void OnFailure(const std::string& error) override {
     NSString* str = @(error.c_str());
     NSError* err =
         [NSError errorWithDomain:kRTCSessionDescriptionDelegateErrorDomain
@@ -122,7 +122,7 @@ class RTCStatsObserver : public StatsObserver {
     _peerConnection = peerConnection;
   }
 
-  virtual void OnComplete(const std::vector<StatsReport>& reports) OVERRIDE {
+  virtual void OnComplete(const std::vector<StatsReport>& reports) override {
     NSMutableArray* stats = [NSMutableArray arrayWithCapacity:reports.size()];
     std::vector<StatsReport>::const_iterator it = reports.begin();
     for (; it != reports.end(); ++it) {

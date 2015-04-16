@@ -23,8 +23,8 @@ class CriticalSectionPosix : public CriticalSectionWrapper {
 
   virtual ~CriticalSectionPosix();
 
-  virtual void Enter() OVERRIDE;
-  virtual void Leave() OVERRIDE;
+  virtual void Enter() override;
+  virtual void Leave() override;
 
  private:
   pthread_mutex_t mutex_;

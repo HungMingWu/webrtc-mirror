@@ -30,7 +30,7 @@ class ScreenCapturerTest : public testing::Test {
  public:
   SharedMemory* CreateSharedMemory(size_t size);
 
-  virtual void SetUp() OVERRIDE {
+  virtual void SetUp() override {
     capturer_.reset(
         ScreenCapturer::Create(DesktopCaptureOptions::CreateDefault()));
   }

@@ -26,8 +26,8 @@ class MouseCursorMonitorWin : public MouseCursorMonitor {
   explicit MouseCursorMonitorWin(ScreenId screen);
   virtual ~MouseCursorMonitorWin();
 
-  virtual void Init(Callback* callback, Mode mode) OVERRIDE;
-  virtual void Capture() OVERRIDE;
+  virtual void Init(Callback* callback, Mode mode) override;
+  virtual void Capture() override;
 
  private:
   // Get the rect of the currently selected screen, relative to the primary

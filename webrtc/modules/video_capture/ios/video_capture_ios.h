@@ -27,10 +27,10 @@ class VideoCaptureIos : public VideoCaptureImpl {
 
   // Implementation of VideoCaptureImpl.
   virtual int32_t StartCapture(
-      const VideoCaptureCapability& capability) OVERRIDE;
-  virtual int32_t StopCapture() OVERRIDE;
-  virtual bool CaptureStarted() OVERRIDE;
-  virtual int32_t CaptureSettings(VideoCaptureCapability& settings) OVERRIDE;
+      const VideoCaptureCapability& capability) override;
+  virtual int32_t StopCapture() override;
+  virtual bool CaptureStarted() override;
+  virtual int32_t CaptureSettings(VideoCaptureCapability& settings) override;
 
  private:
   RTCVideoCaptureIosObjC* capture_device_;

@@ -88,7 +88,7 @@ class PacketizationCallbackStub : public AudioPacketizationCallback {
       uint32_t timestamp,
       const uint8_t* payload_data,
       uint16_t payload_len_bytes,
-      const RTPFragmentationHeader* fragmentation) OVERRIDE {
+      const RTPFragmentationHeader* fragmentation) override {
     CriticalSectionScoped lock(crit_sect_.get());
     ++num_calls_;
     last_payload_vec_.assign(payload_data, payload_data + payload_len_bytes);
@@ -125,9 +125,9 @@ class AudioCodingModuleTest : public ::testing::Test {
 
   ~AudioCodingModuleTest() {}
 
-  void TearDown() OVERRIDE {}
+  void TearDown() override {}
 
-  void SetUp() OVERRIDE {
+  void SetUp() override {
     rtp_utility_->Populate(&rtp_header_);
 
     input_frame_.sample_rate_hz_ = kSampleRateHz;
@@ -309,7 +309,7 @@ class AudioCodingModuleMtTest : public AudioCodingModuleTest {
     config_.clock = fake_clock_.get();
   }
 
-  virtual void SetUp() OVERRIDE {
+  virtual void SetUp() override {
     AudioCodingModuleTest::SetUp();
     CreateAcm();
     StartThreads();
@@ -322,7 +322,7 @@ class AudioCodingModuleMtTest : public AudioCodingModuleTest {
     ASSERT_TRUE(pull_audio_thread_->Start(thread_id));
   }
 
-  virtual void TearDown() OVERRIDE {
+  virtual void TearDown() override {
     AudioCodingModuleTest::TearDown();
     pull_audio_thread_->Stop();
     send_thread_->Stop();
@@ -437,7 +437,7 @@ class AcmIsacMtTest : public AudioCodingModuleMtTest {
 
   ~AcmIsacMtTest() {}
 
-  virtual void SetUp() OVERRIDE {
+  virtual void SetUp() override {
     AudioCodingModuleTest::SetUp();
     CreateAcm();
 
@@ -460,7 +460,7 @@ class AcmIsacMtTest : public AudioCodingModuleMtTest {
     StartThreads();
   }
 
-  virtual void RegisterCodec() OVERRIDE {
+  virtual void RegisterCodec() override {
     COMPILE_ASSERT(kSampleRateHz == 16000, test_designed_for_isac_16khz);
 
     // Register iSAC codec in ACM, effectively unregistering the PCM16B codec
@@ -470,7 +470,7 @@ class AcmIsacMtTest : public AudioCodingModuleMtTest {
         acm_->RegisterReceiveCodec(acm2::ACMCodecDB::kISAC, kPayloadType));
   }
 
-  virtual void InsertPacket() OVERRIDE {
+  virtual void InsertPacket() override {
     int num_calls = packet_cb_.num_calls();  // Store locally for thread safety.
     if (num_calls > last_packet_number_) {
       // Get the new payload out from the callback handler.
@@ -487,14 +487,14 @@ class AcmIsacMtTest : public AudioCodingModuleMtTest {
         &last_payload_vec_[0], last_payload_vec_.size(), rtp_header_));
   }
 
-  virtual void InsertAudio() OVERRIDE {
+  virtual void InsertAudio() override {
     memcpy(input_frame_.data_, audio_loop_.GetNextBlock(), kNumSamples10ms);
     AudioCodingModuleTest::InsertAudio();
   }
 
   // This method is the same as AudioCodingModuleMtTest::TestDone(), but here
   // it is using the constants defined in this class (i.e., shorter test run).
-  virtual bool TestDone() OVERRIDE {
+  virtual bool TestDone() override {
     if (packet_cb_.num_calls() > kNumPackets) {
       CriticalSectionScoped lock(crit_sect_.get());
       if (pull_audio_count_ > kNumPullCalls) {
@@ -685,7 +685,7 @@ class AcmSenderBitExactness : public ::testing::Test,
   // Returns a pointer to the next packet. Returns NULL if the source is
   // depleted (i.e., the test duration is exceeded), or if an error occurred.
   // Inherited from test::PacketSource.
-  virtual test::Packet* NextPacket() OVERRIDE {
+  virtual test::Packet* NextPacket() override {
     // Get the next packet from AcmSendTest. Ownership of |packet| is
     // transferred to this method.
     test::Packet* packet = send_test_->NextPacket();

@@ -61,7 +61,7 @@ class CallDoStuffOnThread : public Thread {
     SetName("call_do_stuff_on_thread", NULL);
   }
 
-  virtual void Run() OVERRIDE {
+  virtual void Run() override {
     thread_checker_class_->DoStuff();
   }
 
@@ -87,7 +87,7 @@ class DeleteThreadCheckerClassOnThread : public Thread {
     SetName("delete_thread_checker_class_on_thread", NULL);
   }
 
-  virtual void Run() OVERRIDE {
+  virtual void Run() override {
     thread_checker_class_.reset();
   }
 

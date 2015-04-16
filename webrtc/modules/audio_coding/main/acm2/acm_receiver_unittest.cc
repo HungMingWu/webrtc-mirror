@@ -55,7 +55,7 @@ class AcmReceiverTest : public AudioPacketizationCallback,
 
   ~AcmReceiverTest() {}
 
-  virtual void SetUp() OVERRIDE {
+  virtual void SetUp() override {
     ASSERT_TRUE(receiver_.get() != NULL);
     ASSERT_TRUE(acm_.get() != NULL);
     for (int n = 0; n < ACMCodecDB::kNumCodecs; n++) {
@@ -72,7 +72,7 @@ class AcmReceiverTest : public AudioPacketizationCallback,
     rtp_header_.type.Audio.isCNG = false;
   }
 
-  virtual void TearDown() OVERRIDE {
+  virtual void TearDown() override {
   }
 
   void InsertOnePacketOfSilence(int codec_id) {
@@ -121,7 +121,7 @@ class AcmReceiverTest : public AudioPacketizationCallback,
       uint32_t timestamp,
       const uint8_t* payload_data,
       uint16_t payload_len_bytes,
-      const RTPFragmentationHeader* fragmentation) OVERRIDE {
+      const RTPFragmentationHeader* fragmentation) override {
     if (frame_type == kFrameEmpty)
       return 0;
 

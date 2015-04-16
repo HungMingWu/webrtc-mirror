@@ -30,7 +30,7 @@ class TestBitrateObserver : public RemoteBitrateObserver {
   virtual ~TestBitrateObserver() {}
 
   virtual void OnReceiveBitrateChanged(const std::vector<unsigned int>& ssrcs,
-                                       unsigned int bitrate) OVERRIDE;
+                                       unsigned int bitrate) override;
 
   void Reset() { updated_ = false; }
 

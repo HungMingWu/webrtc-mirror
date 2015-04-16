@@ -52,7 +52,7 @@ class AcmSendTestOldApi : public AudioPacketizationCallback,
       uint32_t timestamp,
       const uint8_t* payload_data,
       uint16_t payload_len_bytes,
-      const RTPFragmentationHeader* fragmentation) OVERRIDE;
+      const RTPFragmentationHeader* fragmentation) override;
 
  private:
   static const int kBlockSizeMs = 10;

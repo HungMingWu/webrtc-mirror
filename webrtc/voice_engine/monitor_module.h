@@ -40,11 +40,11 @@ public:
 
     virtual ~MonitorModule();
 public:	// module
-    virtual int32_t ChangeUniqueId(int32_t id) OVERRIDE;
+    virtual int32_t ChangeUniqueId(int32_t id) override;
 
-    virtual int32_t TimeUntilNextProcess() OVERRIDE;
+    virtual int32_t TimeUntilNextProcess() override;
 
-    virtual int32_t Process() OVERRIDE;
+    virtual int32_t Process() override;
 private:
     enum { kAverageProcessUpdateTimeMs = 1000 };
     MonitorObserver* _observerPtr;

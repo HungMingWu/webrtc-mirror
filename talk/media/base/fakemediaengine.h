@@ -436,8 +436,8 @@ class FakeVoiceMediaChannel : public RtpHelper<VoiceMediaChannel> {
                         int bits_per_sample,
                         int sample_rate,
                         int number_of_channels,
-                        int number_of_frames) OVERRIDE {}
-    virtual void OnClose() OVERRIDE {
+                        int number_of_frames) override {}
+    virtual void OnClose() override {
       renderer_ = NULL;
     }
     AudioRenderer* renderer() const { return renderer_; }

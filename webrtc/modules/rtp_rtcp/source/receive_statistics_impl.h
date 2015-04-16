@@ -30,14 +30,14 @@ class StreamStatisticianImpl : public StreamStatistician {
                          StreamDataCountersCallback* rtp_callback);
   virtual ~StreamStatisticianImpl() {}
 
-  virtual bool GetStatistics(RtcpStatistics* statistics, bool reset) OVERRIDE;
+  virtual bool GetStatistics(RtcpStatistics* statistics, bool reset) override;
   virtual void GetDataCounters(uint32_t* bytes_received,
-                               uint32_t* packets_received) const OVERRIDE;
-  virtual uint32_t BitrateReceived() const OVERRIDE;
-  virtual void ResetStatistics() OVERRIDE;
+                               uint32_t* packets_received) const override;
+  virtual uint32_t BitrateReceived() const override;
+  virtual void ResetStatistics() override;
   virtual bool IsRetransmitOfOldPacket(const RTPHeader& header,
-                                       int min_rtt) const OVERRIDE;
-  virtual bool IsPacketInOrder(uint16_t sequence_number) const OVERRIDE;
+                                       int min_rtt) const override;
+  virtual bool IsPacketInOrder(uint16_t sequence_number) const override;
 
   void IncomingPacket(const RTPHeader& rtp_header,
                       size_t bytes,
@@ -104,27 +104,27 @@ class ReceiveStatisticsImpl : public ReceiveStatistics,
   // Implement ReceiveStatistics.
   virtual void IncomingPacket(const RTPHeader& header,
                               size_t bytes,
-                              bool retransmitted) OVERRIDE;
-  virtual void FecPacketReceived(uint32_t ssrc) OVERRIDE;
-  virtual StatisticianMap GetActiveStatisticians() const OVERRIDE;
-  virtual StreamStatistician* GetStatistician(uint32_t ssrc) const OVERRIDE;
-  virtual void SetMaxReorderingThreshold(int max_reordering_threshold) OVERRIDE;
+                              bool retransmitted) override;
+  virtual void FecPacketReceived(uint32_t ssrc) override;
+  virtual StatisticianMap GetActiveStatisticians() const override;
+  virtual StreamStatistician* GetStatistician(uint32_t ssrc) const override;
+  virtual void SetMaxReorderingThreshold(int max_reordering_threshold) override;
 
   // Implement Module.
-  virtual int32_t Process() OVERRIDE;
-  virtual int32_t TimeUntilNextProcess() OVERRIDE;
+  virtual int32_t Process() override;
+  virtual int32_t TimeUntilNextProcess() override;
 
   virtual void RegisterRtcpStatisticsCallback(RtcpStatisticsCallback* callback)
-      OVERRIDE;
+      override;
 
   virtual void RegisterRtpStatisticsCallback(
-      StreamDataCountersCallback* callback) OVERRIDE;
+      StreamDataCountersCallback* callback) override;
 
  private:
   virtual void StatisticsUpdated(const RtcpStatistics& statistics,
-                                 uint32_t ssrc) OVERRIDE;
+                                 uint32_t ssrc) override;
   virtual void DataCountersUpdated(const StreamDataCounters& counters,
-                                   uint32_t ssrc) OVERRIDE;
+                                   uint32_t ssrc) override;
 
   typedef std::map<uint32_t, StreamStatisticianImpl*> StatisticianImplMap;
 

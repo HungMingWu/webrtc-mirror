@@ -40,39 +40,39 @@ class SendStatisticsProxy : public RtcpStatisticsCallback,
  protected:
   // From RtcpStatisticsCallback.
   virtual void StatisticsUpdated(const RtcpStatistics& statistics,
-                                 uint32_t ssrc) OVERRIDE;
+                                 uint32_t ssrc) override;
   // From StreamDataCountersCallback.
   virtual void DataCountersUpdated(const StreamDataCounters& counters,
-                                   uint32_t ssrc) OVERRIDE;
+                                   uint32_t ssrc) override;
 
   // From BitrateStatisticsObserver.
-  virtual void Notify(const BitrateStatistics& stats, uint32_t ssrc) OVERRIDE;
+  virtual void Notify(const BitrateStatistics& stats, uint32_t ssrc) override;
 
   // From FrameCountObserver.
   virtual void FrameCountUpdated(FrameType frame_type,
                                  uint32_t frame_count,
-                                 const unsigned int ssrc) OVERRIDE;
+                                 const unsigned int ssrc) override;
 
   // From ViEEncoderObserver.
   virtual void OutgoingRate(const int video_channel,
                             const unsigned int framerate,
-                            const unsigned int bitrate) OVERRIDE;
+                            const unsigned int bitrate) override;
 
-  virtual void SuspendChange(int video_channel, bool is_suspended) OVERRIDE;
+  virtual void SuspendChange(int video_channel, bool is_suspended) override;
 
   // From ViECaptureObserver.
   virtual void BrightnessAlarm(const int capture_id,
-                               const Brightness brightness) OVERRIDE {}
+                               const Brightness brightness) override {}
 
   virtual void CapturedFrameRate(const int capture_id,
-                                 const unsigned char frame_rate) OVERRIDE;
+                                 const unsigned char frame_rate) override;
 
   virtual void NoPictureAlarm(const int capture_id,
-                              const CaptureAlarm alarm) OVERRIDE {}
+                              const CaptureAlarm alarm) override {}
 
   virtual void SendSideDelayUpdated(int avg_delay_ms,
                                     int max_delay_ms,
-                                    uint32_t ssrc) OVERRIDE;
+                                    uint32_t ssrc) override;
 
  private:
   StreamStats* GetStatsEntry(uint32_t ssrc) EXCLUSIVE_LOCKS_REQUIRED(crit_);

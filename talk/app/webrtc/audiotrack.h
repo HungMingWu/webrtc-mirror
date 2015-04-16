@@ -42,21 +42,21 @@ class AudioTrack : public MediaStreamTrack<AudioTrackInterface> {
       const std::string& id, AudioSourceInterface* source);
 
   // AudioTrackInterface implementation.
-  virtual AudioSourceInterface* GetSource() const OVERRIDE {
+  virtual AudioSourceInterface* GetSource() const override {
     return audio_source_.get();
   }
   // TODO(xians): Implement these methods.
-  virtual void AddSink(AudioTrackSinkInterface* sink) OVERRIDE {}
-  virtual void RemoveSink(AudioTrackSinkInterface* sink) OVERRIDE {}
-  virtual bool GetSignalLevel(int* level) OVERRIDE { return false; }
+  virtual void AddSink(AudioTrackSinkInterface* sink) override {}
+  virtual void RemoveSink(AudioTrackSinkInterface* sink) override {}
+  virtual bool GetSignalLevel(int* level) override { return false; }
   virtual rtc::scoped_refptr<AudioProcessorInterface> GetAudioProcessor()
-      OVERRIDE { return NULL; }
-  virtual cricket::AudioRenderer* GetRenderer() OVERRIDE {
+      override { return NULL; }
+  virtual cricket::AudioRenderer* GetRenderer() override {
     return NULL;
   }
 
   // MediaStreamTrack implementation.
-  virtual std::string kind() const OVERRIDE;
+  virtual std::string kind() const override;
 
  protected:
   AudioTrack(const std::string& label, AudioSourceInterface* audio_source);

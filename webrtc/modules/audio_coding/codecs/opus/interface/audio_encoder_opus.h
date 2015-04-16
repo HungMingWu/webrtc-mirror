@@ -28,11 +28,11 @@ class AudioEncoderOpus : public AudioEncoder {
   };
 
   explicit AudioEncoderOpus(const Config& config);
-  virtual ~AudioEncoderOpus() OVERRIDE;
+  virtual ~AudioEncoderOpus() override;
 
-  virtual int sample_rate_hz() const OVERRIDE;
-  virtual int num_channels() const OVERRIDE;
-  virtual int Num10MsFramesInNextPacket() const OVERRIDE;
+  virtual int sample_rate_hz() const override;
+  virtual int num_channels() const override;
+  virtual int Num10MsFramesInNextPacket() const override;
 
  protected:
   virtual bool Encode(uint32_t timestamp,
@@ -40,7 +40,7 @@ class AudioEncoderOpus : public AudioEncoder {
                       size_t max_encoded_bytes,
                       uint8_t* encoded,
                       size_t* encoded_bytes,
-                      uint32_t* encoded_timestamp) OVERRIDE;
+                      uint32_t* encoded_timestamp) override;
 
  private:
   const int num_10ms_frames_per_packet_;

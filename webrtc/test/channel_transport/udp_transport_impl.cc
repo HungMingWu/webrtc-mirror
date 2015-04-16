@@ -73,7 +73,7 @@ class SocketFactory : public UdpTransportImpl::SocketFactoryInterface {
                                  CallbackObj obj,
                                  IncomingSocketCallback cb,
                                  bool ipV6Enable,
-                                 bool disableGQOS) OVERRIDE {
+                                 bool disableGQOS) override {
     return UdpSocketWrapper::CreateSocket(id, mgr, obj, cb, ipV6Enable,
                                           disableGQOS);
   }

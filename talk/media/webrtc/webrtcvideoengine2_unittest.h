@@ -53,16 +53,16 @@ class FakeVideoSendStream : public webrtc::VideoSendStream,
   int GetLastHeight() const;
 
  private:
-  virtual void SwapFrame(webrtc::I420VideoFrame* frame) OVERRIDE;
-  virtual webrtc::VideoSendStream::Stats GetStats() const OVERRIDE;
+  virtual void SwapFrame(webrtc::I420VideoFrame* frame) override;
+  virtual webrtc::VideoSendStream::Stats GetStats() const override;
 
   virtual bool ReconfigureVideoEncoder(
-      const webrtc::VideoEncoderConfig& config) OVERRIDE;
+      const webrtc::VideoEncoderConfig& config) override;
 
-  virtual webrtc::VideoSendStreamInput* Input() OVERRIDE;
+  virtual webrtc::VideoSendStreamInput* Input() override;
 
-  virtual void Start() OVERRIDE;
-  virtual void Stop() OVERRIDE;
+  virtual void Start() override;
+  virtual void Stop() override;
 
   bool sending_;
   webrtc::VideoSendStream::Config config_;
@@ -83,10 +83,10 @@ class FakeVideoReceiveStream : public webrtc::VideoReceiveStream {
   bool IsReceiving() const;
 
  private:
-  virtual webrtc::VideoReceiveStream::Stats GetStats() const OVERRIDE;
+  virtual webrtc::VideoReceiveStream::Stats GetStats() const override;
 
-  virtual void Start() OVERRIDE;
-  virtual void Stop() OVERRIDE;
+  virtual void Start() override;
+  virtual void Stop() override;
 
   webrtc::VideoReceiveStream::Config config_;
   bool receiving_;
@@ -115,22 +115,22 @@ class FakeCall : public webrtc::Call {
  private:
   virtual webrtc::VideoSendStream* CreateVideoSendStream(
       const webrtc::VideoSendStream::Config& config,
-      const webrtc::VideoEncoderConfig& encoder_config) OVERRIDE;
+      const webrtc::VideoEncoderConfig& encoder_config) override;
 
   virtual void DestroyVideoSendStream(
-      webrtc::VideoSendStream* send_stream) OVERRIDE;
+      webrtc::VideoSendStream* send_stream) override;
 
   virtual webrtc::VideoReceiveStream* CreateVideoReceiveStream(
-      const webrtc::VideoReceiveStream::Config& config) OVERRIDE;
+      const webrtc::VideoReceiveStream::Config& config) override;
 
   virtual void DestroyVideoReceiveStream(
-      webrtc::VideoReceiveStream* receive_stream) OVERRIDE;
-  virtual webrtc::PacketReceiver* Receiver() OVERRIDE;
+      webrtc::VideoReceiveStream* receive_stream) override;
+  virtual webrtc::PacketReceiver* Receiver() override;
 
-  virtual uint32_t SendBitrateEstimate() OVERRIDE;
-  virtual uint32_t ReceiveBitrateEstimate() OVERRIDE;
+  virtual uint32_t SendBitrateEstimate() override;
+  virtual uint32_t ReceiveBitrateEstimate() override;
 
-  virtual void SignalNetworkState(webrtc::Call::NetworkState state) OVERRIDE;
+  virtual void SignalNetworkState(webrtc::Call::NetworkState state) override;
 
   const webrtc::Call::Config config_;
   webrtc::Call::NetworkState network_state_;

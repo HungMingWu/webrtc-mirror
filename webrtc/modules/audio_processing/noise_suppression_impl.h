@@ -30,22 +30,22 @@ class NoiseSuppressionImpl : public NoiseSuppression,
   int ProcessCaptureAudio(AudioBuffer* audio);
 
   // NoiseSuppression implementation.
-  virtual bool is_enabled() const OVERRIDE;
-  virtual float speech_probability() const OVERRIDE;
+  virtual bool is_enabled() const override;
+  virtual float speech_probability() const override;
 
  private:
   // NoiseSuppression implementation.
-  virtual int Enable(bool enable) OVERRIDE;
-  virtual int set_level(Level level) OVERRIDE;
-  virtual Level level() const OVERRIDE;
+  virtual int Enable(bool enable) override;
+  virtual int set_level(Level level) override;
+  virtual Level level() const override;
 
   // ProcessingComponent implementation.
-  virtual void* CreateHandle() const OVERRIDE;
-  virtual int InitializeHandle(void* handle) const OVERRIDE;
-  virtual int ConfigureHandle(void* handle) const OVERRIDE;
-  virtual void DestroyHandle(void* handle) const OVERRIDE;
-  virtual int num_handles_required() const OVERRIDE;
-  virtual int GetHandleError(void* handle) const OVERRIDE;
+  virtual void* CreateHandle() const override;
+  virtual int InitializeHandle(void* handle) const override;
+  virtual int ConfigureHandle(void* handle) const override;
+  virtual void DestroyHandle(void* handle) const override;
+  virtual int num_handles_required() const override;
+  virtual int GetHandleError(void* handle) const override;
 
   const AudioProcessing* apm_;
   CriticalSectionWrapper* crit_;

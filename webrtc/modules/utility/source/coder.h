@@ -48,7 +48,7 @@ protected:
         uint32_t timeStamp,
         const uint8_t* payloadData,
         uint16_t payloadSize,
-        const RTPFragmentationHeader* fragmentation) OVERRIDE;
+        const RTPFragmentationHeader* fragmentation) override;
 
 private:
     scoped_ptr<AudioCodingModule> _acm;

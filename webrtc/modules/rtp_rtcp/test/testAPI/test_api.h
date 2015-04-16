@@ -43,7 +43,7 @@ class LoopBackTransport : public webrtc::Transport {
   void DropEveryNthPacket(int n) {
     _packetLoss = n;
   }
-  virtual int SendPacket(int channel, const void *data, int len) OVERRIDE {
+  virtual int SendPacket(int channel, const void *data, int len) override {
     _count++;
     if (_packetLoss > 0) {
       if ((_count % _packetLoss) == 0) {
@@ -70,7 +70,7 @@ class LoopBackTransport : public webrtc::Transport {
     }
     return len;
   }
-  virtual int SendRTCPPacket(int channel, const void *data, int len) OVERRIDE {
+  virtual int SendRTCPPacket(int channel, const void *data, int len) override {
     if (_rtpRtcpModule->IncomingRtcpPacket((const uint8_t*)data, len) < 0) {
       return -1;
     }
@@ -91,7 +91,7 @@ class TestRtpReceiver : public NullRtpData {
   virtual int32_t OnReceivedPayloadData(
       const uint8_t* payloadData,
       const uint16_t payloadSize,
-      const webrtc::WebRtcRTPHeader* rtpHeader) OVERRIDE {
+      const webrtc::WebRtcRTPHeader* rtpHeader) override {
     EXPECT_LE(payloadSize, sizeof(_payloadData));
     memcpy(_payloadData, payloadData, payloadSize);
     memcpy(&_rtpHeader, rtpHeader, sizeof(_rtpHeader));

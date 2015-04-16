@@ -16,28 +16,28 @@
 #include "webrtc/typedefs.h"
 
 #define WEBRTC_STUB(method, args) \
-  virtual int method args OVERRIDE { return 0; }
+  virtual int method args override { return 0; }
 
 #define WEBRTC_STUB_CONST(method, args) \
-  virtual int method args const OVERRIDE { return 0; }
+  virtual int method args const override { return 0; }
 
 #define WEBRTC_BOOL_STUB(method, args) \
-  virtual bool method args OVERRIDE { return true; }
+  virtual bool method args override { return true; }
 
 #define WEBRTC_VOID_STUB(method, args) \
-  virtual void method args OVERRIDE {}
+  virtual void method args override {}
 
 #define WEBRTC_FUNC(method, args) \
-  virtual int method args OVERRIDE
+  virtual int method args override
 
 #define WEBRTC_FUNC_CONST(method, args) \
-  virtual int method args const OVERRIDE
+  virtual int method args const override
 
 #define WEBRTC_BOOL_FUNC(method, args) \
-  virtual bool method args OVERRIDE
+  virtual bool method args override
 
 #define WEBRTC_VOID_FUNC(method, args) \
-  virtual void method args OVERRIDE
+  virtual void method args override
 
 #define WEBRTC_CHECK_CHANNEL(channel) \
   if (channels_.find(channel) == channels_.end()) return -1;

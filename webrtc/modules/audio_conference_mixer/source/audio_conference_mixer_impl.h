@@ -64,27 +64,27 @@ public:
     bool Init();
 
     // Module functions
-    virtual int32_t ChangeUniqueId(const int32_t id) OVERRIDE;
-    virtual int32_t TimeUntilNextProcess() OVERRIDE;
-    virtual int32_t Process() OVERRIDE;
+    virtual int32_t ChangeUniqueId(const int32_t id) override;
+    virtual int32_t TimeUntilNextProcess() override;
+    virtual int32_t Process() override;
 
     // AudioConferenceMixer functions
     virtual int32_t RegisterMixedStreamCallback(
-        AudioMixerOutputReceiver& mixReceiver) OVERRIDE;
-    virtual int32_t UnRegisterMixedStreamCallback() OVERRIDE;
+        AudioMixerOutputReceiver& mixReceiver) override;
+    virtual int32_t UnRegisterMixedStreamCallback() override;
     virtual int32_t RegisterMixerStatusCallback(
         AudioMixerStatusReceiver& mixerStatusCallback,
-        const uint32_t amountOf10MsBetweenCallbacks) OVERRIDE;
-    virtual int32_t UnRegisterMixerStatusCallback() OVERRIDE;
+        const uint32_t amountOf10MsBetweenCallbacks) override;
+    virtual int32_t UnRegisterMixerStatusCallback() override;
     virtual int32_t SetMixabilityStatus(MixerParticipant& participant,
-                                        bool mixable) OVERRIDE;
+                                        bool mixable) override;
     virtual int32_t MixabilityStatus(MixerParticipant& participant,
-                                     bool& mixable) OVERRIDE;
-    virtual int32_t SetMinimumMixingFrequency(Frequency freq) OVERRIDE;
+                                     bool& mixable) override;
+    virtual int32_t SetMinimumMixingFrequency(Frequency freq) override;
     virtual int32_t SetAnonymousMixabilityStatus(
-        MixerParticipant& participant, const bool mixable) OVERRIDE;
+        MixerParticipant& participant, const bool mixable) override;
     virtual int32_t AnonymousMixabilityStatus(
-        MixerParticipant& participant, bool& mixable) OVERRIDE;
+        MixerParticipant& participant, bool& mixable) override;
 private:
     enum{DEFAULT_AUDIO_FRAME_POOLSIZE = 50};
 

@@ -59,7 +59,7 @@ class StatisticsProxy : public RtcpStatisticsCallback {
   virtual ~StatisticsProxy() {}
 
   virtual void StatisticsUpdated(const RtcpStatistics& statistics,
-                                 uint32_t ssrc) OVERRIDE {
+                                 uint32_t ssrc) override {
     if (ssrc != ssrc_)
       return;
 
@@ -98,7 +98,7 @@ class VoEBitrateObserver : public BitrateObserver {
   // Implements BitrateObserver.
   virtual void OnNetworkChanged(const uint32_t bitrate_bps,
                                 const uint8_t fraction_lost,
-                                const uint32_t rtt) OVERRIDE {
+                                const uint32_t rtt) override {
     // |fraction_lost| has a scale of 0 - 255.
     owner_->OnNetworkChanged(bitrate_bps, fraction_lost, rtt);
   }

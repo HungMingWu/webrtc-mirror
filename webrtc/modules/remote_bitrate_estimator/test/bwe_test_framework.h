@@ -398,9 +398,9 @@ class VideoSender : public PacketSender {
   uint32_t max_payload_size_bytes() const { return kMaxPayloadSizeBytes; }
   uint32_t bytes_per_second() const { return bytes_per_second_; }
 
-  virtual uint32_t GetCapacityKbps() const OVERRIDE;
+  virtual uint32_t GetCapacityKbps() const override;
 
-  virtual void RunFor(int64_t time_ms, Packets* in_out) OVERRIDE;
+  virtual void RunFor(int64_t time_ms, Packets* in_out) override;
 
  protected:
   virtual uint32_t NextFrameSize();
@@ -428,8 +428,8 @@ class AdaptiveVideoSender : public VideoSender {
                       float first_frame_offset);
   virtual ~AdaptiveVideoSender() {}
 
-  virtual int GetFeedbackIntervalMs() const OVERRIDE { return 100; }
-  virtual void GiveFeedback(const Feedback& feedback) OVERRIDE;
+  virtual int GetFeedbackIntervalMs() const override { return 100; }
+  virtual void GiveFeedback(const Feedback& feedback) override;
 
  private:
   DISALLOW_IMPLICIT_CONSTRUCTORS(AdaptiveVideoSender);
@@ -447,9 +447,9 @@ class PeriodicKeyFrameSender : public AdaptiveVideoSender {
   virtual ~PeriodicKeyFrameSender() {}
 
  protected:
-  virtual uint32_t NextFrameSize() OVERRIDE;
+  virtual uint32_t NextFrameSize() override;
   virtual uint32_t NextPacketSize(uint32_t frame_size,
-                                  uint32_t remaining_payload) OVERRIDE;
+                                  uint32_t remaining_payload) override;
 
  private:
   int key_frame_interval_;
@@ -465,16 +465,16 @@ class PacedVideoSender : public PacketSender, public PacedSender::Callback {
                    uint32_t kbps, AdaptiveVideoSender* source);
   virtual ~PacedVideoSender() {}
 
-  virtual int GetFeedbackIntervalMs() const OVERRIDE { return 100; }
-  virtual void GiveFeedback(const Feedback& feedback) OVERRIDE;
-  virtual void RunFor(int64_t time_ms, Packets* in_out) OVERRIDE;
+  virtual int GetFeedbackIntervalMs() const override { return 100; }
+  virtual void GiveFeedback(const Feedback& feedback) override;
+  virtual void RunFor(int64_t time_ms, Packets* in_out) override;
 
   // Implements PacedSender::Callback.
   virtual bool TimeToSendPacket(uint32_t ssrc,
                                 uint16_t sequence_number,
                                 int64_t capture_time_ms,
-                                bool retransmission) OVERRIDE;
-  virtual int TimeToSendPadding(int bytes) OVERRIDE;
+                                bool retransmission) override;
+  virtual int TimeToSendPadding(int bytes) override;
 
  private:
   class ProbingPacedSender : public PacedSender {
@@ -490,7 +490,7 @@ class PacedVideoSender : public PacketSender, public PacedSender::Callback {
                       max_bitrate_kbps,
                       min_bitrate_kbps) {}
 
-    virtual bool ProbingExperimentIsEnabled() const OVERRIDE { return true; }
+    virtual bool ProbingExperimentIsEnabled() const override { return true; }
   };
 
   void QueuePackets(Packets* batch, int64_t end_of_batch_time_us);

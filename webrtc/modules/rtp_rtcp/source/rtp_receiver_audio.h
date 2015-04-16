@@ -61,24 +61,24 @@ class RTPReceiverAudio : public RTPReceiverStrategy,
                          int64_t timestamp_ms,
                          bool is_first_packet);
 
-  int GetPayloadTypeFrequency() const OVERRIDE;
+  int GetPayloadTypeFrequency() const override;
 
   virtual RTPAliveType ProcessDeadOrAlive(uint16_t last_payload_length) const
-      OVERRIDE;
+      override;
 
-  virtual bool ShouldReportCsrcChanges(uint8_t payload_type) const OVERRIDE;
+  virtual bool ShouldReportCsrcChanges(uint8_t payload_type) const override;
 
   virtual int32_t OnNewPayloadTypeCreated(
       const char payload_name[RTP_PAYLOAD_NAME_SIZE],
       int8_t payload_type,
-      uint32_t frequency) OVERRIDE;
+      uint32_t frequency) override;
 
   virtual int32_t InvokeOnInitializeDecoder(
       RtpFeedback* callback,
       int32_t id,
       int8_t payload_type,
       const char payload_name[RTP_PAYLOAD_NAME_SIZE],
-      const PayloadUnion& specific_payload) const OVERRIDE;
+      const PayloadUnion& specific_payload) const override;
 
   // We do not allow codecs to have multiple payload types for audio, so we
   // need to override the default behavior (which is to do nothing).
@@ -95,9 +95,9 @@ class RTPReceiverAudio : public RTPReceiverStrategy,
   void CheckPayloadChanged(int8_t payload_type,
                            PayloadUnion* specific_payload,
                            bool* should_reset_statistics,
-                           bool* should_discard_changes) OVERRIDE;
+                           bool* should_discard_changes) override;
 
-  int Energy(uint8_t array_of_energy[kRtpCsrcSize]) const OVERRIDE;
+  int Energy(uint8_t array_of_energy[kRtpCsrcSize]) const override;
 
  private:
 

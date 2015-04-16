@@ -26,8 +26,8 @@
 // The macros and classes declared in here are not described as they are
 // NOT TO BE USED outside of libjingle.
 
-#ifndef THIRD_PARTY_LIBJINGLE_OVERRIDES_WEBRTC_BASE_LOGGING_H_
-#define THIRD_PARTY_LIBJINGLE_OVERRIDES_WEBRTC_BASE_LOGGING_H_
+#ifndef THIRD_PARTY_LIBJINGLE_overrideS_WEBRTC_BASE_LOGGING_H_
+#define THIRD_PARTY_LIBJINGLE_overrideS_WEBRTC_BASE_LOGGING_H_
 
 #include <sstream>
 #include <string>
@@ -223,4 +223,4 @@ void SetExtraLoggingInit(
 
 #endif  // LOGGING_INSIDE_WEBRTC
 
-#endif  // THIRD_PARTY_LIBJINGLE_OVERRIDES_WEBRTC_BASE_LOGGING_H_
+#endif  // THIRD_PARTY_LIBJINGLE_overrideS_WEBRTC_BASE_LOGGING_H_

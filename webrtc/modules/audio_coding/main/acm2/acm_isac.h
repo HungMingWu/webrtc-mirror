@@ -38,59 +38,59 @@ class ACMISAC : public ACMGenericCodec, AudioDecoder {
       EXCLUSIVE_LOCKS_REQUIRED(codec_wrapper_lock_);
 
   // Methods below are inherited from ACMGenericCodec.
-  ACMGenericCodec* CreateInstance(void) OVERRIDE;
+  ACMGenericCodec* CreateInstance(void) override;
 
   int16_t InternalEncode(uint8_t* bitstream,
-                         int16_t* bitstream_len_byte) OVERRIDE
+                         int16_t* bitstream_len_byte) override
       EXCLUSIVE_LOCKS_REQUIRED(codec_wrapper_lock_);
 
-  int16_t InternalInitEncoder(WebRtcACMCodecParams* codec_params) OVERRIDE
+  int16_t InternalInitEncoder(WebRtcACMCodecParams* codec_params) override
       EXCLUSIVE_LOCKS_REQUIRED(codec_wrapper_lock_);
 
-  int16_t UpdateDecoderSampFreq(int16_t codec_id) OVERRIDE;
+  int16_t UpdateDecoderSampFreq(int16_t codec_id) override;
 
-  int16_t UpdateEncoderSampFreq(uint16_t samp_freq_hz) OVERRIDE
+  int16_t UpdateEncoderSampFreq(uint16_t samp_freq_hz) override
       EXCLUSIVE_LOCKS_REQUIRED(codec_wrapper_lock_);
 
-  int16_t EncoderSampFreq(uint16_t* samp_freq_hz) OVERRIDE;
+  int16_t EncoderSampFreq(uint16_t* samp_freq_hz) override;
 
   int32_t ConfigISACBandwidthEstimator(const uint8_t init_frame_size_msec,
                                        const uint16_t init_rate_bit_per_sec,
-                                       const bool enforce_frame_size) OVERRIDE;
+                                       const bool enforce_frame_size) override;
 
-  int32_t SetISACMaxPayloadSize(const uint16_t max_payload_len_bytes) OVERRIDE;
+  int32_t SetISACMaxPayloadSize(const uint16_t max_payload_len_bytes) override;
 
-  int32_t SetISACMaxRate(const uint32_t max_rate_bit_per_sec) OVERRIDE;
+  int32_t SetISACMaxRate(const uint32_t max_rate_bit_per_sec) override;
 
   int16_t REDPayloadISAC(const int32_t isac_rate,
                          const int16_t isac_bw_estimate,
                          uint8_t* payload,
-                         int16_t* payload_len_bytes) OVERRIDE;
+                         int16_t* payload_len_bytes) override;
 
   // Methods below are inherited from AudioDecoder.
   virtual int Decode(const uint8_t* encoded,
                      size_t encoded_len,
                      int16_t* decoded,
-                     SpeechType* speech_type) OVERRIDE;
+                     SpeechType* speech_type) override;
 
-  virtual bool HasDecodePlc() const OVERRIDE { return true; }
+  virtual bool HasDecodePlc() const override { return true; }
 
-  virtual int DecodePlc(int num_frames, int16_t* decoded) OVERRIDE;
+  virtual int DecodePlc(int num_frames, int16_t* decoded) override;
 
-  virtual int Init() OVERRIDE { return 0; }
+  virtual int Init() override { return 0; }
 
   virtual int IncomingPacket(const uint8_t* payload,
                              size_t payload_len,
                              uint16_t rtp_sequence_number,
                              uint32_t rtp_timestamp,
-                             uint32_t arrival_timestamp) OVERRIDE;
+                             uint32_t arrival_timestamp) override;
 
   virtual int DecodeRedundant(const uint8_t* encoded,
                               size_t encoded_len,
                               int16_t* decoded,
-                              SpeechType* speech_type) OVERRIDE;
+                              SpeechType* speech_type) override;
 
-  virtual int ErrorCode() OVERRIDE;
+  virtual int ErrorCode() override;
 
  protected:
   int16_t Transcode(uint8_t* bitstream,
@@ -102,24 +102,24 @@ class ACMISAC : public ACMGenericCodec, AudioDecoder {
   void UpdateFrameLen() EXCLUSIVE_LOCKS_REQUIRED(codec_wrapper_lock_);
 
   // Methods below are inherited from ACMGenericCodec.
-  void DestructEncoderSafe() OVERRIDE
+  void DestructEncoderSafe() override
       EXCLUSIVE_LOCKS_REQUIRED(codec_wrapper_lock_);
 
-  int16_t SetBitRateSafe(const int32_t bit_rate) OVERRIDE
+  int16_t SetBitRateSafe(const int32_t bit_rate) override
       EXCLUSIVE_LOCKS_REQUIRED(codec_wrapper_lock_);
 
-  int32_t GetEstimatedBandwidthSafe() OVERRIDE;
+  int32_t GetEstimatedBandwidthSafe() override;
 
-  int32_t SetEstimatedBandwidthSafe(int32_t estimated_bandwidth) OVERRIDE;
+  int32_t SetEstimatedBandwidthSafe(int32_t estimated_bandwidth) override;
 
   int32_t GetRedPayloadSafe(uint8_t* red_payload,
-                            int16_t* payload_bytes) OVERRIDE;
+                            int16_t* payload_bytes) override;
 
-  int16_t InternalCreateEncoder() OVERRIDE;
+  int16_t InternalCreateEncoder() override;
 
-  void CurrentRate(int32_t* rate_bit_per_sec) OVERRIDE;
+  void CurrentRate(int32_t* rate_bit_per_sec) override;
 
-  virtual AudioDecoder* Decoder(int codec_id) OVERRIDE;
+  virtual AudioDecoder* Decoder(int codec_id) override;
 
   // |codec_inst_crit_sect_| protects |codec_inst_ptr_|.
   const scoped_ptr<CriticalSectionWrapper> codec_inst_crit_sect_;

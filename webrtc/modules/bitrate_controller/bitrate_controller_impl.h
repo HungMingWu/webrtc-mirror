@@ -32,22 +32,22 @@ class BitrateControllerImpl : public BitrateController {
   BitrateControllerImpl(Clock* clock, bool enforce_min_bitrate);
   virtual ~BitrateControllerImpl();
 
-  virtual bool AvailableBandwidth(uint32_t* bandwidth) const OVERRIDE;
+  virtual bool AvailableBandwidth(uint32_t* bandwidth) const override;
 
-  virtual RtcpBandwidthObserver* CreateRtcpBandwidthObserver() OVERRIDE;
+  virtual RtcpBandwidthObserver* CreateRtcpBandwidthObserver() override;
 
   virtual void SetBitrateObserver(BitrateObserver* observer,
                                   const uint32_t start_bitrate,
                                   const uint32_t min_bitrate,
-                                  const uint32_t max_bitrate) OVERRIDE;
+                                  const uint32_t max_bitrate) override;
 
-  virtual void RemoveBitrateObserver(BitrateObserver* observer) OVERRIDE;
+  virtual void RemoveBitrateObserver(BitrateObserver* observer) override;
 
-  virtual void EnforceMinBitrate(bool enforce_min_bitrate) OVERRIDE;
-  virtual void SetReservedBitrate(uint32_t reserved_bitrate_bps) OVERRIDE;
+  virtual void EnforceMinBitrate(bool enforce_min_bitrate) override;
+  virtual void SetReservedBitrate(uint32_t reserved_bitrate_bps) override;
 
-  virtual int32_t TimeUntilNextProcess() OVERRIDE;
-  virtual int32_t Process() OVERRIDE;
+  virtual int32_t TimeUntilNextProcess() override;
+  virtual int32_t Process() override;
 
  private:
   class RtcpBandwidthObserverImpl;

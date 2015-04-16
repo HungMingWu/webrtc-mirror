@@ -103,7 +103,7 @@ class VideoAnalyzer : public PacketReceiver,
   virtual void SetReceiver(PacketReceiver* receiver) { receiver_ = receiver; }
 
   virtual DeliveryStatus DeliverPacket(const uint8_t* packet,
-                                       size_t length) OVERRIDE {
+                                       size_t length) override {
     scoped_ptr<RtpHeaderParser> parser(RtpHeaderParser::Create());
     RTPHeader header;
     parser->Parse(packet, length, &header);
@@ -116,7 +116,7 @@ class VideoAnalyzer : public PacketReceiver,
     return receiver_->DeliverPacket(packet, length);
   }
 
-  virtual void SwapFrame(I420VideoFrame* video_frame) OVERRIDE {
+  virtual void SwapFrame(I420VideoFrame* video_frame) override {
     I420VideoFrame* copy = NULL;
     {
       CriticalSectionScoped lock(crit_.get());
@@ -142,7 +142,7 @@ class VideoAnalyzer : public PacketReceiver,
     input_->SwapFrame(video_frame);
   }
 
-  virtual bool SendRtp(const uint8_t* packet, size_t length) OVERRIDE {
+  virtual bool SendRtp(const uint8_t* packet, size_t length) override {
     scoped_ptr<RtpHeaderParser> parser(RtpHeaderParser::Create());
     RTPHeader header;
     parser->Parse(packet, length, &header);
@@ -161,12 +161,12 @@ class VideoAnalyzer : public PacketReceiver,
     return transport_->SendRtp(packet, length);
   }
 
-  virtual bool SendRtcp(const uint8_t* packet, size_t length) OVERRIDE {
+  virtual bool SendRtcp(const uint8_t* packet, size_t length) override {
     return transport_->SendRtcp(packet, length);
   }
 
   virtual void RenderFrame(const I420VideoFrame& video_frame,
-                           int time_to_render_ms) OVERRIDE {
+                           int time_to_render_ms) override {
     int64_t render_time_ms =
         Clock::GetRealTimeClock()->CurrentNtpInMilliseconds();
     uint32_t send_timestamp = video_frame.timestamp() - rtp_timestamp_delta_;

@@ -27,7 +27,7 @@ class ChromaGenerator : public FrameGenerator {
     assert(height > 0);
   }
 
-  virtual I420VideoFrame* NextFrame() OVERRIDE {
+  virtual I420VideoFrame* NextFrame() override {
     frame_.CreateEmptyFrame(static_cast<int>(width_),
                             static_cast<int>(height_),
                             static_cast<int>(width_),
@@ -67,7 +67,7 @@ class YuvFileGenerator : public FrameGenerator {
     delete[] frame_buffer_;
   }
 
-  virtual I420VideoFrame* NextFrame() OVERRIDE {
+  virtual I420VideoFrame* NextFrame() override {
     size_t count = fread(frame_buffer_, 1, frame_size_, file_);
     if (count < frame_size_) {
       rewind(file_);

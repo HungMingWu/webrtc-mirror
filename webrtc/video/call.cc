@@ -74,12 +74,12 @@ class CpuOveruseObserverProxy : public webrtc::CpuOveruseObserver {
 
   virtual ~CpuOveruseObserverProxy() {}
 
-  virtual void OveruseDetected() OVERRIDE {
+  virtual void OveruseDetected() override {
     CriticalSectionScoped lock(crit_.get());
     overuse_callback_->OnLoadUpdate(LoadObserver::kOveruse);
   }
 
-  virtual void NormalUsage() OVERRIDE {
+  virtual void NormalUsage() override {
     CriticalSectionScoped lock(crit_.get());
     overuse_callback_->OnLoadUpdate(LoadObserver::kUnderuse);
   }
@@ -94,28 +94,28 @@ class Call : public webrtc::Call, public PacketReceiver {
   Call(webrtc::VideoEngine* video_engine, const Call::Config& config);
   virtual ~Call();
 
-  virtual PacketReceiver* Receiver() OVERRIDE;
+  virtual PacketReceiver* Receiver() override;
 
   virtual VideoSendStream* CreateVideoSendStream(
       const VideoSendStream::Config& config,
-      const VideoEncoderConfig& encoder_config) OVERRIDE;
+      const VideoEncoderConfig& encoder_config) override;
 
   virtual void DestroyVideoSendStream(webrtc::VideoSendStream* send_stream)
-      OVERRIDE;
+      override;
 
   virtual VideoReceiveStream* CreateVideoReceiveStream(
-      const VideoReceiveStream::Config& config) OVERRIDE;
+      const VideoReceiveStream::Config& config) override;
 
   virtual void DestroyVideoReceiveStream(
-      webrtc::VideoReceiveStream* receive_stream) OVERRIDE;
+      webrtc::VideoReceiveStream* receive_stream) override;
 
-  virtual uint32_t SendBitrateEstimate() OVERRIDE;
-  virtual uint32_t ReceiveBitrateEstimate() OVERRIDE;
+  virtual uint32_t SendBitrateEstimate() override;
+  virtual uint32_t ReceiveBitrateEstimate() override;
 
   virtual DeliveryStatus DeliverPacket(const uint8_t* packet,
-                                       size_t length) OVERRIDE;
+                                       size_t length) override;
 
-  virtual void SignalNetworkState(NetworkState state) OVERRIDE;
+  virtual void SignalNetworkState(NetworkState state) override;
 
  private:
   DeliveryStatus DeliverRtcp(const uint8_t* packet, size_t length);

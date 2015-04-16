@@ -27,7 +27,7 @@ class GlxRenderer : public GlRenderer {
   virtual ~GlxRenderer();
 
   virtual void RenderFrame(const webrtc::I420VideoFrame& frame, int delta)
-      OVERRIDE;
+      override;
  private:
   GlxRenderer(size_t width, size_t height);
 

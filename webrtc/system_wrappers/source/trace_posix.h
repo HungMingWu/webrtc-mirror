@@ -24,10 +24,10 @@ class TracePosix : public TraceImpl {
   // This method can be called on several different threads different from
   // the creating thread.
   virtual int32_t AddTime(char* trace_message, const TraceLevel level) const
-      OVERRIDE;
+      override;
 
-  virtual int32_t AddBuildInfo(char* trace_message) const OVERRIDE;
-  virtual int32_t AddDateTimeInfo(char* trace_message) const OVERRIDE;
+  virtual int32_t AddBuildInfo(char* trace_message) const override;
+  virtual int32_t AddDateTimeInfo(char* trace_message) const override;
 
  private:
   volatile mutable uint32_t  prev_api_tick_count_;

@@ -211,7 +211,7 @@ class WebRtcVideoEngine : public sigslot::has_slots<>,
   // webrtc::TraceCallback implementation.
   virtual void Print(webrtc::TraceLevel level,
                      const char* trace,
-                     int length) OVERRIDE;
+                     int length) override;
 
   rtc::Thread* worker_thread_;
   rtc::scoped_ptr<ViEWrapper> vie_wrapper_;
@@ -268,44 +268,44 @@ class WebRtcVideoMediaChannel : public rtc::MessageHandler,
   int GetDefaultChannelId() const { return default_channel_id_; }
 
   // VideoMediaChannel implementation
-  virtual bool SetRecvCodecs(const std::vector<VideoCodec> &codecs) OVERRIDE;
-  virtual bool SetSendCodecs(const std::vector<VideoCodec> &codecs) OVERRIDE;
-  virtual bool GetSendCodec(VideoCodec* send_codec) OVERRIDE;
+  virtual bool SetRecvCodecs(const std::vector<VideoCodec> &codecs) override;
+  virtual bool SetSendCodecs(const std::vector<VideoCodec> &codecs) override;
+  virtual bool GetSendCodec(VideoCodec* send_codec) override;
   virtual bool SetSendStreamFormat(uint32 ssrc,
-                                   const VideoFormat& format) OVERRIDE;
-  virtual bool SetRender(bool render) OVERRIDE;
-  virtual bool SetSend(bool send) OVERRIDE;
+                                   const VideoFormat& format) override;
+  virtual bool SetRender(bool render) override;
+  virtual bool SetSend(bool send) override;
 
-  virtual bool AddSendStream(const StreamParams& sp) OVERRIDE;
-  virtual bool RemoveSendStream(uint32 ssrc) OVERRIDE;
-  virtual bool AddRecvStream(const StreamParams& sp) OVERRIDE;
-  virtual bool RemoveRecvStream(uint32 ssrc) OVERRIDE;
-  virtual bool SetRenderer(uint32 ssrc, VideoRenderer* renderer) OVERRIDE;
+  virtual bool AddSendStream(const StreamParams& sp) override;
+  virtual bool RemoveSendStream(uint32 ssrc) override;
+  virtual bool AddRecvStream(const StreamParams& sp) override;
+  virtual bool RemoveRecvStream(uint32 ssrc) override;
+  virtual bool SetRenderer(uint32 ssrc, VideoRenderer* renderer) override;
   virtual bool GetStats(const StatsOptions& options,
-                        VideoMediaInfo* info) OVERRIDE;
-  virtual bool SetCapturer(uint32 ssrc, VideoCapturer* capturer) OVERRIDE;
-  virtual bool SendIntraFrame() OVERRIDE;
-  virtual bool RequestIntraFrame() OVERRIDE;
+                        VideoMediaInfo* info) override;
+  virtual bool SetCapturer(uint32 ssrc, VideoCapturer* capturer) override;
+  virtual bool SendIntraFrame() override;
+  virtual bool RequestIntraFrame() override;
 
   virtual void OnPacketReceived(rtc::Buffer* packet,
-                                const rtc::PacketTime& packet_time) OVERRIDE;
+                                const rtc::PacketTime& packet_time) override;
   virtual void OnRtcpReceived(rtc::Buffer* packet,
-                              const rtc::PacketTime& packet_time) OVERRIDE;
-  virtual void OnReadyToSend(bool ready) OVERRIDE;
-  virtual bool MuteStream(uint32 ssrc, bool on) OVERRIDE;
+                              const rtc::PacketTime& packet_time) override;
+  virtual void OnReadyToSend(bool ready) override;
+  virtual bool MuteStream(uint32 ssrc, bool on) override;
   virtual bool SetRecvRtpHeaderExtensions(
-      const std::vector<RtpHeaderExtension>& extensions) OVERRIDE;
+      const std::vector<RtpHeaderExtension>& extensions) override;
   virtual bool SetSendRtpHeaderExtensions(
-      const std::vector<RtpHeaderExtension>& extensions) OVERRIDE;
-  virtual int GetRtpSendTimeExtnId() const OVERRIDE;
-  virtual bool SetMaxSendBandwidth(int bps) OVERRIDE;
-  virtual bool SetOptions(const VideoOptions &options) OVERRIDE;
-  virtual bool GetOptions(VideoOptions *options) const OVERRIDE {
+      const std::vector<RtpHeaderExtension>& extensions) override;
+  virtual int GetRtpSendTimeExtnId() const override;
+  virtual bool SetMaxSendBandwidth(int bps) override;
+  virtual bool SetOptions(const VideoOptions &options) override;
+  virtual bool GetOptions(VideoOptions *options) const override {
     *options = options_;
     return true;
   }
-  virtual void SetInterface(NetworkInterface* iface) OVERRIDE;
-  virtual void UpdateAspectRatio(int ratio_w, int ratio_h) OVERRIDE;
+  virtual void SetInterface(NetworkInterface* iface) override;
+  virtual void UpdateAspectRatio(int ratio_w, int ratio_h) override;
 
   // Public functions for use by tests and other specialized code.
   uint32 send_ssrc() const { return 0; }
@@ -323,14 +323,14 @@ class WebRtcVideoMediaChannel : public rtc::MessageHandler,
   }
 
   // rtc::MessageHandler:
-  virtual void OnMessage(rtc::Message* msg) OVERRIDE;
+  virtual void OnMessage(rtc::Message* msg) override;
 
  protected:
   int GetLastEngineError() { return engine()->GetLastEngineError(); }
 
   // webrtc::Transport:
-  virtual int SendPacket(int channel, const void* data, int len) OVERRIDE;
-  virtual int SendRTCPPacket(int channel, const void* data, int len) OVERRIDE;
+  virtual int SendPacket(int channel, const void* data, int len) override;
+  virtual int SendRTCPPacket(int channel, const void* data, int len) override;
 
   bool ConferenceModeIsEnabled() const {
     return options_.conference_mode.GetWithDefaultIfUnset(false);

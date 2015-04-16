@@ -32,7 +32,7 @@ class TestPack : public AudioPacketizationCallback {
       FrameType frame_type, uint8_t payload_type,
       uint32_t timestamp, const uint8_t* payload_data,
       uint16_t payload_size,
-      const RTPFragmentationHeader* fragmentation) OVERRIDE;
+      const RTPFragmentationHeader* fragmentation) override;
 
   uint16_t payload_size();
   uint32_t timestamp_diff();
@@ -53,7 +53,7 @@ class TestAllCodecs : public ACMTest {
   explicit TestAllCodecs(int test_mode);
   ~TestAllCodecs();
 
-  virtual void Perform() OVERRIDE;
+  virtual void Perform() override;
 
  private:
   // The default value of '-1' indicates that the registration is based only on

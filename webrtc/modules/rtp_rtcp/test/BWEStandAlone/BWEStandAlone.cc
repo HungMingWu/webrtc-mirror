@@ -35,12 +35,12 @@ protected:
     virtual void IncomingRTPPacket(const int8_t* incomingRtpPacket,
                                    const int32_t rtpPacketLength,
                                    const int8_t* fromIP,
-                                   const uint16_t fromPort) OVERRIDE;
+                                   const uint16_t fromPort) override;
 
     virtual void IncomingRTCPPacket(const int8_t* incomingRtcpPacket,
                                     const int32_t rtcpPacketLength,
                                     const int8_t* fromIP,
-                                    const uint16_t fromPort) OVERRIDE;
+                                    const uint16_t fromPort) override;
 
 private:
     RtpRtcp *_rtpMod;

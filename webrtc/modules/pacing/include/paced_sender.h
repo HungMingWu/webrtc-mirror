@@ -116,10 +116,10 @@ class PacedSender : public Module {
 
   // Returns the number of milliseconds until the module want a worker thread
   // to call Process.
-  virtual int32_t TimeUntilNextProcess() OVERRIDE;
+  virtual int32_t TimeUntilNextProcess() override;
 
   // Process any pending packets in the queue(s).
-  virtual int32_t Process() OVERRIDE;
+  virtual int32_t Process() override;
 
  protected:
   virtual bool ProbingExperimentIsEnabled() const;

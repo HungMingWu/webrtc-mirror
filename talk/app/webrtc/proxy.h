@@ -238,37 +238,37 @@ class MethodCall3 : public rtc::Message,
     }\
 
 #define PROXY_METHOD0(r, method)\
-    r method() OVERRIDE {\
+    r method() override {\
       MethodCall0<C, r> call(c_.get(), &C::method);\
       return call.Marshal(owner_thread_);\
     }\
 
 #define PROXY_CONSTMETHOD0(r, method)\
-    r method() const OVERRIDE {\
+    r method() const override {\
       ConstMethodCall0<C, r> call(c_.get(), &C::method);\
       return call.Marshal(owner_thread_);\
      }\
 
 #define PROXY_METHOD1(r, method, t1)\
-    r method(t1 a1) OVERRIDE {\
+    r method(t1 a1) override {\
       MethodCall1<C, r, t1> call(c_.get(), &C::method, a1);\
       return call.Marshal(owner_thread_);\
     }\
 
 #define PROXY_CONSTMETHOD1(r, method, t1)\
-    r method(t1 a1) const OVERRIDE {\
+    r method(t1 a1) const override {\
       ConstMethodCall1<C, r, t1> call(c_.get(), &C::method, a1);\
       return call.Marshal(owner_thread_);\
     }\
 
 #define PROXY_METHOD2(r, method, t1, t2)\
-    r method(t1 a1, t2 a2) OVERRIDE {\
+    r method(t1 a1, t2 a2) override {\
       MethodCall2<C, r, t1, t2> call(c_.get(), &C::method, a1, a2);\
       return call.Marshal(owner_thread_);\
     }\
 
 #define PROXY_METHOD3(r, method, t1, t2, t3)\
-    r method(t1 a1, t2 a2, t3 a3) OVERRIDE {\
+    r method(t1 a1, t2 a2, t3 a3) override {\
       MethodCall3<C, r, t1, t2, t3> call(c_.get(), &C::method, a1, a2, a3);\
       return call.Marshal(owner_thread_);\
     }\

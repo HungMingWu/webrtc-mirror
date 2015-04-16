@@ -30,16 +30,16 @@ class ACMILBC : public ACMGenericCodec {
   ACMGenericCodec* CreateInstance(void);
 
   int16_t InternalEncode(uint8_t* bitstream,
-                         int16_t* bitstream_len_byte) OVERRIDE
+                         int16_t* bitstream_len_byte) override
       EXCLUSIVE_LOCKS_REQUIRED(codec_wrapper_lock_);
 
   int16_t InternalInitEncoder(WebRtcACMCodecParams* codec_params);
 
  protected:
-  int16_t SetBitRateSafe(const int32_t rate) OVERRIDE
+  int16_t SetBitRateSafe(const int32_t rate) override
       EXCLUSIVE_LOCKS_REQUIRED(codec_wrapper_lock_);
 
-  void DestructEncoderSafe() OVERRIDE
+  void DestructEncoderSafe() override
       EXCLUSIVE_LOCKS_REQUIRED(codec_wrapper_lock_);
 
   int16_t InternalCreateEncoder();

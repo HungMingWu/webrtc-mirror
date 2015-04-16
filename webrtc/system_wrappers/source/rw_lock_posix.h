@@ -23,11 +23,11 @@ class RWLockPosix : public RWLockWrapper {
   static RWLockPosix* Create();
   virtual ~RWLockPosix();
 
-  virtual void AcquireLockExclusive() OVERRIDE;
-  virtual void ReleaseLockExclusive() OVERRIDE;
+  virtual void AcquireLockExclusive() override;
+  virtual void ReleaseLockExclusive() override;
 
-  virtual void AcquireLockShared() OVERRIDE;
-  virtual void ReleaseLockShared() OVERRIDE;
+  virtual void AcquireLockShared() override;
+  virtual void ReleaseLockShared() override;
 
  private:
   RWLockPosix();

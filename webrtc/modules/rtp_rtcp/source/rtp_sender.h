@@ -77,7 +77,7 @@ class RTPSender : public RTPSenderInterface, public Bitrate::Observer {
 
   void ProcessBitrate();
 
-  virtual uint16_t ActualSendBitrateKbit() const OVERRIDE;
+  virtual uint16_t ActualSendBitrateKbit() const override;
 
   uint32_t VideoBitrateSent() const;
   uint32_t FecOverheadRate() const;
@@ -91,7 +91,7 @@ class RTPSender : public RTPSenderInterface, public Bitrate::Observer {
   uint32_t GetTargetBitrate();
 
   virtual uint16_t MaxDataPayloadLength() const
-      OVERRIDE;  // with RTP and FEC headers.
+      override;  // with RTP and FEC headers.
 
   int32_t RegisterPayload(
       const char payload_name[RTP_PAYLOAD_NAME_SIZE],
@@ -122,7 +122,7 @@ class RTPSender : public RTPSenderInterface, public Bitrate::Observer {
   uint32_t GenerateNewSSRC();
   void SetSSRC(const uint32_t ssrc);
 
-  virtual uint16_t SequenceNumber() const OVERRIDE;
+  virtual uint16_t SequenceNumber() const override;
   void SetSequenceNumber(uint16_t seq);
 
   int32_t CSRCs(uint32_t arr_of_csrc[kRtpCsrcSize]) const;
@@ -207,21 +207,21 @@ class RTPSender : public RTPSenderInterface, public Bitrate::Observer {
       const uint32_t capture_timestamp,
       int64_t capture_time_ms,
       const bool timestamp_provided = true,
-      const bool inc_sequence_number = true) OVERRIDE;
+      const bool inc_sequence_number = true) override;
 
-  virtual uint16_t RTPHeaderLength() const OVERRIDE;
-  virtual uint16_t IncrementSequenceNumber() OVERRIDE;
-  virtual uint16_t MaxPayloadLength() const OVERRIDE;
-  virtual uint16_t PacketOverHead() const OVERRIDE;
+  virtual uint16_t RTPHeaderLength() const override;
+  virtual uint16_t IncrementSequenceNumber() override;
+  virtual uint16_t MaxPayloadLength() const override;
+  virtual uint16_t PacketOverHead() const override;
 
   // Current timestamp.
-  virtual uint32_t Timestamp() const OVERRIDE;
-  virtual uint32_t SSRC() const OVERRIDE;
+  virtual uint32_t Timestamp() const override;
+  virtual uint32_t SSRC() const override;
 
   virtual int32_t SendToNetwork(
       uint8_t *data_buffer, int payload_length, int rtp_header_length,
       int64_t capture_time_ms, StorageType storage,
-      PacedSender::Priority priority) OVERRIDE;
+      PacedSender::Priority priority) override;
 
   // Audio.
 
@@ -276,7 +276,7 @@ class RTPSender : public RTPSenderInterface, public Bitrate::Observer {
 
   uint32_t BitrateSent() const;
 
-  virtual void BitrateUpdated(const BitrateStatistics& stats) OVERRIDE;
+  virtual void BitrateUpdated(const BitrateStatistics& stats) override;
 
   void SetRtpState(const RtpState& rtp_state);
   RtpState GetRtpState() const;

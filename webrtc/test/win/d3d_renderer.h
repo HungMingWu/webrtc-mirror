@@ -28,7 +28,7 @@ class D3dRenderer : public VideoRenderer {
   virtual ~D3dRenderer();
 
   virtual void RenderFrame(const webrtc::I420VideoFrame& frame, int delta)
-      OVERRIDE;
+      override;
  private:
   D3dRenderer(size_t width, size_t height);
 

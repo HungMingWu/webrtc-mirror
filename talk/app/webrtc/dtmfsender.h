@@ -78,15 +78,15 @@ class DtmfSender
       DtmfProviderInterface* provider);
 
   // Implements DtmfSenderInterface.
-  virtual void RegisterObserver(DtmfSenderObserverInterface* observer) OVERRIDE;
-  virtual void UnregisterObserver() OVERRIDE;
-  virtual bool CanInsertDtmf() OVERRIDE;
+  virtual void RegisterObserver(DtmfSenderObserverInterface* observer) override;
+  virtual void UnregisterObserver() override;
+  virtual bool CanInsertDtmf() override;
   virtual bool InsertDtmf(const std::string& tones, int duration,
-                          int inter_tone_gap) OVERRIDE;
-  virtual const AudioTrackInterface* track() const OVERRIDE;
-  virtual std::string tones() const OVERRIDE;
-  virtual int duration() const OVERRIDE;
-  virtual int inter_tone_gap() const OVERRIDE;
+                          int inter_tone_gap) override;
+  virtual const AudioTrackInterface* track() const override;
+  virtual std::string tones() const override;
+  virtual int duration() const override;
+  virtual int inter_tone_gap() const override;
 
  protected:
   DtmfSender(AudioTrackInterface* track,

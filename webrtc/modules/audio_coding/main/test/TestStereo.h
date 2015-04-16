@@ -39,7 +39,7 @@ class TestPackStereo : public AudioPacketizationCallback {
       const uint32_t timestamp,
       const uint8_t* payload_data,
       const uint16_t payload_size,
-      const RTPFragmentationHeader* fragmentation) OVERRIDE;
+      const RTPFragmentationHeader* fragmentation) override;
 
   uint16_t payload_size();
   uint32_t timestamp_diff();
@@ -64,7 +64,7 @@ class TestStereo : public ACMTest {
   explicit TestStereo(int test_mode);
   ~TestStereo();
 
-  virtual void Perform() OVERRIDE;
+  virtual void Perform() override;
  private:
   // The default value of '-1' indicates that the registration is based only on
   // codec name and a sampling frequncy matching is not required. This is useful

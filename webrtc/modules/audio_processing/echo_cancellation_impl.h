@@ -30,37 +30,37 @@ class EchoCancellationImpl : public EchoCancellation,
   int ProcessCaptureAudio(AudioBuffer* audio);
 
   // EchoCancellation implementation.
-  virtual bool is_enabled() const OVERRIDE;
-  virtual int stream_drift_samples() const OVERRIDE;
+  virtual bool is_enabled() const override;
+  virtual int stream_drift_samples() const override;
 
   // ProcessingComponent implementation.
-  virtual int Initialize() OVERRIDE;
-  virtual void SetExtraOptions(const Config& config) OVERRIDE;
+  virtual int Initialize() override;
+  virtual void SetExtraOptions(const Config& config) override;
 
  private:
   // EchoCancellation implementation.
-  virtual int Enable(bool enable) OVERRIDE;
-  virtual int enable_drift_compensation(bool enable) OVERRIDE;
-  virtual bool is_drift_compensation_enabled() const OVERRIDE;
-  virtual void set_stream_drift_samples(int drift) OVERRIDE;
-  virtual int set_suppression_level(SuppressionLevel level) OVERRIDE;
-  virtual SuppressionLevel suppression_level() const OVERRIDE;
-  virtual int enable_metrics(bool enable) OVERRIDE;
-  virtual bool are_metrics_enabled() const OVERRIDE;
-  virtual bool stream_has_echo() const OVERRIDE;
-  virtual int GetMetrics(Metrics* metrics) OVERRIDE;
-  virtual int enable_delay_logging(bool enable) OVERRIDE;
-  virtual bool is_delay_logging_enabled() const OVERRIDE;
-  virtual int GetDelayMetrics(int* median, int* std) OVERRIDE;
-  virtual struct AecCore* aec_core() const OVERRIDE;
+  virtual int Enable(bool enable) override;
+  virtual int enable_drift_compensation(bool enable) override;
+  virtual bool is_drift_compensation_enabled() const override;
+  virtual void set_stream_drift_samples(int drift) override;
+  virtual int set_suppression_level(SuppressionLevel level) override;
+  virtual SuppressionLevel suppression_level() const override;
+  virtual int enable_metrics(bool enable) override;
+  virtual bool are_metrics_enabled() const override;
+  virtual bool stream_has_echo() const override;
+  virtual int GetMetrics(Metrics* metrics) override;
+  virtual int enable_delay_logging(bool enable) override;
+  virtual bool is_delay_logging_enabled() const override;
+  virtual int GetDelayMetrics(int* median, int* std) override;
+  virtual struct AecCore* aec_core() const override;
 
   // ProcessingComponent implementation.
-  virtual void* CreateHandle() const OVERRIDE;
-  virtual int InitializeHandle(void* handle) const OVERRIDE;
-  virtual int ConfigureHandle(void* handle) const OVERRIDE;
-  virtual void DestroyHandle(void* handle) const OVERRIDE;
-  virtual int num_handles_required() const OVERRIDE;
-  virtual int GetHandleError(void* handle) const OVERRIDE;
+  virtual void* CreateHandle() const override;
+  virtual int InitializeHandle(void* handle) const override;
+  virtual int ConfigureHandle(void* handle) const override;
+  virtual void DestroyHandle(void* handle) const override;
+  virtual int num_handles_required() const override;
+  virtual int GetHandleError(void* handle) const override;
 
   const AudioProcessing* apm_;
   CriticalSectionWrapper* crit_;

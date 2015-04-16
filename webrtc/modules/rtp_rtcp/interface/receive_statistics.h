@@ -81,17 +81,17 @@ class NullReceiveStatistics : public ReceiveStatistics {
  public:
   virtual void IncomingPacket(const RTPHeader& rtp_header,
                               size_t bytes,
-                              bool retransmitted) OVERRIDE;
-  virtual void FecPacketReceived(uint32_t ssrc) OVERRIDE;
-  virtual StatisticianMap GetActiveStatisticians() const OVERRIDE;
-  virtual StreamStatistician* GetStatistician(uint32_t ssrc) const OVERRIDE;
-  virtual int32_t TimeUntilNextProcess() OVERRIDE;
-  virtual int32_t Process() OVERRIDE;
-  virtual void SetMaxReorderingThreshold(int max_reordering_threshold) OVERRIDE;
+                              bool retransmitted) override;
+  virtual void FecPacketReceived(uint32_t ssrc) override;
+  virtual StatisticianMap GetActiveStatisticians() const override;
+  virtual StreamStatistician* GetStatistician(uint32_t ssrc) const override;
+  virtual int32_t TimeUntilNextProcess() override;
+  virtual int32_t Process() override;
+  virtual void SetMaxReorderingThreshold(int max_reordering_threshold) override;
   virtual void RegisterRtcpStatisticsCallback(RtcpStatisticsCallback* callback)
-      OVERRIDE;
+      override;
   virtual void RegisterRtpStatisticsCallback(
-      StreamDataCountersCallback* callback) OVERRIDE;
+      StreamDataCountersCallback* callback) override;
 };
 
 }  // namespace webrtc

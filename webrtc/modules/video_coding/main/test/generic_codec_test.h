@@ -75,8 +75,8 @@ class RTPSendCallback_SizeTest : public webrtc::Transport
 public:
     // constructor input: (receive side) rtp module to send encoded data to
     RTPSendCallback_SizeTest() : _maxPayloadSize(0), _payloadSizeSum(0), _nPackets(0) {}
-    virtual int SendPacket(int channel, const void *data, int len) OVERRIDE;
-    virtual int SendRTCPPacket(int channel, const void *data, int len) OVERRIDE {return 0;}
+    virtual int SendPacket(int channel, const void *data, int len) override;
+    virtual int SendRTCPPacket(int channel, const void *data, int len) override {return 0;}
     void SetMaxPayloadSize(uint32_t maxPayloadSize);
     void Reset();
     float AveragePayloadSize() const;
@@ -98,7 +98,7 @@ public:
         const uint8_t* payloadData,
         const uint32_t payloadSize,
         const webrtc::RTPFragmentationHeader& fragmentationHeader,
-        const webrtc::RTPVideoHeader* videoHdr) OVERRIDE;
+        const webrtc::RTPVideoHeader* videoHdr) override;
 private:
     webrtc::VideoCodingModule& _vcm;
     uint16_t _seqNo;

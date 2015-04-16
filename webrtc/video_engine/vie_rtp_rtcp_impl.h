@@ -48,9 +48,9 @@ class ViERTP_RTCPImpl
                                      uint16_t sequence_number);
   virtual void SetRtpStateForSsrc(int video_channel,
                                   uint32_t ssrc,
-                                  const RtpState& rtp_state) OVERRIDE;
+                                  const RtpState& rtp_state) override;
   virtual RtpState GetRtpStateForSsrc(int video_channel,
-                                      uint32_t ssrc) OVERRIDE;
+                                      uint32_t ssrc) override;
   virtual int SetRTCPStatus(const int video_channel,
                             const ViERTCPMode rtcp_mode);
   virtual int GetRTCPStatus(const int video_channel,

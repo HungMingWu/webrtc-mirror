@@ -39,7 +39,7 @@ class DualStreamTest : public AudioPacketizationCallback,
       FrameType frameType, uint8_t payload_type,
       uint32_t timestamp, const uint8_t* payload_data,
       uint16_t payload_size,
-      const RTPFragmentationHeader* fragmentation) OVERRIDE;
+      const RTPFragmentationHeader* fragmentation) override;
 
   void Perform(bool start_in_sync, int num_channels_input);
 

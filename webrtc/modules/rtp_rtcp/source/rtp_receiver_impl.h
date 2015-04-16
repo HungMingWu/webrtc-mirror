@@ -39,33 +39,33 @@ class RtpReceiverImpl : public RtpReceiver {
       const int8_t payload_type,
       const uint32_t frequency,
       const uint8_t channels,
-      const uint32_t rate) OVERRIDE;
+      const uint32_t rate) override;
 
-  virtual int32_t DeRegisterReceivePayload(const int8_t payload_type) OVERRIDE;
+  virtual int32_t DeRegisterReceivePayload(const int8_t payload_type) override;
 
   virtual bool IncomingRtpPacket(
       const RTPHeader& rtp_header,
       const uint8_t* payload,
       int payload_length,
       PayloadUnion payload_specific,
-      bool in_order) OVERRIDE;
+      bool in_order) override;
 
-  virtual NACKMethod NACK() const OVERRIDE;
+  virtual NACKMethod NACK() const override;
 
   // Turn negative acknowledgement requests on/off.
-  virtual void SetNACKStatus(const NACKMethod method) OVERRIDE;
+  virtual void SetNACKStatus(const NACKMethod method) override;
 
   // Returns the last received timestamp.
-  virtual bool Timestamp(uint32_t* timestamp) const OVERRIDE;
-  virtual bool LastReceivedTimeMs(int64_t* receive_time_ms) const OVERRIDE;
+  virtual bool Timestamp(uint32_t* timestamp) const override;
+  virtual bool LastReceivedTimeMs(int64_t* receive_time_ms) const override;
 
-  virtual uint32_t SSRC() const OVERRIDE;
+  virtual uint32_t SSRC() const override;
 
-  virtual int32_t CSRCs(uint32_t array_of_csrc[kRtpCsrcSize]) const OVERRIDE;
+  virtual int32_t CSRCs(uint32_t array_of_csrc[kRtpCsrcSize]) const override;
 
-  virtual int32_t Energy(uint8_t array_of_energy[kRtpCsrcSize]) const OVERRIDE;
+  virtual int32_t Energy(uint8_t array_of_energy[kRtpCsrcSize]) const override;
 
-  virtual TelephoneEventHandler* GetTelephoneEventHandler() OVERRIDE;
+  virtual TelephoneEventHandler* GetTelephoneEventHandler() override;
 
  private:
   bool HaveReceivedFrame() const;

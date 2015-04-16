@@ -436,7 +436,7 @@ class ViEChannel
       public RegisterableCallback<SendSideDelayObserver> {
     virtual void SendSideDelayUpdated(int avg_delay_ms,
                                       int max_delay_ms,
-                                      uint32_t ssrc) OVERRIDE {
+                                      uint32_t ssrc) override {
       CriticalSectionScoped cs(critsect_.get());
       if (callback_)
         callback_->SendSideDelayUpdated(avg_delay_ms, max_delay_ms, ssrc);

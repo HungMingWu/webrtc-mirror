@@ -305,11 +305,11 @@ class FrameInputWrapper : public cricket::VideoRenderer {
   virtual ~FrameInputWrapper() {}
 
   // VideoRenderer implementation.
-  virtual bool SetSize(int width, int height, int reserved) OVERRIDE {
+  virtual bool SetSize(int width, int height, int reserved) override {
     return true;
   }
 
-  virtual bool RenderFrame(const cricket::VideoFrame* frame) OVERRIDE {
+  virtual bool RenderFrame(const cricket::VideoFrame* frame) override {
     if (!capturer_->IsRunning()) {
       return true;
     }

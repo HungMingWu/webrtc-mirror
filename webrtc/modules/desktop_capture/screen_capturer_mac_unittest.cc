@@ -38,7 +38,7 @@ class ScreenCapturerMacTest : public testing::Test {
   void CaptureDoneCallback2(DesktopFrame* frame);
 
  protected:
-  virtual void SetUp() OVERRIDE {
+  virtual void SetUp() override {
     capturer_.reset(ScreenCapturer::Create());
   }
 

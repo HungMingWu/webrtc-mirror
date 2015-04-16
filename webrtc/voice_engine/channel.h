@@ -357,10 +357,10 @@ public:
         uint32_t timeStamp,
         const uint8_t* payloadData,
         uint16_t payloadSize,
-        const RTPFragmentationHeader* fragmentation) OVERRIDE;
+        const RTPFragmentationHeader* fragmentation) override;
 
     // From ACMVADCallback in the ACM
-    virtual int32_t InFrameType(int16_t frameType) OVERRIDE;
+    virtual int32_t InFrameType(int16_t frameType) override;
 
     int32_t OnRxVadDetected(int vadDecision);
 
@@ -368,9 +368,9 @@ public:
     virtual int32_t OnReceivedPayloadData(
         const uint8_t* payloadData,
         uint16_t payloadSize,
-        const WebRtcRTPHeader* rtpHeader) OVERRIDE;
+        const WebRtcRTPHeader* rtpHeader) override;
     virtual bool OnRecoveredPacket(const uint8_t* packet,
-                                   int packet_length) OVERRIDE;
+                                   int packet_length) override;
 
     // From RtpFeedback in the RTP/RTCP module
     virtual int32_t OnInitializeDecoder(
@@ -379,41 +379,41 @@ public:
         const char payloadName[RTP_PAYLOAD_NAME_SIZE],
         int frequency,
         uint8_t channels,
-        uint32_t rate) OVERRIDE;
+        uint32_t rate) override;
     virtual void OnIncomingSSRCChanged(int32_t id,
-                                       uint32_t ssrc) OVERRIDE;
+                                       uint32_t ssrc) override;
     virtual void OnIncomingCSRCChanged(int32_t id,
-                                       uint32_t CSRC, bool added) OVERRIDE;
-    virtual void ResetStatistics(uint32_t ssrc) OVERRIDE;
+                                       uint32_t CSRC, bool added) override;
+    virtual void ResetStatistics(uint32_t ssrc) override;
 
     // From RtcpFeedback in the RTP/RTCP module
     virtual void OnApplicationDataReceived(int32_t id,
                                            uint8_t subType,
                                            uint32_t name,
                                            uint16_t length,
-                                           const uint8_t* data) OVERRIDE;
+                                           const uint8_t* data) override;
 
     // From RtpAudioFeedback in the RTP/RTCP module
     virtual void OnPlayTelephoneEvent(int32_t id,
                                       uint8_t event,
                                       uint16_t lengthMs,
-                                      uint8_t volume) OVERRIDE;
+                                      uint8_t volume) override;
 
     // From Transport (called by the RTP/RTCP module)
-    virtual int SendPacket(int /*channel*/, const void *data, int len) OVERRIDE;
+    virtual int SendPacket(int /*channel*/, const void *data, int len) override;
     virtual int SendRTCPPacket(int /*channel*/,
                                const void *data,
-                               int len) OVERRIDE;
+                               int len) override;
 
     // From MixerParticipant
-    virtual int32_t GetAudioFrame(int32_t id, AudioFrame& audioFrame) OVERRIDE;
-    virtual int32_t NeededFrequency(int32_t id) OVERRIDE;
+    virtual int32_t GetAudioFrame(int32_t id, AudioFrame& audioFrame) override;
+    virtual int32_t NeededFrequency(int32_t id) override;
 
     // From FileCallback
-    virtual void PlayNotification(int32_t id, uint32_t durationMs) OVERRIDE;
-    virtual void RecordNotification(int32_t id, uint32_t durationMs) OVERRIDE;
-    virtual void PlayFileEnded(int32_t id) OVERRIDE;
-    virtual void RecordFileEnded(int32_t id) OVERRIDE;
+    virtual void PlayNotification(int32_t id, uint32_t durationMs) override;
+    virtual void RecordNotification(int32_t id, uint32_t durationMs) override;
+    virtual void PlayFileEnded(int32_t id) override;
+    virtual void RecordFileEnded(int32_t id) override;
 
     uint32_t InstanceId() const
     {

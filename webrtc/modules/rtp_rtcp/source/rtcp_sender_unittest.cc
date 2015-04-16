@@ -229,13 +229,13 @@ class TestTransport : public Transport,
   }
   virtual int SendPacket(int /*ch*/,
                          const void* /*data*/,
-                         int /*len*/) OVERRIDE {
+                         int /*len*/) override {
     return -1;
   }
 
   virtual int SendRTCPPacket(int /*ch*/,
                              const void *packet,
-                             int packet_len) OVERRIDE {
+                             int packet_len) override {
     RTCPUtility::RTCPParserV2 rtcpParser((uint8_t*)packet,
                                          (int32_t)packet_len,
                                          true); // Allow non-compound RTCP
@@ -267,7 +267,7 @@ class TestTransport : public Transport,
 
   virtual int OnReceivedPayloadData(const uint8_t* payloadData,
                                     const uint16_t payloadSize,
-                                    const WebRtcRTPHeader* rtpHeader) OVERRIDE {
+                                    const WebRtcRTPHeader* rtpHeader) override {
     return 0;
   }
   RTCPReceiver* rtcp_receiver_;

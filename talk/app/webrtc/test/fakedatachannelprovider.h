@@ -38,7 +38,7 @@ class FakeDataChannelProvider : public webrtc::DataChannelProviderInterface {
 
   virtual bool SendData(const cricket::SendDataParams& params,
                         const rtc::Buffer& payload,
-                        cricket::SendDataResult* result) OVERRIDE {
+                        cricket::SendDataResult* result) override {
     ASSERT(ready_to_send_ && transport_available_);
     if (send_blocked_) {
       *result = cricket::SDR_BLOCK;
@@ -54,7 +54,7 @@ class FakeDataChannelProvider : public webrtc::DataChannelProviderInterface {
     return true;
   }
 
-  virtual bool ConnectDataChannel(webrtc::DataChannel* data_channel) OVERRIDE {
+  virtual bool ConnectDataChannel(webrtc::DataChannel* data_channel) override {
     ASSERT(connected_channels_.find(data_channel) == connected_channels_.end());
     if (!transport_available_) {
       return false;
@@ -65,13 +65,13 @@ class FakeDataChannelProvider : public webrtc::DataChannelProviderInterface {
   }
 
   virtual void DisconnectDataChannel(
-      webrtc::DataChannel* data_channel) OVERRIDE {
+      webrtc::DataChannel* data_channel) override {
     ASSERT(connected_channels_.find(data_channel) != connected_channels_.end());
     LOG(LS_INFO) << "DataChannel disconnected " << data_channel;
     connected_channels_.erase(data_channel);
   }
 
-  virtual void AddSctpDataStream(uint32 sid) OVERRIDE {
+  virtual void AddSctpDataStream(uint32 sid) override {
     if (!transport_available_) {
       return;
     }
@@ -79,12 +79,12 @@ class FakeDataChannelProvider : public webrtc::DataChannelProviderInterface {
     recv_ssrcs_.insert(sid);
   }
 
-  virtual void RemoveSctpDataStream(uint32 sid) OVERRIDE {
+  virtual void RemoveSctpDataStream(uint32 sid) override {
     send_ssrcs_.erase(sid);
     recv_ssrcs_.erase(sid);
   }
 
-  virtual bool ReadyToSendData() const OVERRIDE {
+  virtual bool ReadyToSendData() const override {
     return ready_to_send_;
   }
 

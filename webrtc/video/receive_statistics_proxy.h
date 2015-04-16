@@ -49,26 +49,26 @@ class ReceiveStatisticsProxy : public ViEDecoderObserver,
 
   // Overrides ViEDecoderObserver.
   virtual void IncomingCodecChanged(const int video_channel,
-                                    const VideoCodec& video_codec) OVERRIDE {}
+                                    const VideoCodec& video_codec) override {}
   virtual void IncomingRate(const int video_channel,
                             const unsigned int framerate,
-                            const unsigned int bitrate) OVERRIDE;
+                            const unsigned int bitrate) override;
   virtual void DecoderTiming(int decode_ms,
                              int max_decode_ms,
                              int current_delay_ms,
                              int target_delay_ms,
                              int jitter_buffer_ms,
                              int min_playout_delay_ms,
-                             int render_delay_ms) OVERRIDE {}
-  virtual void RequestNewKeyFrame(const int video_channel) OVERRIDE {}
+                             int render_delay_ms) override {}
+  virtual void RequestNewKeyFrame(const int video_channel) override {}
 
   // Overrides RtcpStatisticsBallback.
   virtual void StatisticsUpdated(const webrtc::RtcpStatistics& statistics,
-                                 uint32_t ssrc) OVERRIDE;
+                                 uint32_t ssrc) override;
 
   // Overrides StreamDataCountersCallback.
   virtual void DataCountersUpdated(const webrtc::StreamDataCounters& counters,
-                                   uint32_t ssrc) OVERRIDE;
+                                   uint32_t ssrc) override;
 
  private:
   std::string GetCName() const;

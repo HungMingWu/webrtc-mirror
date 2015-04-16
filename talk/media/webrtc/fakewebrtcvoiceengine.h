@@ -129,23 +129,23 @@ class FakeAudioProcessing : public webrtc::AudioProcessing {
   WEBRTC_STUB(StartDebugRecording, (const char filename[kMaxFilenameSize]));
   WEBRTC_STUB(StartDebugRecording, (FILE* handle));
   WEBRTC_STUB(StopDebugRecording, ());
-  virtual webrtc::EchoCancellation* echo_cancellation() const OVERRIDE {
+  virtual webrtc::EchoCancellation* echo_cancellation() const override {
     return NULL;
   }
-  virtual webrtc::EchoControlMobile* echo_control_mobile() const OVERRIDE {
+  virtual webrtc::EchoControlMobile* echo_control_mobile() const override {
     return NULL;
   }
-  virtual webrtc::GainControl* gain_control() const OVERRIDE { return NULL; }
-  virtual webrtc::HighPassFilter* high_pass_filter() const OVERRIDE {
+  virtual webrtc::GainControl* gain_control() const override { return NULL; }
+  virtual webrtc::HighPassFilter* high_pass_filter() const override {
     return NULL;
   }
-  virtual webrtc::LevelEstimator* level_estimator() const OVERRIDE {
+  virtual webrtc::LevelEstimator* level_estimator() const override {
     return NULL;
   }
-  virtual webrtc::NoiseSuppression* noise_suppression() const OVERRIDE {
+  virtual webrtc::NoiseSuppression* noise_suppression() const override {
     return NULL;
   }
-  virtual webrtc::VoiceDetection* voice_detection() const OVERRIDE {
+  virtual webrtc::VoiceDetection* voice_detection() const override {
     return NULL;
   }
 
@@ -441,7 +441,7 @@ class FakeWebRtcVoiceEngine
     inited_ = false;
     return 0;
   }
-  virtual webrtc::AudioProcessing* audio_processing() OVERRIDE {
+  virtual webrtc::AudioProcessing* audio_processing() override {
 #ifdef USE_WEBRTC_DEV_BRANCH
     return &audio_processing_;
 #else

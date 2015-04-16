@@ -69,7 +69,7 @@ class TraceObserver {
 
     virtual void Print(TraceLevel level,
                        const char* message,
-                       int length) OVERRIDE {
+                       int length) override {
       CriticalSectionScoped lock(crit_sect_.get());
       std::string msg(message);
       if (msg.find("BitrateEstimator") != std::string::npos) {

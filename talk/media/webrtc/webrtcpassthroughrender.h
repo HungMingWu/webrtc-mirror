@@ -41,20 +41,20 @@ class WebRtcPassthroughRender : public webrtc::VideoRender {
   WebRtcPassthroughRender();
   virtual ~WebRtcPassthroughRender();
 
-  virtual int32_t ChangeUniqueId(const int32_t id) OVERRIDE {
+  virtual int32_t ChangeUniqueId(const int32_t id) override {
     return 0;
   }
 
-  virtual int32_t TimeUntilNextProcess() OVERRIDE { return 0; }
+  virtual int32_t TimeUntilNextProcess() override { return 0; }
 
-  virtual int32_t Process() OVERRIDE { return 0; }
+  virtual int32_t Process() override { return 0; }
 
-  virtual void* Window() OVERRIDE {
+  virtual void* Window() override {
     rtc::CritScope cs(&render_critical_);
     return window_;
   }
 
-  virtual int32_t ChangeWindow(void* window) OVERRIDE {
+  virtual int32_t ChangeWindow(void* window) override {
     rtc::CritScope cs(&render_critical_);
     window_ = window;
     return 0;
@@ -64,60 +64,60 @@ class WebRtcPassthroughRender : public webrtc::VideoRender {
       const uint32_t stream_id,
       const uint32_t zOrder,
       const float left, const float top,
-      const float right, const float bottom) OVERRIDE;
+      const float right, const float bottom) override;
 
-  virtual int32_t DeleteIncomingRenderStream(const uint32_t stream_id) OVERRIDE;
+  virtual int32_t DeleteIncomingRenderStream(const uint32_t stream_id) override;
 
   virtual int32_t AddExternalRenderCallback(
       const uint32_t stream_id,
-      webrtc::VideoRenderCallback* render_object) OVERRIDE;
+      webrtc::VideoRenderCallback* render_object) override;
 
   virtual int32_t GetIncomingRenderStreamProperties(
       const uint32_t stream_id,
       uint32_t& zOrder,
       float& left, float& top,
-      float& right, float& bottom) const OVERRIDE {
+      float& right, float& bottom) const override {
     return -1;
   }
 
-  virtual uint32_t GetIncomingFrameRate(const uint32_t stream_id) OVERRIDE {
+  virtual uint32_t GetIncomingFrameRate(const uint32_t stream_id) override {
     return 0;
   }
 
-  virtual uint32_t GetNumIncomingRenderStreams() const OVERRIDE {
+  virtual uint32_t GetNumIncomingRenderStreams() const override {
     return static_cast<uint32_t>(stream_render_map_.size());
   }
 
-  virtual bool HasIncomingRenderStream(const uint32_t stream_id) const OVERRIDE;
+  virtual bool HasIncomingRenderStream(const uint32_t stream_id) const override;
 
   virtual int32_t RegisterRawFrameCallback(
       const uint32_t stream_id,
-      webrtc::VideoRenderCallback* callback_obj) OVERRIDE {
+      webrtc::VideoRenderCallback* callback_obj) override {
     return -1;
   }
 
   virtual int32_t GetLastRenderedFrame(
       const uint32_t stream_id,
-      webrtc::I420VideoFrame &frame) const OVERRIDE {
+      webrtc::I420VideoFrame &frame) const override {
     return -1;
   }
 
-  virtual int32_t StartRender(const uint32_t stream_id) OVERRIDE;
+  virtual int32_t StartRender(const uint32_t stream_id) override;
 
-  virtual int32_t StopRender(const uint32_t stream_id) OVERRIDE;
+  virtual int32_t StopRender(const uint32_t stream_id) override;
 
-  virtual int32_t ResetRender() OVERRIDE { return 0; }
+  virtual int32_t ResetRender() override { return 0; }
 
-  virtual webrtc::RawVideoType PreferredVideoType() const OVERRIDE;
+  virtual webrtc::RawVideoType PreferredVideoType() const override;
 
-  virtual bool IsFullScreen() OVERRIDE { return false; }
+  virtual bool IsFullScreen() override { return false; }
 
   virtual int32_t GetScreenResolution(uint32_t& screenWidth,
-                                      uint32_t& screenHeight) const OVERRIDE {
+                                      uint32_t& screenHeight) const override {
     return -1;
   }
 
-  virtual uint32_t RenderFrameRate(const uint32_t stream_id) OVERRIDE {
+  virtual uint32_t RenderFrameRate(const uint32_t stream_id) override {
     return 0;
   }
 
@@ -125,12 +125,12 @@ class WebRtcPassthroughRender : public webrtc::VideoRender {
       const uint32_t stream_id,
       const float left, const float top,
       const float right,
-      const float bottom) OVERRIDE {
+      const float bottom) override {
     return -1;
   }
 
   virtual int32_t SetExpectedRenderDelay(uint32_t stream_id,
-                                         int32_t delay_ms) OVERRIDE {
+                                         int32_t delay_ms) override {
     return -1;
   }
 
@@ -139,22 +139,22 @@ class WebRtcPassthroughRender : public webrtc::VideoRender {
       const unsigned int zOrder,
       const float left, const float top,
       const float right,
-      const float bottom) OVERRIDE {
+      const float bottom) override {
     return -1;
   }
 
-  virtual int32_t SetTransparentBackground(const bool enable) OVERRIDE {
+  virtual int32_t SetTransparentBackground(const bool enable) override {
     return -1;
   }
 
-  virtual int32_t FullScreenRender(void* window, const bool enable) OVERRIDE {
+  virtual int32_t FullScreenRender(void* window, const bool enable) override {
     return -1;
   }
 
   virtual int32_t SetBitmap(const void* bitMap,
       const uint8_t pictureId, const void* colorKey,
       const float left, const float top,
-      const float right, const float bottom) OVERRIDE {
+      const float right, const float bottom) override {
     return -1;
   }
 
@@ -164,27 +164,27 @@ class WebRtcPassthroughRender : public webrtc::VideoRender {
       const uint32_t textColorRef,
       const uint32_t backgroundColorRef,
       const float left, const float top,
-      const float right, const float bottom) OVERRIDE {
+      const float right, const float bottom) override {
     return -1;
   }
 
   virtual int32_t SetStartImage(
       const uint32_t stream_id,
-      const webrtc::I420VideoFrame& videoFrame) OVERRIDE {
+      const webrtc::I420VideoFrame& videoFrame) override {
     return -1;
   }
 
   virtual int32_t SetTimeoutImage(
       const uint32_t stream_id,
       const webrtc::I420VideoFrame& videoFrame,
-      const uint32_t timeout) OVERRIDE {
+      const uint32_t timeout) override {
     return -1;
   }
 
   virtual int32_t MirrorRenderStream(const int renderId,
                                      const bool enable,
                                      const bool mirrorXAxis,
-                                     const bool mirrorYAxis) OVERRIDE {
+                                     const bool mirrorYAxis) override {
     return -1;
   }
 

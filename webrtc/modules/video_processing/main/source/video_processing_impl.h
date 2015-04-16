@@ -29,45 +29,45 @@ class VideoProcessingModuleImpl : public VideoProcessingModule {
 
   int32_t Id() const;
 
-  virtual int32_t ChangeUniqueId(const int32_t id) OVERRIDE;
+  virtual int32_t ChangeUniqueId(const int32_t id) override;
 
-  virtual void Reset() OVERRIDE;
+  virtual void Reset() override;
 
   virtual int32_t Deflickering(I420VideoFrame* frame,
-                               FrameStats* stats) OVERRIDE;
+                               FrameStats* stats) override;
 
   virtual int32_t BrightnessDetection(const I420VideoFrame& frame,
-                                      const FrameStats& stats) OVERRIDE;
+                                      const FrameStats& stats) override;
 
   // Frame pre-processor functions
 
   // Enable temporal decimation
-  virtual void EnableTemporalDecimation(bool enable) OVERRIDE;
+  virtual void EnableTemporalDecimation(bool enable) override;
 
   virtual void SetInputFrameResampleMode(
-      VideoFrameResampling resampling_mode) OVERRIDE;
+      VideoFrameResampling resampling_mode) override;
 
   // Enable content analysis
-  virtual void EnableContentAnalysis(bool enable) OVERRIDE;
+  virtual void EnableContentAnalysis(bool enable) override;
 
   // Set Target Resolution: frame rate and dimension
   virtual int32_t SetTargetResolution(uint32_t width,
                                       uint32_t height,
-                                      uint32_t frame_rate) OVERRIDE;
+                                      uint32_t frame_rate) override;
 
 
   // Get decimated values: frame rate/dimension
-  virtual uint32_t Decimatedframe_rate() OVERRIDE;
-  virtual uint32_t DecimatedWidth() const OVERRIDE;
-  virtual uint32_t DecimatedHeight() const OVERRIDE;
+  virtual uint32_t Decimatedframe_rate() override;
+  virtual uint32_t DecimatedWidth() const override;
+  virtual uint32_t DecimatedHeight() const override;
 
   // Preprocess:
   // Pre-process incoming frame: Sample when needed and compute content
   // metrics when enabled.
   // If no resampling takes place - processed_frame is set to NULL.
   virtual int32_t PreprocessFrame(const I420VideoFrame& frame,
-                                  I420VideoFrame** processed_frame) OVERRIDE;
-  virtual VideoContentMetrics* ContentMetrics() const OVERRIDE;
+                                  I420VideoFrame** processed_frame) override;
+  virtual VideoContentMetrics* ContentMetrics() const override;
 
  private:
   int32_t  id_;

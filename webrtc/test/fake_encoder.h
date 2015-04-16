@@ -30,17 +30,17 @@ class FakeEncoder : public VideoEncoder {
 
   virtual int32_t InitEncode(const VideoCodec* config,
                              int32_t number_of_cores,
-                             uint32_t max_payload_size) OVERRIDE;
+                             uint32_t max_payload_size) override;
   virtual int32_t Encode(
      const I420VideoFrame& input_image,
      const CodecSpecificInfo* codec_specific_info,
-     const std::vector<VideoFrameType>* frame_types) OVERRIDE;
+     const std::vector<VideoFrameType>* frame_types) override;
   virtual int32_t RegisterEncodeCompleteCallback(
-      EncodedImageCallback* callback) OVERRIDE;
-  virtual int32_t Release() OVERRIDE;
-  virtual int32_t SetChannelParameters(uint32_t packet_loss, int rtt) OVERRIDE;
+      EncodedImageCallback* callback) override;
+  virtual int32_t Release() override;
+  virtual int32_t SetChannelParameters(uint32_t packet_loss, int rtt) override;
   virtual int32_t SetRates(uint32_t new_target_bitrate,
-                           uint32_t framerate) OVERRIDE;
+                           uint32_t framerate) override;
 
  private:
   Clock* const clock_;
@@ -58,12 +58,12 @@ class FakeH264Encoder : public FakeEncoder, public EncodedImageCallback {
   virtual ~FakeH264Encoder() {}
 
   virtual int32_t RegisterEncodeCompleteCallback(
-      EncodedImageCallback* callback) OVERRIDE;
+      EncodedImageCallback* callback) override;
 
   virtual int32_t Encoded(
       EncodedImage& encodedImage,
       const CodecSpecificInfo* codecSpecificInfo = NULL,
-      const RTPFragmentationHeader* fragments = NULL) OVERRIDE;
+      const RTPFragmentationHeader* fragments = NULL) override;
 
  private:
   EncodedImageCallback* callback_;

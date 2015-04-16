@@ -114,8 +114,8 @@ DEFINE_bool(fec, true, "Whether to enable FEC for encoding.");
 class NetEqOpusFecQualityTest : public NetEqQualityTest {
  protected:
   NetEqOpusFecQualityTest();
-  virtual void SetUp() OVERRIDE;
-  virtual void TearDown() OVERRIDE;
+  virtual void SetUp() override;
+  virtual void TearDown() override;
   virtual int EncodeBlock(int16_t* in_data, int block_size_samples,
                           uint8_t* payload, int max_bytes);
  private:

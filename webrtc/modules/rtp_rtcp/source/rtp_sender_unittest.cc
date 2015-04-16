@@ -64,14 +64,14 @@ class LoopbackTransportTest : public webrtc::Transport {
  public:
   LoopbackTransportTest()
       : packets_sent_(0), last_sent_packet_len_(0), total_bytes_sent_(0) {}
-  virtual int SendPacket(int channel, const void *data, int len) OVERRIDE {
+  virtual int SendPacket(int channel, const void *data, int len) override {
     packets_sent_++;
     memcpy(last_sent_packet_, data, len);
     last_sent_packet_len_ = len;
     total_bytes_sent_ += static_cast<size_t>(len);
     return len;
   }
-  virtual int SendRTCPPacket(int channel, const void *data, int len) OVERRIDE {
+  virtual int SendRTCPPacket(int channel, const void *data, int len) override {
     return -1;
   }
   int packets_sent_;
@@ -93,7 +93,7 @@ class RtpSenderTest : public ::testing::Test {
         SendPacket(_, _, _, _, _, _)).WillRepeatedly(testing::Return(true));
   }
 
-  virtual void SetUp() OVERRIDE {
+  virtual void SetUp() override {
     rtp_sender_.reset(new RTPSender(0, false, &fake_clock_, &transport_, NULL,
                                     &mock_paced_sender_, NULL, NULL, NULL));
     rtp_sender_->SetSequenceNumber(kSeqNum);
@@ -799,7 +799,7 @@ TEST_F(RtpSenderTest, FrameCountCallbacks) {
 
     virtual void FrameCountUpdated(FrameType frame_type,
                                    uint32_t frame_count,
-                                   const unsigned int ssrc) OVERRIDE {
+                                   const unsigned int ssrc) override {
       ++num_calls_;
       ssrc_ = ssrc;
       switch (frame_type) {
@@ -860,7 +860,7 @@ TEST_F(RtpSenderTest, BitrateCallbacks) {
     virtual ~TestCallback() {}
 
     virtual void Notify(const BitrateStatistics& stats,
-                        uint32_t ssrc) OVERRIDE {
+                        uint32_t ssrc) override {
       ++num_calls_;
       ssrc_ = ssrc;
       bitrate_ = stats;
@@ -924,7 +924,7 @@ class RtpSenderAudioTest : public RtpSenderTest {
  protected:
   RtpSenderAudioTest() {}
 
-  virtual void SetUp() OVERRIDE {
+  virtual void SetUp() override {
     payload_ = kAudioPayload;
     rtp_sender_.reset(new RTPSender(0, true, &fake_clock_, &transport_, NULL,
                                     &mock_paced_sender_, NULL, NULL, NULL));
@@ -940,7 +940,7 @@ TEST_F(RtpSenderTest, StreamDataCountersCallbacks) {
     virtual ~TestCallback() {}
 
     virtual void DataCountersUpdated(const StreamDataCounters& counters,
-                                     uint32_t ssrc) OVERRIDE {
+                                     uint32_t ssrc) override {
       ssrc_ = ssrc;
       counters_ = counters;
     }

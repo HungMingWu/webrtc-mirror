@@ -27,11 +27,11 @@ class RtcpCollectorTransport : public webrtc::Transport {
 
   virtual int SendPacket(int /*channel*/,
                          const void* /*data*/,
-                         int /*len*/) OVERRIDE {
+                         int /*len*/) override {
     EXPECT_TRUE(false);
     return 0;
   }
-  virtual int SendRTCPPacket(int channel, const void* data, int len) OVERRIDE {
+  virtual int SendRTCPPacket(int channel, const void* data, int len) override {
     const uint8_t* buf = static_cast<const uint8_t*>(data);
     webrtc::RtpUtility::RtpHeaderParser parser(buf, len);
     if (parser.RTCP()) {
@@ -107,13 +107,13 @@ class ViENetworkTest : public testing::Test {
   ViENetworkTest() : vie_("ViENetworkTest"), channel_(-1), transport() {}
   virtual ~ViENetworkTest() {}
 
-  virtual void SetUp() OVERRIDE {
+  virtual void SetUp() override {
     EXPECT_EQ(0, vie_.base->CreateChannel(channel_));
     EXPECT_EQ(0, vie_.rtp_rtcp->SetRembStatus(channel_, false, true));
     EXPECT_EQ(0, vie_.network->RegisterSendTransport(channel_, transport));
   }
 
-  virtual void TearDown() OVERRIDE {
+  virtual void TearDown() override {
     EXPECT_EQ(0, vie_.network->DeregisterSendTransport(channel_));
   }
 

@@ -76,132 +76,132 @@ class FakeAudioCaptureModule
   // Only functions called by PeerConnection are implemented, the rest do
   // nothing and return success. If a function is not expected to be called by
   // PeerConnection an assertion is triggered if it is in fact called.
-  virtual int32_t TimeUntilNextProcess() OVERRIDE;
-  virtual int32_t Process() OVERRIDE;
-  virtual int32_t ChangeUniqueId(const int32_t id) OVERRIDE;
+  virtual int32_t TimeUntilNextProcess() override;
+  virtual int32_t Process() override;
+  virtual int32_t ChangeUniqueId(const int32_t id) override;
 
-  virtual int32_t ActiveAudioLayer(AudioLayer* audio_layer) const OVERRIDE;
+  virtual int32_t ActiveAudioLayer(AudioLayer* audio_layer) const override;
 
-  virtual ErrorCode LastError() const OVERRIDE;
+  virtual ErrorCode LastError() const override;
   virtual int32_t RegisterEventObserver(
-      webrtc::AudioDeviceObserver* event_callback) OVERRIDE;
+      webrtc::AudioDeviceObserver* event_callback) override;
 
   // Note: Calling this method from a callback may result in deadlock.
   virtual int32_t RegisterAudioCallback(
-      webrtc::AudioTransport* audio_callback) OVERRIDE;
+      webrtc::AudioTransport* audio_callback) override;
 
-  virtual int32_t Init() OVERRIDE;
-  virtual int32_t Terminate() OVERRIDE;
-  virtual bool Initialized() const OVERRIDE;
+  virtual int32_t Init() override;
+  virtual int32_t Terminate() override;
+  virtual bool Initialized() const override;
 
-  virtual int16_t PlayoutDevices() OVERRIDE;
-  virtual int16_t RecordingDevices() OVERRIDE;
+  virtual int16_t PlayoutDevices() override;
+  virtual int16_t RecordingDevices() override;
   virtual int32_t PlayoutDeviceName(
       uint16_t index,
       char name[webrtc::kAdmMaxDeviceNameSize],
-      char guid[webrtc::kAdmMaxGuidSize]) OVERRIDE;
+      char guid[webrtc::kAdmMaxGuidSize]) override;
   virtual int32_t RecordingDeviceName(
       uint16_t index,
       char name[webrtc::kAdmMaxDeviceNameSize],
-      char guid[webrtc::kAdmMaxGuidSize]) OVERRIDE;
+      char guid[webrtc::kAdmMaxGuidSize]) override;
 
-  virtual int32_t SetPlayoutDevice(uint16_t index) OVERRIDE;
-  virtual int32_t SetPlayoutDevice(WindowsDeviceType device) OVERRIDE;
-  virtual int32_t SetRecordingDevice(uint16_t index) OVERRIDE;
-  virtual int32_t SetRecordingDevice(WindowsDeviceType device) OVERRIDE;
+  virtual int32_t SetPlayoutDevice(uint16_t index) override;
+  virtual int32_t SetPlayoutDevice(WindowsDeviceType device) override;
+  virtual int32_t SetRecordingDevice(uint16_t index) override;
+  virtual int32_t SetRecordingDevice(WindowsDeviceType device) override;
 
-  virtual int32_t PlayoutIsAvailable(bool* available) OVERRIDE;
-  virtual int32_t InitPlayout() OVERRIDE;
-  virtual bool PlayoutIsInitialized() const OVERRIDE;
-  virtual int32_t RecordingIsAvailable(bool* available) OVERRIDE;
-  virtual int32_t InitRecording() OVERRIDE;
-  virtual bool RecordingIsInitialized() const OVERRIDE;
+  virtual int32_t PlayoutIsAvailable(bool* available) override;
+  virtual int32_t InitPlayout() override;
+  virtual bool PlayoutIsInitialized() const override;
+  virtual int32_t RecordingIsAvailable(bool* available) override;
+  virtual int32_t InitRecording() override;
+  virtual bool RecordingIsInitialized() const override;
 
-  virtual int32_t StartPlayout() OVERRIDE;
-  virtual int32_t StopPlayout() OVERRIDE;
-  virtual bool Playing() const OVERRIDE;
-  virtual int32_t StartRecording() OVERRIDE;
-  virtual int32_t StopRecording() OVERRIDE;
-  virtual bool Recording() const OVERRIDE;
+  virtual int32_t StartPlayout() override;
+  virtual int32_t StopPlayout() override;
+  virtual bool Playing() const override;
+  virtual int32_t StartRecording() override;
+  virtual int32_t StopRecording() override;
+  virtual bool Recording() const override;
 
-  virtual int32_t SetAGC(bool enable) OVERRIDE;
-  virtual bool AGC() const OVERRIDE;
+  virtual int32_t SetAGC(bool enable) override;
+  virtual bool AGC() const override;
 
   virtual int32_t SetWaveOutVolume(uint16_t volume_left,
-                                   uint16_t volume_right) OVERRIDE;
+                                   uint16_t volume_right) override;
   virtual int32_t WaveOutVolume(uint16_t* volume_left,
-                                uint16_t* volume_right) const OVERRIDE;
+                                uint16_t* volume_right) const override;
 
-  virtual int32_t InitSpeaker() OVERRIDE;
-  virtual bool SpeakerIsInitialized() const OVERRIDE;
-  virtual int32_t InitMicrophone() OVERRIDE;
-  virtual bool MicrophoneIsInitialized() const OVERRIDE;
+  virtual int32_t InitSpeaker() override;
+  virtual bool SpeakerIsInitialized() const override;
+  virtual int32_t InitMicrophone() override;
+  virtual bool MicrophoneIsInitialized() const override;
 
-  virtual int32_t SpeakerVolumeIsAvailable(bool* available) OVERRIDE;
-  virtual int32_t SetSpeakerVolume(uint32_t volume) OVERRIDE;
-  virtual int32_t SpeakerVolume(uint32_t* volume) const OVERRIDE;
-  virtual int32_t MaxSpeakerVolume(uint32_t* max_volume) const OVERRIDE;
-  virtual int32_t MinSpeakerVolume(uint32_t* min_volume) const OVERRIDE;
-  virtual int32_t SpeakerVolumeStepSize(uint16_t* step_size) const OVERRIDE;
+  virtual int32_t SpeakerVolumeIsAvailable(bool* available) override;
+  virtual int32_t SetSpeakerVolume(uint32_t volume) override;
+  virtual int32_t SpeakerVolume(uint32_t* volume) const override;
+  virtual int32_t MaxSpeakerVolume(uint32_t* max_volume) const override;
+  virtual int32_t MinSpeakerVolume(uint32_t* min_volume) const override;
+  virtual int32_t SpeakerVolumeStepSize(uint16_t* step_size) const override;
 
-  virtual int32_t MicrophoneVolumeIsAvailable(bool* available) OVERRIDE;
-  virtual int32_t SetMicrophoneVolume(uint32_t volume) OVERRIDE;
-  virtual int32_t MicrophoneVolume(uint32_t* volume) const OVERRIDE;
-  virtual int32_t MaxMicrophoneVolume(uint32_t* max_volume) const OVERRIDE;
+  virtual int32_t MicrophoneVolumeIsAvailable(bool* available) override;
+  virtual int32_t SetMicrophoneVolume(uint32_t volume) override;
+  virtual int32_t MicrophoneVolume(uint32_t* volume) const override;
+  virtual int32_t MaxMicrophoneVolume(uint32_t* max_volume) const override;
 
-  virtual int32_t MinMicrophoneVolume(uint32_t* min_volume) const OVERRIDE;
-  virtual int32_t MicrophoneVolumeStepSize(uint16_t* step_size) const OVERRIDE;
+  virtual int32_t MinMicrophoneVolume(uint32_t* min_volume) const override;
+  virtual int32_t MicrophoneVolumeStepSize(uint16_t* step_size) const override;
 
-  virtual int32_t SpeakerMuteIsAvailable(bool* available) OVERRIDE;
-  virtual int32_t SetSpeakerMute(bool enable) OVERRIDE;
-  virtual int32_t SpeakerMute(bool* enabled) const OVERRIDE;
+  virtual int32_t SpeakerMuteIsAvailable(bool* available) override;
+  virtual int32_t SetSpeakerMute(bool enable) override;
+  virtual int32_t SpeakerMute(bool* enabled) const override;
 
-  virtual int32_t MicrophoneMuteIsAvailable(bool* available) OVERRIDE;
-  virtual int32_t SetMicrophoneMute(bool enable) OVERRIDE;
-  virtual int32_t MicrophoneMute(bool* enabled) const OVERRIDE;
+  virtual int32_t MicrophoneMuteIsAvailable(bool* available) override;
+  virtual int32_t SetMicrophoneMute(bool enable) override;
+  virtual int32_t MicrophoneMute(bool* enabled) const override;
 
-  virtual int32_t MicrophoneBoostIsAvailable(bool* available) OVERRIDE;
-  virtual int32_t SetMicrophoneBoost(bool enable) OVERRIDE;
-  virtual int32_t MicrophoneBoost(bool* enabled) const OVERRIDE;
+  virtual int32_t MicrophoneBoostIsAvailable(bool* available) override;
+  virtual int32_t SetMicrophoneBoost(bool enable) override;
+  virtual int32_t MicrophoneBoost(bool* enabled) const override;
 
-  virtual int32_t StereoPlayoutIsAvailable(bool* available) const OVERRIDE;
-  virtual int32_t SetStereoPlayout(bool enable) OVERRIDE;
-  virtual int32_t StereoPlayout(bool* enabled) const OVERRIDE;
-  virtual int32_t StereoRecordingIsAvailable(bool* available) const OVERRIDE;
-  virtual int32_t SetStereoRecording(bool enable) OVERRIDE;
-  virtual int32_t StereoRecording(bool* enabled) const OVERRIDE;
-  virtual int32_t SetRecordingChannel(const ChannelType channel) OVERRIDE;
-  virtual int32_t RecordingChannel(ChannelType* channel) const OVERRIDE;
+  virtual int32_t StereoPlayoutIsAvailable(bool* available) const override;
+  virtual int32_t SetStereoPlayout(bool enable) override;
+  virtual int32_t StereoPlayout(bool* enabled) const override;
+  virtual int32_t StereoRecordingIsAvailable(bool* available) const override;
+  virtual int32_t SetStereoRecording(bool enable) override;
+  virtual int32_t StereoRecording(bool* enabled) const override;
+  virtual int32_t SetRecordingChannel(const ChannelType channel) override;
+  virtual int32_t RecordingChannel(ChannelType* channel) const override;
 
   virtual int32_t SetPlayoutBuffer(const BufferType type,
-                                   uint16_t size_ms = 0) OVERRIDE;
+                                   uint16_t size_ms = 0) override;
   virtual int32_t PlayoutBuffer(BufferType* type,
-                                uint16_t* size_ms) const OVERRIDE;
-  virtual int32_t PlayoutDelay(uint16_t* delay_ms) const OVERRIDE;
-  virtual int32_t RecordingDelay(uint16_t* delay_ms) const OVERRIDE;
+                                uint16_t* size_ms) const override;
+  virtual int32_t PlayoutDelay(uint16_t* delay_ms) const override;
+  virtual int32_t RecordingDelay(uint16_t* delay_ms) const override;
 
-  virtual int32_t CPULoad(uint16_t* load) const OVERRIDE;
+  virtual int32_t CPULoad(uint16_t* load) const override;
 
   virtual int32_t StartRawOutputFileRecording(
-      const char pcm_file_name_utf8[webrtc::kAdmMaxFileNameSize]) OVERRIDE;
-  virtual int32_t StopRawOutputFileRecording() OVERRIDE;
+      const char pcm_file_name_utf8[webrtc::kAdmMaxFileNameSize]) override;
+  virtual int32_t StopRawOutputFileRecording() override;
   virtual int32_t StartRawInputFileRecording(
-      const char pcm_file_name_utf8[webrtc::kAdmMaxFileNameSize]) OVERRIDE;
-  virtual int32_t StopRawInputFileRecording() OVERRIDE;
+      const char pcm_file_name_utf8[webrtc::kAdmMaxFileNameSize]) override;
+  virtual int32_t StopRawInputFileRecording() override;
 
   virtual int32_t SetRecordingSampleRate(
-      const uint32_t samples_per_sec) OVERRIDE;
-  virtual int32_t RecordingSampleRate(uint32_t* samples_per_sec) const OVERRIDE;
-  virtual int32_t SetPlayoutSampleRate(const uint32_t samples_per_sec) OVERRIDE;
-  virtual int32_t PlayoutSampleRate(uint32_t* samples_per_sec) const OVERRIDE;
+      const uint32_t samples_per_sec) override;
+  virtual int32_t RecordingSampleRate(uint32_t* samples_per_sec) const override;
+  virtual int32_t SetPlayoutSampleRate(const uint32_t samples_per_sec) override;
+  virtual int32_t PlayoutSampleRate(uint32_t* samples_per_sec) const override;
 
-  virtual int32_t ResetAudioDevice() OVERRIDE;
-  virtual int32_t SetLoudspeakerStatus(bool enable) OVERRIDE;
-  virtual int32_t GetLoudspeakerStatus(bool* enabled) const OVERRIDE;
+  virtual int32_t ResetAudioDevice() override;
+  virtual int32_t SetLoudspeakerStatus(bool enable) override;
+  virtual int32_t GetLoudspeakerStatus(bool* enabled) const override;
   // End of functions inherited from webrtc::AudioDeviceModule.
 
   // The following function is inherited from rtc::MessageHandler.
-  virtual void OnMessage(rtc::Message* msg) OVERRIDE;
+  virtual void OnMessage(rtc::Message* msg) override;
 
  protected:
   // The constructor is protected because the class needs to be created as a

@@ -441,7 +441,7 @@ void WebRtcVideoEngine2Test::TestStartBitrate(bool override_start_bitrate,
 
    private:
     virtual webrtc::Call* CreateCall(
-        const webrtc::Call::Config& config) OVERRIDE {
+        const webrtc::Call::Config& config) override {
       assert(fake_call_ == NULL);
       fake_call_ = new FakeCall(config);
       return fake_call_;
@@ -617,7 +617,7 @@ class WebRtcVideoChannel2BaseTest
  protected:
   typedef VideoMediaChannelTest<WebRtcVideoEngine2, WebRtcVideoChannel2> Base;
 
-  virtual cricket::VideoCodec DefaultCodec() OVERRIDE { return kVp8Codec; }
+  virtual cricket::VideoCodec DefaultCodec() override { return kVp8Codec; }
 };
 
 #define WEBRTC_BASE_TEST(test) \
@@ -741,7 +741,7 @@ class WebRtcVideoChannel2Test : public WebRtcVideoEngine2Test,
                                 public WebRtcCallFactory {
  public:
   WebRtcVideoChannel2Test() : fake_call_(NULL) {}
-  virtual void SetUp() OVERRIDE {
+  virtual void SetUp() override {
     engine_.SetCallFactory(this);
     engine_.Init(rtc::Thread::Current());
     channel_.reset(engine_.CreateChannel(cricket::VideoOptions(), NULL));
@@ -752,7 +752,7 @@ class WebRtcVideoChannel2Test : public WebRtcVideoEngine2Test,
 
  protected:
   virtual webrtc::Call* CreateCall(
-      const webrtc::Call::Config& config) OVERRIDE {
+      const webrtc::Call::Config& config) override {
     assert(fake_call_ == NULL);
     fake_call_ = new FakeCall(config);
     return fake_call_;

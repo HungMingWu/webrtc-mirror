@@ -139,8 +139,8 @@ class my_transportation : public Transport
       netw(network) {
   }
 
-  virtual int SendPacket(int channel,const void *data,int len) OVERRIDE;
-  virtual int SendRTCPPacket(int channel, const void *data, int len) OVERRIDE;
+  virtual int SendPacket(int channel,const void *data,int len) override;
+  virtual int SendRTCPPacket(int channel, const void *data, int len) override;
  private:
   VoENetwork * netw;
 };

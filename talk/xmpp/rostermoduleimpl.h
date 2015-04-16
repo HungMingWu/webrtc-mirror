@@ -265,7 +265,7 @@ public:
   virtual void IqResponse(XmppIqCookie cookie, const XmlElement * stanza);
 
 protected:
-  // XmppModuleImpl OVERRIDES --------------------------------------------------
+  // XmppModuleImpl overrideS --------------------------------------------------
   virtual bool HandleStanza(const XmlElement *);
 
   // PRIVATE DATA --------------------------------------------------------------

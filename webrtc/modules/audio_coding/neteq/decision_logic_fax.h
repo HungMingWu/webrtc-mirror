@@ -53,7 +53,7 @@ class DecisionLogicFax : public DecisionLogic {
                                             const RTPHeader* packet_header,
                                             Modes prev_mode,
                                             bool play_dtmf,
-                                            bool* reset_decoder) OVERRIDE;
+                                            bool* reset_decoder) override;
 
  private:
   DISALLOW_COPY_AND_ASSIGN(DecisionLogicFax);

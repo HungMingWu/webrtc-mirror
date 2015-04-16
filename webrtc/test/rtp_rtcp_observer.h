@@ -128,7 +128,7 @@ class RtpRtcpObserver {
           on_rtcp_(on_rtcp) {}
 
   private:
-    virtual bool SendRtp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual bool SendRtp(const uint8_t* packet, size_t length) override {
       EXPECT_FALSE(RtpHeaderParser::IsRtcp(packet, length));
       Action action;
       {
@@ -145,7 +145,7 @@ class RtpRtcpObserver {
       return true;  // Will never happen, makes compiler happy.
     }
 
-    virtual bool SendRtcp(const uint8_t* packet, size_t length) OVERRIDE {
+    virtual bool SendRtcp(const uint8_t* packet, size_t length) override {
       EXPECT_TRUE(RtpHeaderParser::IsRtcp(packet, length));
       Action action;
       {

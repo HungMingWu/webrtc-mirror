@@ -41,7 +41,7 @@ class PushSincResampler : public SincResamplerCallback {
                int destination_capacity);
 
   // Implements SincResamplerCallback.
-  virtual void Run(int frames, float* destination) OVERRIDE;
+  virtual void Run(int frames, float* destination) override;
 
   SincResampler* get_resampler_for_testing() { return resampler_.get(); }
   static float AlgorithmicDelaySeconds(int source_rate_hz) {

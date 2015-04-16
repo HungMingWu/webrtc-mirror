@@ -23,11 +23,11 @@ class ConditionVariablePosix : public ConditionVariableWrapper {
   static ConditionVariableWrapper* Create();
   virtual ~ConditionVariablePosix();
 
-  virtual void SleepCS(CriticalSectionWrapper& crit_sect) OVERRIDE;
+  virtual void SleepCS(CriticalSectionWrapper& crit_sect) override;
   virtual bool SleepCS(CriticalSectionWrapper& crit_sect,
-               unsigned long max_time_in_ms) OVERRIDE;
-  virtual void Wake() OVERRIDE;
-  virtual void WakeAll() OVERRIDE;
+               unsigned long max_time_in_ms) override;
+  virtual void Wake() override;
+  virtual void WakeAll() override;
 
  private:
   ConditionVariablePosix();

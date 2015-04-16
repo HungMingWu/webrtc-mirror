@@ -38,7 +38,7 @@ class RTCMediaStreamTrackObserver : public ObserverInterface {
  public:
   RTCMediaStreamTrackObserver(RTCMediaStreamTrack* track) { _track = track; }
 
-  virtual void OnChanged() OVERRIDE {
+  virtual void OnChanged() override {
     [_track.delegate mediaStreamTrackDidChange:_track];
   }
 

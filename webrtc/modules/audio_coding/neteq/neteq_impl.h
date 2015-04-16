@@ -82,7 +82,7 @@ class NetEqImpl : public webrtc::NetEq {
   virtual int InsertPacket(const WebRtcRTPHeader& rtp_header,
                            const uint8_t* payload,
                            int length_bytes,
-                           uint32_t receive_timestamp) OVERRIDE;
+                           uint32_t receive_timestamp) override;
 
   // Inserts a sync-packet into packet queue. Sync-packets are decoded to
   // silence and are intended to keep AV-sync intact in an event of long packet
@@ -94,7 +94,7 @@ class NetEqImpl : public webrtc::NetEq {
   // can be implied by inserting a sync-packet.
   // Returns kOk on success, kFail on failure.
   virtual int InsertSyncPacket(const WebRtcRTPHeader& rtp_header,
-                               uint32_t receive_timestamp) OVERRIDE;
+                               uint32_t receive_timestamp) override;
 
   // Instructs NetEq to deliver 10 ms of audio data. The data is written to
   // |output_audio|, which can hold (at least) |max_length| elements.
@@ -106,12 +106,12 @@ class NetEqImpl : public webrtc::NetEq {
   // Returns kOK on success, or kFail in case of an error.
   virtual int GetAudio(size_t max_length, int16_t* output_audio,
                        int* samples_per_channel, int* num_channels,
-                       NetEqOutputType* type) OVERRIDE;
+                       NetEqOutputType* type) override;
 
   // Associates |rtp_payload_type| with |codec| and stores the information in
   // the codec database. Returns kOK on success, kFail on failure.
   virtual int RegisterPayloadType(enum NetEqDecoder codec,
-                                  uint8_t rtp_payload_type) OVERRIDE;
+                                  uint8_t rtp_payload_type) override;
 
   // Provides an externally created decoder object |decoder| to insert in the
   // decoder database. The decoder implements a decoder of type |codec| and
@@ -119,82 +119,82 @@ class NetEqImpl : public webrtc::NetEq {
   // failure.
   virtual int RegisterExternalDecoder(AudioDecoder* decoder,
                                       enum NetEqDecoder codec,
-                                      uint8_t rtp_payload_type) OVERRIDE;
+                                      uint8_t rtp_payload_type) override;
 
   // Removes |rtp_payload_type| from the codec database. Returns 0 on success,
   // -1 on failure.
-  virtual int RemovePayloadType(uint8_t rtp_payload_type) OVERRIDE;
+  virtual int RemovePayloadType(uint8_t rtp_payload_type) override;
 
-  virtual bool SetMinimumDelay(int delay_ms) OVERRIDE;
+  virtual bool SetMinimumDelay(int delay_ms) override;
 
-  virtual bool SetMaximumDelay(int delay_ms) OVERRIDE;
+  virtual bool SetMaximumDelay(int delay_ms) override;
 
-  virtual int LeastRequiredDelayMs() const OVERRIDE;
+  virtual int LeastRequiredDelayMs() const override;
 
-  virtual int SetTargetDelay() OVERRIDE { return kNotImplemented; }
+  virtual int SetTargetDelay() override { return kNotImplemented; }
 
-  virtual int TargetDelay() OVERRIDE { return kNotImplemented; }
+  virtual int TargetDelay() override { return kNotImplemented; }
 
-  virtual int CurrentDelay() OVERRIDE { return kNotImplemented; }
+  virtual int CurrentDelay() override { return kNotImplemented; }
 
   // Sets the playout mode to |mode|.
   // Deprecated.
   // TODO(henrik.lundin) Delete.
-  virtual void SetPlayoutMode(NetEqPlayoutMode mode) OVERRIDE;
+  virtual void SetPlayoutMode(NetEqPlayoutMode mode) override;
 
   // Returns the current playout mode.
   // Deprecated.
   // TODO(henrik.lundin) Delete.
-  virtual NetEqPlayoutMode PlayoutMode() const OVERRIDE;
+  virtual NetEqPlayoutMode PlayoutMode() const override;
 
   // Writes the current network statistics to |stats|. The statistics are reset
   // after the call.
-  virtual int NetworkStatistics(NetEqNetworkStatistics* stats) OVERRIDE;
+  virtual int NetworkStatistics(NetEqNetworkStatistics* stats) override;
 
   // Writes the last packet waiting times (in ms) to |waiting_times|. The number
   // of values written is no more than 100, but may be smaller if the interface
   // is polled again before 100 packets has arrived.
-  virtual void WaitingTimes(std::vector<int>* waiting_times) OVERRIDE;
+  virtual void WaitingTimes(std::vector<int>* waiting_times) override;
 
   // Writes the current RTCP statistics to |stats|. The statistics are reset
   // and a new report period is started with the call.
-  virtual void GetRtcpStatistics(RtcpStatistics* stats) OVERRIDE;
+  virtual void GetRtcpStatistics(RtcpStatistics* stats) override;
 
   // Same as RtcpStatistics(), but does not reset anything.
-  virtual void GetRtcpStatisticsNoReset(RtcpStatistics* stats) OVERRIDE;
+  virtual void GetRtcpStatisticsNoReset(RtcpStatistics* stats) override;
 
   // Enables post-decode VAD. When enabled, GetAudio() will return
   // kOutputVADPassive when the signal contains no speech.
-  virtual void EnableVad() OVERRIDE;
+  virtual void EnableVad() override;
 
   // Disables post-decode VAD.
-  virtual void DisableVad() OVERRIDE;
+  virtual void DisableVad() override;
 
-  virtual bool GetPlayoutTimestamp(uint32_t* timestamp) OVERRIDE;
+  virtual bool GetPlayoutTimestamp(uint32_t* timestamp) override;
 
-  virtual int SetTargetNumberOfChannels() OVERRIDE { return kNotImplemented; }
+  virtual int SetTargetNumberOfChannels() override { return kNotImplemented; }
 
-  virtual int SetTargetSampleRate() OVERRIDE { return kNotImplemented; }
+  virtual int SetTargetSampleRate() override { return kNotImplemented; }
 
   // Returns the error code for the last occurred error. If no error has
   // occurred, 0 is returned.
-  virtual int LastError() OVERRIDE;
+  virtual int LastError() override;
 
   // Returns the error code last returned by a decoder (audio or comfort noise).
   // When LastError() returns kDecoderErrorCode or kComfortNoiseErrorCode, check
   // this method to get the decoder's error code.
-  virtual int LastDecoderError() OVERRIDE;
+  virtual int LastDecoderError() override;
 
   // Flushes both the packet buffer and the sync buffer.
-  virtual void FlushBuffers() OVERRIDE;
+  virtual void FlushBuffers() override;
 
   virtual void PacketBufferStatistics(int* current_num_packets,
-                                      int* max_num_packets) const OVERRIDE;
+                                      int* max_num_packets) const override;
 
   // Get sequence number and timestamp of the latest RTP.
   // This method is to facilitate NACK.
   virtual int DecodedRtpInfo(int* sequence_number,
-                             uint32_t* timestamp) const OVERRIDE;
+                             uint32_t* timestamp) const override;
 
   // This accessor method is only intended for testing purposes.
   const SyncBuffer* sync_buffer_for_test() const;

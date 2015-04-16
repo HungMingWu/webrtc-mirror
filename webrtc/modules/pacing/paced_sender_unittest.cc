@@ -701,7 +701,7 @@ class ProbingPacedSender : public PacedSender {
                     max_bitrate_kbps,
                     min_bitrate_kbps) {}
 
-  virtual bool ProbingExperimentIsEnabled() const OVERRIDE { return true; }
+  virtual bool ProbingExperimentIsEnabled() const override { return true; }
 };
 
 TEST_F(PacedSenderTest, ProbingWithInitialFrame) {

@@ -24,29 +24,29 @@ class ViENetworkImpl
       public ViERefCount {
  public:
   // Implements ViENetwork.
-  virtual int Release() OVERRIDE;
+  virtual int Release() override;
   virtual void SetNetworkTransmissionState(const int video_channel,
-                                           const bool is_transmitting) OVERRIDE;
+                                           const bool is_transmitting) override;
   virtual int RegisterSendTransport(const int video_channel,
-                                    Transport& transport) OVERRIDE;
-  virtual int DeregisterSendTransport(const int video_channel) OVERRIDE;
+                                    Transport& transport) override;
+  virtual int DeregisterSendTransport(const int video_channel) override;
   virtual int ReceivedRTPPacket(const int video_channel,
                                 const void* data,
                                 const int length,
-                                const PacketTime& packet_time) OVERRIDE;
+                                const PacketTime& packet_time) override;
   virtual int ReceivedRTCPPacket(const int video_channel,
                                  const void* data,
-                                 const int length) OVERRIDE;
-  virtual int SetMTU(int video_channel, unsigned int mtu) OVERRIDE;
+                                 const int length) override;
+  virtual int SetMTU(int video_channel, unsigned int mtu) override;
 
   virtual int ReceivedBWEPacket(const int video_channel,
                                 int64_t arrival_time_ms,
                                 int payload_size,
-                                const RTPHeader& header) OVERRIDE;
+                                const RTPHeader& header) override;
 
   virtual bool SetBandwidthEstimationConfig(
       int video_channel,
-      const webrtc::Config& config) OVERRIDE;
+      const webrtc::Config& config) override;
 
  protected:
   explicit ViENetworkImpl(ViESharedData* shared_data);

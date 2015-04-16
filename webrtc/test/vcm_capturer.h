@@ -24,13 +24,13 @@ class VcmCapturer : public VideoCapturer, public VideoCaptureDataCallback {
                              size_t height, size_t target_fps);
   virtual ~VcmCapturer();
 
-  virtual void Start() OVERRIDE;
-  virtual void Stop() OVERRIDE;
+  virtual void Start() override;
+  virtual void Stop() override;
 
   virtual void OnIncomingCapturedFrame(
-      const int32_t id, I420VideoFrame& frame) OVERRIDE;  // NOLINT
+      const int32_t id, I420VideoFrame& frame) override;  // NOLINT
   virtual void OnCaptureDelayChanged(const int32_t id, const int32_t delay)
-      OVERRIDE;
+      override;
 
  private:
   explicit VcmCapturer(VideoSendStreamInput* input);

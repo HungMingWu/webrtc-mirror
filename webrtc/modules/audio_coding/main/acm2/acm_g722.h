@@ -34,7 +34,7 @@ class ACMG722 : public ACMGenericCodec {
   ACMGenericCodec* CreateInstance(void);
 
   int16_t InternalEncode(uint8_t* bitstream,
-                         int16_t* bitstream_len_byte) OVERRIDE
+                         int16_t* bitstream_len_byte) override
       EXCLUSIVE_LOCKS_REQUIRED(codec_wrapper_lock_);
 
   int16_t InternalInitEncoder(WebRtcACMCodecParams* codec_params);
@@ -46,7 +46,7 @@ class ACMG722 : public ACMGenericCodec {
                           const uint8_t audio_channel)
       EXCLUSIVE_LOCKS_REQUIRED(codec_wrapper_lock_);
 
-  void DestructEncoderSafe() OVERRIDE
+  void DestructEncoderSafe() override
       EXCLUSIVE_LOCKS_REQUIRED(codec_wrapper_lock_);
 
   int16_t InternalCreateEncoder();

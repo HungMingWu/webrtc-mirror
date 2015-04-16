@@ -37,7 +37,7 @@ struct CapturedFrame;
 class WebRtcVideoFrameFactory : public VideoFrameFactory {
  public:
   virtual VideoFrame* CreateAliasedFrame(
-      const CapturedFrame* aliased_frame, int width, int height) const OVERRIDE;
+      const CapturedFrame* aliased_frame, int width, int height) const override;
 };
 
 }  // namespace cricket

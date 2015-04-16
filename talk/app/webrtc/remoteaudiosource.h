@@ -51,12 +51,12 @@ class RemoteAudioSource : public Notifier<AudioSourceInterface> {
   typedef std::list<AudioObserver*> AudioObserverList;
 
   // MediaSourceInterface implementation.
-  virtual MediaSourceInterface::SourceState state() const OVERRIDE;
+  virtual MediaSourceInterface::SourceState state() const override;
 
   // AudioSourceInterface implementation.
-  virtual void SetVolume(double volume) OVERRIDE;
-  virtual void RegisterAudioObserver(AudioObserver* observer) OVERRIDE;
-  virtual void UnregisterAudioObserver(AudioObserver* observer) OVERRIDE;
+  virtual void SetVolume(double volume) override;
+  virtual void RegisterAudioObserver(AudioObserver* observer) override;
+  virtual void UnregisterAudioObserver(AudioObserver* observer) override;
 
   AudioObserverList audio_observers_;
 };

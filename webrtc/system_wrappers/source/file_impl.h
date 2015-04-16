@@ -26,28 +26,28 @@ class FileWrapperImpl : public FileWrapper {
   virtual ~FileWrapperImpl();
 
   virtual int FileName(char* file_name_utf8,
-                       size_t size) const OVERRIDE;
+                       size_t size) const override;
 
-  virtual bool Open() const OVERRIDE;
+  virtual bool Open() const override;
 
   virtual int OpenFile(const char* file_name_utf8,
                        bool read_only,
                        bool loop = false,
-                       bool text = false) OVERRIDE;
+                       bool text = false) override;
 
   virtual int OpenFromFileHandle(FILE* handle,
                                  bool manage_file,
                                  bool read_only,
-                                 bool loop = false) OVERRIDE;
+                                 bool loop = false) override;
 
-  virtual int CloseFile() OVERRIDE;
-  virtual int SetMaxFileSize(size_t bytes) OVERRIDE;
-  virtual int Flush() OVERRIDE;
+  virtual int CloseFile() override;
+  virtual int SetMaxFileSize(size_t bytes) override;
+  virtual int Flush() override;
 
-  virtual int Read(void* buf, int length) OVERRIDE;
-  virtual bool Write(const void* buf, int length) OVERRIDE;
-  virtual int WriteText(const char* format, ...) OVERRIDE;
-  virtual int Rewind() OVERRIDE;
+  virtual int Read(void* buf, int length) override;
+  virtual bool Write(const void* buf, int length) override;
+  virtual int WriteText(const char* format, ...) override;
+  virtual int Rewind() override;
 
  private:
   int CloseFileImpl();

@@ -61,7 +61,7 @@ class SyncRtcpObserver : public test::RtpRtcpObserver {
       : test::RtpRtcpObserver(CallPerfTest::kLongTimeoutMs, config),
         crit_(CriticalSectionWrapper::CreateCriticalSection()) {}
 
-  virtual Action OnSendRtcp(const uint8_t* packet, size_t length) OVERRIDE {
+  virtual Action OnSendRtcp(const uint8_t* packet, size_t length) override {
     RTCPUtility::RTCPParserV2 parser(packet, length, true);
     EXPECT_TRUE(parser.IsValid());
 
@@ -136,7 +136,7 @@ class VideoRtcpAndSyncObserver : public SyncRtcpObserver, public VideoRenderer {
         first_time_in_sync_(-1) {}
 
   virtual void RenderFrame(const I420VideoFrame& video_frame,
-                           int time_to_render_ms) OVERRIDE {
+                           int time_to_render_ms) override {
     int64_t now_ms = clock_->TimeInMilliseconds();
     uint32_t playout_timestamp = 0;
     if (voe_sync_->GetPlayoutTimestamp(voe_channel_, playout_timestamp) != 0)
@@ -195,7 +195,7 @@ void CallPerfTest::TestAudioVideoSync(bool fec) {
           voe_network_(voe_network),
           parser_(RtpHeaderParser::Create()) {}
     virtual DeliveryStatus DeliverPacket(const uint8_t* packet,
-                                         size_t length) OVERRIDE {
+                                         size_t length) override {
       int ret;
       if (parser_->IsRtcp(packet, static_cast<int>(length))) {
         ret = voe_network_->ReceivedRTCPPacket(
@@ -333,7 +333,7 @@ void CallPerfTest::TestCaptureNtpTime(const FakeNetworkPipe::Config& net_config,
 
    private:
     virtual void RenderFrame(const I420VideoFrame& video_frame,
-                             int time_to_render_ms) OVERRIDE {
+                             int time_to_render_ms) override {
       if (video_frame.ntp_time_ms() <= 0) {
         // Haven't got enough RTCP SR in order to calculate the capture ntp
         // time.
@@ -392,20 +392,20 @@ void CallPerfTest::TestCaptureNtpTime(const FakeNetworkPipe::Config& net_config,
     }
 
     virtual void OnFrameGeneratorCapturerCreated(
-        test::FrameGeneratorCapturer* frame_generator_capturer) OVERRIDE {
+        test::FrameGeneratorCapturer* frame_generator_capturer) override {
       capturer_ = frame_generator_capturer;
     }
 
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       (*receive_configs)[0].renderer = this;
       // Enable the receiver side rtt calculation.
       (*receive_configs)[0].rtp.rtcp_xr.receiver_reference_time_report = true;
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait()) << "Timed out while waiting for "
                                            "estimated capture NTP time to be "
                                            "within bounds.";
@@ -455,17 +455,17 @@ TEST_F(CallPerfTest, RegisterCpuOveruseObserver) {
    public:
     LoadObserver() : SendTest(kLongTimeoutMs) {}
 
-    virtual void OnLoadUpdate(Load load) OVERRIDE {
+    virtual void OnLoadUpdate(Load load) override {
       observation_complete_->Set();
     }
 
-    virtual Call::Config GetSenderCallConfig() OVERRIDE {
+    virtual Call::Config GetSenderCallConfig() override {
       Call::Config config(SendTransport());
       config.overuse_callback = this;
       return config;
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait())
           << "Timed out before receiving an overuse callback.";
     }
@@ -492,13 +492,13 @@ void CallPerfTest::TestMinTransmitBitrate(bool pad_to_min_bitrate) {
    private:
     virtual void SetReceivers(PacketReceiver* send_transport_receiver,
                               PacketReceiver* receive_transport_receiver)
-        OVERRIDE {
+        override {
       send_transport_receiver_ = send_transport_receiver;
       test::RtpRtcpObserver::SetReceivers(this, receive_transport_receiver);
     }
 
     virtual DeliveryStatus DeliverPacket(const uint8_t* packet,
-                                         size_t length) OVERRIDE {
+                                         size_t length) override {
       VideoSendStream::Stats stats = send_stream_->GetStats();
       if (stats.substreams.size() > 0) {
         assert(stats.substreams.size() == 1);
@@ -534,14 +534,14 @@ void CallPerfTest::TestMinTransmitBitrate(bool pad_to_min_bitrate) {
 
     virtual void OnStreamsCreated(
         VideoSendStream* send_stream,
-        const std::vector<VideoReceiveStream*>& receive_streams) OVERRIDE {
+        const std::vector<VideoReceiveStream*>& receive_streams) override {
       send_stream_ = send_stream;
     }
 
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       if (pad_to_min_bitrate_) {
         encoder_config->min_transmit_bitrate_bps = kMinTransmitBitrateBps;
       } else {
@@ -549,7 +549,7 @@ void CallPerfTest::TestMinTransmitBitrate(bool pad_to_min_bitrate) {
       }
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       EXPECT_EQ(kEventSignaled, Wait())
           << "Timeout while waiting for send-bitrate stats.";
     }
@@ -585,7 +585,7 @@ TEST_F(CallPerfTest, KeepsHighBitrateWhenReconfiguringSender) {
 
     virtual int32_t InitEncode(const VideoCodec* config,
                                int32_t number_of_cores,
-                               uint32_t max_payload_size) OVERRIDE {
+                               uint32_t max_payload_size) override {
       if (encoder_inits_ == 0) {
         EXPECT_EQ(kInitialBitrateKbps, config->startBitrate)
             << "Encoder not initialized at expected bitrate.";
@@ -603,7 +603,7 @@ TEST_F(CallPerfTest, KeepsHighBitrateWhenReconfiguringSender) {
     }
 
     virtual int32_t SetRates(uint32_t new_target_bitrate_kbps,
-                             uint32_t framerate) OVERRIDE {
+                             uint32_t framerate) override {
       last_set_bitrate_ = new_target_bitrate_kbps;
       if (encoder_inits_ == 1 &&
           new_target_bitrate_kbps > kReconfigureThresholdKbps) {
@@ -612,7 +612,7 @@ TEST_F(CallPerfTest, KeepsHighBitrateWhenReconfiguringSender) {
       return FakeEncoder::SetRates(new_target_bitrate_kbps, framerate);
     }
 
-    Call::Config GetSenderCallConfig() OVERRIDE {
+    Call::Config GetSenderCallConfig() override {
       Call::Config config = EndToEndTest::GetSenderCallConfig();
       config.stream_start_bitrate_bps = kInitialBitrateKbps * 1000;
       return config;
@@ -621,7 +621,7 @@ TEST_F(CallPerfTest, KeepsHighBitrateWhenReconfiguringSender) {
     virtual void ModifyConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) OVERRIDE {
+        VideoEncoderConfig* encoder_config) override {
       send_config->encoder_settings.encoder = this;
       encoder_config->streams[0].min_bitrate_bps = 50000;
       encoder_config->streams[0].target_bitrate_bps =
@@ -632,11 +632,11 @@ TEST_F(CallPerfTest, KeepsHighBitrateWhenReconfiguringSender) {
 
     virtual void OnStreamsCreated(
         VideoSendStream* send_stream,
-        const std::vector<VideoReceiveStream*>& receive_streams) OVERRIDE {
+        const std::vector<VideoReceiveStream*>& receive_streams) override {
       send_stream_ = send_stream;
     }
 
-    virtual void PerformTest() OVERRIDE {
+    virtual void PerformTest() override {
       ASSERT_EQ(kEventSignaled, time_to_reconfigure_->Wait(kDefaultTimeoutMs))
           << "Timed out before receiving an initial high bitrate.";
       encoder_config_.streams[0].width *= 2;

@@ -23,21 +23,21 @@ class VoENetworkImpl: public VoENetwork
 {
 public:
     virtual int RegisterExternalTransport(int channel,
-                                          Transport& transport) OVERRIDE;
+                                          Transport& transport) override;
 
-    virtual int DeRegisterExternalTransport(int channel) OVERRIDE;
+    virtual int DeRegisterExternalTransport(int channel) override;
 
     virtual int ReceivedRTPPacket(int channel,
                                   const void* data,
-                                  unsigned int length) OVERRIDE;
+                                  unsigned int length) override;
     virtual int ReceivedRTPPacket(int channel,
                                   const void* data,
                                   unsigned int length,
-                                  const PacketTime& packet_time) OVERRIDE;
+                                  const PacketTime& packet_time) override;
 
     virtual int ReceivedRTCPPacket(int channel,
                                    const void* data,
-                                   unsigned int length) OVERRIDE;
+                                   unsigned int length) override;
 
 protected:
     VoENetworkImpl(voe::SharedData* shared);

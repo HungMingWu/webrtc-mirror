@@ -28,19 +28,19 @@ class HighPassFilterImpl : public HighPassFilter,
   int ProcessCaptureAudio(AudioBuffer* audio);
 
   // HighPassFilter implementation.
-  virtual bool is_enabled() const OVERRIDE;
+  virtual bool is_enabled() const override;
 
  private:
   // HighPassFilter implementation.
-  virtual int Enable(bool enable) OVERRIDE;
+  virtual int Enable(bool enable) override;
 
   // ProcessingComponent implementation.
-  virtual void* CreateHandle() const OVERRIDE;
-  virtual int InitializeHandle(void* handle) const OVERRIDE;
-  virtual int ConfigureHandle(void* handle) const OVERRIDE;
-  virtual void DestroyHandle(void* handle) const OVERRIDE;
-  virtual int num_handles_required() const OVERRIDE;
-  virtual int GetHandleError(void* handle) const OVERRIDE;
+  virtual void* CreateHandle() const override;
+  virtual int InitializeHandle(void* handle) const override;
+  virtual int ConfigureHandle(void* handle) const override;
+  virtual void DestroyHandle(void* handle) const override;
+  virtual int num_handles_required() const override;
+  virtual int GetHandleError(void* handle) const override;
 
   const AudioProcessing* apm_;
   CriticalSectionWrapper* crit_;

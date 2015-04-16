@@ -30,7 +30,7 @@ class RtpDataCallback : public webrtc::NullRtpData {
   virtual int32_t OnReceivedPayloadData(
       const uint8_t* payload_data,
       const uint16_t payload_size,
-      const webrtc::WebRtcRTPHeader* rtp_header) OVERRIDE {
+      const webrtc::WebRtcRTPHeader* rtp_header) override {
     return vcm_->IncomingPacket(payload_data, payload_size, *rtp_header);
   }
 

@@ -43,7 +43,7 @@ public:
 private:
     // VCMReceiveCallback function.
     // Note: called by VideoCodingModule when decoding finished.
-    virtual int32_t FrameToRender(I420VideoFrame& videoFrame) OVERRIDE;
+    virtual int32_t FrameToRender(I420VideoFrame& videoFrame) override;
 
     // VCMPacketizationCallback function.
     // Note: called by VideoCodingModule when encoding finished.
@@ -55,7 +55,7 @@ private:
         const uint8_t* payloadData,
         uint32_t payloadSize,
         const RTPFragmentationHeader& /* fragmentationHeader*/,
-        const RTPVideoHeader* rtpTypeHdr) OVERRIDE;
+        const RTPVideoHeader* rtpTypeHdr) override;
 
     VideoCodingModule* _vcm;
     I420VideoFrame* _decodedVideo;

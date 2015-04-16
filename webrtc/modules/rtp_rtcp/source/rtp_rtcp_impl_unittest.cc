@@ -41,10 +41,10 @@ class RtcpRttStatsTestImpl : public RtcpRttStats {
   RtcpRttStatsTestImpl() : rtt_ms_(0) {}
   virtual ~RtcpRttStatsTestImpl() {}
 
-  virtual void OnRttUpdate(uint32_t rtt_ms) OVERRIDE {
+  virtual void OnRttUpdate(uint32_t rtt_ms) override {
     rtt_ms_ = rtt_ms;
   }
-  virtual uint32_t LastProcessedRtt() const OVERRIDE {
+  virtual uint32_t LastProcessedRtt() const override {
     return rtt_ms_;
   }
   uint32_t rtt_ms_;
@@ -67,7 +67,7 @@ class SendTransport : public Transport,
     clock_ = clock;
     delay_ms_ = delay_ms;
   }
-  virtual int SendPacket(int /*ch*/, const void* data, int len) OVERRIDE {
+  virtual int SendPacket(int /*ch*/, const void* data, int len) override {
     RTPHeader header;
     scoped_ptr<RtpHeaderParser> parser(RtpHeaderParser::Create());
     EXPECT_TRUE(parser->Parse(static_cast<const uint8_t*>(data),
@@ -77,7 +77,7 @@ class SendTransport : public Transport,
     last_rtp_header_ = header;
     return len;
   }
-  virtual int SendRTCPPacket(int /*ch*/, const void *data, int len) OVERRIDE {
+  virtual int SendRTCPPacket(int /*ch*/, const void *data, int len) override {
     test::RtcpPacketParser parser;
     parser.Parse(static_cast<const uint8_t*>(data), len);
     last_nack_list_ = parser.nack_item()->last_nack_list();
@@ -398,7 +398,7 @@ class RtpSendingTestTransport : public Transport {
  public:
   void ResetCounters() { bytes_received_.clear(); }
 
-  virtual int SendPacket(int channel, const void* data, int length) OVERRIDE {
+  virtual int SendPacket(int channel, const void* data, int length) override {
     RTPHeader header;
     scoped_ptr<RtpHeaderParser> parser(RtpHeaderParser::Create());
     EXPECT_TRUE(parser->Parse(static_cast<const uint8_t*>(data),
@@ -411,7 +411,7 @@ class RtpSendingTestTransport : public Transport {
 
   virtual int SendRTCPPacket(int channel,
                              const void* data,
-                             int length) OVERRIDE {
+                             int length) override {
     return length;
   }
 

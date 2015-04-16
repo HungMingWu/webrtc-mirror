@@ -41,7 +41,7 @@ class TestTransport : public Transport,
   }
   virtual int SendPacket(int /*ch*/,
                          const void* /*data*/,
-                         int /*len*/) OVERRIDE {
+                         int /*len*/) override {
     ADD_FAILURE();  // FAIL() gives a compile error.
     return -1;
   }
@@ -49,14 +49,14 @@ class TestTransport : public Transport,
   // Injects an RTCP packet into the receiver.
   virtual int SendRTCPPacket(int /* ch */,
                              const void *packet,
-                             int packet_len) OVERRIDE {
+                             int packet_len) override {
     ADD_FAILURE();
     return 0;
   }
 
   virtual int OnReceivedPayloadData(const uint8_t* payloadData,
                                     const uint16_t payloadSize,
-                                    const WebRtcRTPHeader* rtpHeader) OVERRIDE {
+                                    const WebRtcRTPHeader* rtpHeader) override {
     ADD_FAILURE();
     return 0;
   }
@@ -815,7 +815,7 @@ TEST_F(RtcpReceiverTest, Callbacks) {
     virtual ~RtcpCallbackImpl() {}
 
     virtual void StatisticsUpdated(const RtcpStatistics& statistics,
-                                   uint32_t ssrc) OVERRIDE {
+                                   uint32_t ssrc) override {
       stats_ = statistics;
       ssrc_ = ssrc;
     }

@@ -270,15 +270,15 @@ class FakeAudioRenderer : public cricket::AudioRenderer {
       sink_->OnClose();
   }
 
-  virtual void AddChannel(int channel_id) OVERRIDE {
+  virtual void AddChannel(int channel_id) override {
     ASSERT(channel_id_ == -1);
     channel_id_ = channel_id;
   }
-  virtual void RemoveChannel(int channel_id) OVERRIDE {
+  virtual void RemoveChannel(int channel_id) override {
     ASSERT(channel_id == channel_id_);
     channel_id_ = -1;
   }
-  virtual void SetSink(Sink* sink) OVERRIDE {
+  virtual void SetSink(Sink* sink) override {
     sink_ = sink;
   }
 

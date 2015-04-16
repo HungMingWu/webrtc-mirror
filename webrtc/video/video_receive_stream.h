@@ -49,16 +49,16 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
                      int base_channel);
   virtual ~VideoReceiveStream();
 
-  virtual void Start() OVERRIDE;
-  virtual void Stop() OVERRIDE;
-  virtual Stats GetStats() const OVERRIDE;
+  virtual void Start() override;
+  virtual void Stop() override;
+  virtual Stats GetStats() const override;
 
   // Overrides I420FrameCallback.
-  virtual void FrameCallback(I420VideoFrame* video_frame) OVERRIDE;
+  virtual void FrameCallback(I420VideoFrame* video_frame) override;
 
   // Overrides VideoRenderCallback.
   virtual int32_t RenderFrame(const uint32_t stream_id,
-                              I420VideoFrame& video_frame) OVERRIDE;
+                              I420VideoFrame& video_frame) override;
 
   void SignalNetworkState(Call::NetworkState state);
 

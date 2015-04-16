@@ -30,9 +30,9 @@ class AudioEncoderPcm : public AudioEncoder {
 
   virtual ~AudioEncoderPcm();
 
-  virtual int sample_rate_hz() const OVERRIDE;
-  virtual int num_channels() const OVERRIDE;
-  virtual int Num10MsFramesInNextPacket() const OVERRIDE;
+  virtual int sample_rate_hz() const override;
+  virtual int num_channels() const override;
+  virtual int Num10MsFramesInNextPacket() const override;
 
  protected:
   virtual bool Encode(uint32_t timestamp,
@@ -40,7 +40,7 @@ class AudioEncoderPcm : public AudioEncoder {
                       size_t max_encoded_bytes,
                       uint8_t* encoded,
                       size_t* encoded_bytes,
-                      uint32_t* encoded_timestamp) OVERRIDE;
+                      uint32_t* encoded_timestamp) override;
 
   virtual int16_t EncodeCall(const int16_t* audio,
                              size_t input_len,
@@ -62,7 +62,7 @@ class AudioEncoderPcmA : public AudioEncoderPcm {
  protected:
   virtual int16_t EncodeCall(const int16_t* audio,
                              size_t input_len,
-                             uint8_t* encoded) OVERRIDE;
+                             uint8_t* encoded) override;
 };
 
 class AudioEncoderPcmU : public AudioEncoderPcm {
@@ -72,7 +72,7 @@ class AudioEncoderPcmU : public AudioEncoderPcm {
  protected:
   virtual int16_t EncodeCall(const int16_t* audio,
                              size_t input_len,
-                             uint8_t* encoded) OVERRIDE;
+                             uint8_t* encoded) override;
 };
 
 }  // namespace webrtc

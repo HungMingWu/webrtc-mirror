@@ -18,7 +18,7 @@ namespace test {
 
 class NullRenderer : public VideoRenderer {
   virtual void RenderFrame(const I420VideoFrame& video_frame,
-                           int time_to_render_ms) OVERRIDE {}
+                           int time_to_render_ms) override {}
 };
 
 VideoRenderer* VideoRenderer::Create(const char* window_title,

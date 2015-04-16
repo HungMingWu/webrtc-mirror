@@ -41,7 +41,7 @@ class TraceToStderr : public TraceCallback {
   // Implements TraceCallback.
   virtual void Print(TraceLevel level,
                      const char* msg_array,
-                     int length) OVERRIDE;
+                     int length) override;
 
  private:
   bool override_time_;

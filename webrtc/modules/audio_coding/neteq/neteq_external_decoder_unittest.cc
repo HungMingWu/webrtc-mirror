@@ -244,7 +244,7 @@ class LargeTimestampJumpTest : public NetEqExternalDecoderTest {
     external_decoder_.reset(new MockExternalPcm16B(kDecoderPCM16B));
   }
 
-  void SetUp() OVERRIDE {
+  void SetUp() override {
     const std::string file_name =
         webrtc::test::ResourcePath("audio_coding/testfile32kHz", "pcm");
     input_file_.reset(new test::InputAudioFile(file_name));
@@ -261,7 +261,7 @@ class LargeTimestampJumpTest : public NetEqExternalDecoderTest {
     ASSERT_EQ(NetEq::kOK, neteq_->RegisterPayloadType(decoder, kPayloadType));
   }
 
-  void InsertPackets(int next_arrival_time) OVERRIDE {
+  void InsertPackets(int next_arrival_time) override {
     // Insert packet in external decoder instance.
     EXPECT_CALL(*external_decoder_,
                 IncomingPacket(_,
@@ -275,7 +275,7 @@ class LargeTimestampJumpTest : public NetEqExternalDecoderTest {
             rtp_header_, encoded_, payload_size_bytes_, next_arrival_time));
   }
 
-  void GetOutputAudio() OVERRIDE {
+  void GetOutputAudio() override {
     NetEqOutputType output_type;
     int samples_per_channel;
     int num_channels;
@@ -323,7 +323,7 @@ class LargeTimestampJumpTest : public NetEqExternalDecoderTest {
     }
   }
 
-  void VerifyOutput(size_t num_samples) const OVERRIDE {
+  void VerifyOutput(size_t num_samples) const override {
     if (test_state_ == kExpandPhase || test_state_ == kFadedExpandPhase) {
       // Don't verify the output in this phase of the test.
       return;
@@ -336,7 +336,7 @@ class LargeTimestampJumpTest : public NetEqExternalDecoderTest {
         << "Expected at least one non-zero sample in each output block.";
   }
 
-  int NumExpectedDecodeCalls(int num_loops) const OVERRIDE {
+  int NumExpectedDecodeCalls(int num_loops) const override {
     // Some packets won't be decoded because of the buffer being flushed after
     // the timestamp jump.
     return num_loops - (config_.max_packets_in_buffer + 1);
@@ -395,7 +395,7 @@ TEST_F(LargeTimestampJumpTest, JumpLongerThanHalfRangeAndWrap) {
 
 class ShortTimestampJumpTest : public LargeTimestampJumpTest {
  protected:
-  void UpdateState(NetEqOutputType output_type) OVERRIDE {
+  void UpdateState(NetEqOutputType output_type) override {
     switch (test_state_) {
       case kInitialPhase: {
         if (output_type == kOutputNormal) {
@@ -422,7 +422,7 @@ class ShortTimestampJumpTest : public LargeTimestampJumpTest {
     }
   }
 
-  int NumExpectedDecodeCalls(int num_loops) const OVERRIDE {
+  int NumExpectedDecodeCalls(int num_loops) const override {
     // Some packets won't be decoded because of the timestamp jump.
     return num_loops - 2;
   }

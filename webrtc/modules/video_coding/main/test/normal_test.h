@@ -40,7 +40,7 @@ class VCMNTEncodeCompleteCallback : public webrtc::VCMPacketizationCallback
       const uint8_t* payloadData,
       const uint32_t payloadSize,
       const webrtc::RTPFragmentationHeader& fragmentationHeader,
-      const webrtc::RTPVideoHeader* videoHdr) OVERRIDE;
+      const webrtc::RTPVideoHeader* videoHdr) override;
 
   // Register exisitng VCM.
   // Currently - encode and decode with the same vcm module.
@@ -75,7 +75,7 @@ public:
     void SetUserReceiveCallback(webrtc::VCMReceiveCallback* receiveCallback);
 
     // will write decoded frame into file
-    virtual int32_t FrameToRender(webrtc::I420VideoFrame& videoFrame) OVERRIDE;
+    virtual int32_t FrameToRender(webrtc::I420VideoFrame& videoFrame) override;
 
     int32_t DecodedBytes();
 private:

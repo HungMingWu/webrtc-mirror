@@ -33,7 +33,7 @@ class RtpPacketizerGeneric : public RtpPacketizer {
   virtual void SetPayloadData(
       const uint8_t* payload_data,
       size_t payload_size,
-      const RTPFragmentationHeader* fragmentation) OVERRIDE;
+      const RTPFragmentationHeader* fragmentation) override;
 
   // Get the next payload with generic payload header.
   // buffer is a pointer to where the output will be written.
@@ -44,13 +44,13 @@ class RtpPacketizerGeneric : public RtpPacketizer {
   // Returns true on success or false if there was no payload to packetize.
   virtual bool NextPacket(uint8_t* buffer,
                           size_t* bytes_to_send,
-                          bool* last_packet) OVERRIDE;
+                          bool* last_packet) override;
 
-  virtual ProtectionType GetProtectionType() OVERRIDE;
+  virtual ProtectionType GetProtectionType() override;
 
-  virtual StorageType GetStorageType(uint32_t retransmission_settings) OVERRIDE;
+  virtual StorageType GetStorageType(uint32_t retransmission_settings) override;
 
-  virtual std::string ToString() OVERRIDE;
+  virtual std::string ToString() override;
 
  private:
   const uint8_t* payload_data_;
@@ -70,7 +70,7 @@ class RtpDepacketizerGeneric : public RtpDepacketizer {
 
   virtual bool Parse(ParsedPayload* parsed_payload,
                      const uint8_t* payload_data,
-                     size_t payload_data_length) OVERRIDE;
+                     size_t payload_data_length) override;
 };
 }  // namespace webrtc
 #endif  // WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VIDEO_GENERIC_H_

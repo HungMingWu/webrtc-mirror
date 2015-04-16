@@ -42,19 +42,19 @@ class MediaStream : public Notifier<MediaStreamInterface> {
  public:
   static rtc::scoped_refptr<MediaStream> Create(const std::string& label);
 
-  virtual std::string label() const OVERRIDE { return label_; }
+  virtual std::string label() const override { return label_; }
 
-  virtual bool AddTrack(AudioTrackInterface* track) OVERRIDE;
-  virtual bool AddTrack(VideoTrackInterface* track) OVERRIDE;
-  virtual bool RemoveTrack(AudioTrackInterface* track) OVERRIDE;
-  virtual bool RemoveTrack(VideoTrackInterface* track) OVERRIDE;
+  virtual bool AddTrack(AudioTrackInterface* track) override;
+  virtual bool AddTrack(VideoTrackInterface* track) override;
+  virtual bool RemoveTrack(AudioTrackInterface* track) override;
+  virtual bool RemoveTrack(VideoTrackInterface* track) override;
   virtual rtc::scoped_refptr<AudioTrackInterface>
       FindAudioTrack(const std::string& track_id);
   virtual rtc::scoped_refptr<VideoTrackInterface>
       FindVideoTrack(const std::string& track_id);
 
-  virtual AudioTrackVector GetAudioTracks() OVERRIDE { return audio_tracks_; }
-  virtual VideoTrackVector GetVideoTracks() OVERRIDE { return video_tracks_; }
+  virtual AudioTrackVector GetAudioTracks() override { return audio_tracks_; }
+  virtual VideoTrackVector GetVideoTracks() override { return video_tracks_; }
 
  protected:
   explicit MediaStream(const std::string& label);

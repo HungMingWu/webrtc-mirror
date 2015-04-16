@@ -35,8 +35,8 @@ class MouseCursorMonitorMac : public MouseCursorMonitor {
                         ScreenId screen_id);
   virtual ~MouseCursorMonitorMac();
 
-  virtual void Init(Callback* callback, Mode mode) OVERRIDE;
-  virtual void Capture() OVERRIDE;
+  virtual void Init(Callback* callback, Mode mode) override;
+  virtual void Capture() override;
 
  private:
   static void DisplaysReconfiguredCallback(CGDirectDisplayID display,

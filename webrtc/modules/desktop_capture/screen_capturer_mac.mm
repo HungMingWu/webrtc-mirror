@@ -196,11 +196,11 @@ class ScreenCapturerMac : public ScreenCapturer {
   bool Init();
 
   // Overridden from ScreenCapturer:
-  virtual void Start(Callback* callback) OVERRIDE;
-  virtual void Capture(const DesktopRegion& region) OVERRIDE;
-  virtual void SetExcludedWindow(WindowId window) OVERRIDE;
-  virtual bool GetScreenList(ScreenList* screens) OVERRIDE;
-  virtual bool SelectScreen(ScreenId id) OVERRIDE;
+  virtual void Start(Callback* callback) override;
+  virtual void Capture(const DesktopRegion& region) override;
+  virtual void SetExcludedWindow(WindowId window) override;
+  virtual bool GetScreenList(ScreenList* screens) override;
+  virtual bool SelectScreen(ScreenId id) override;
 
  private:
   void GlBlitFast(const DesktopFrame& frame,
